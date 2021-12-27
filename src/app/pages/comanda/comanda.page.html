@@ -1,0 +1,181 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/loja.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Comanda do Cliente</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+
+        <div id="segment-dados">
+          <ion-card class="ion-no-padding segment-dados">
+            <ion-card-header class="cardHeader">
+              <ion-label class="segment-dados-titulo ion-text-uppercase">
+                <ion-icon slot="end" name="trending-up-outline" color="success"></ion-icon> Comissões
+              </ion-label>
+            </ion-card-header>
+
+            <ion-card-content>
+              <span class="justify" style="font-size: 16px; color: orangered;" *ngFor="let produto of produtos">
+                <ion-label *ngIf="produto.colaboradorPerfil === 'Colaborador'">{{produto.vendedor}} -
+                  <b>{{produto.totalComissao | currency: 'BRL'}}</b>
+                </ion-label>
+                <ion-label *ngIf="produto.colaboradorPerfil === 'Colaborador'"><b>{{colaborador}}</b></ion-label>
+                <ion-icon *ngIf="produto.colaboradorPerfil === 'Colaborador'" slot="end" name="cash-outline"
+                  color="success" style="font-size: 1.2em;"></ion-icon>
+              </span>
+            </ion-card-content>
+
+          </ion-card>
+        </div>
+
+        <ion-card class="ion-no-padding ion-padding-bottom" style="border-radius: 10px;">
+          <ion-card-content class="ion-no-padding">
+            <ion-item>
+              <ion-icon name="wallet-outline" slot="start"></ion-icon>
+              <ion-select class="full-width" okText="OK" cancelText="Cancelar"
+                placeholder="Selecione Forma de Pagamento" [(ngModel)]="formaDePagamento"
+                [interfaceOptions]="selecionFormaPagamento" name="formaDePagamento" required>
+                <ion-select-option *ngFor="let formaDePagamento of formaDePagamentos">{{formaDePagamento.descricao}}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-grid class="grid-detalhe-produto">
+              <ion-row class="ion-text-center">
+                <ion-col>
+                  <ion-label position="fixed">Total Líquido</ion-label>
+                  <ion-label>
+                    <h3><b style="color: #e98c00">{{totalLiquido | currency: 'BRL'}}</b></h3>
+                  </ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label position="fixed" color="success">Comanda Cliente</ion-label>
+                  <ion-label>
+                    <h3><b>{{cliente}}</b></h3>
+                  </ion-label>
+                </ion-col>
+
+                <ion-col>
+                  <ion-label position="fixed">Total Bruto</ion-label>
+                  <ion-label>
+                    <h3 style="color: #0576d0">
+                      <b>{{totalBruto | currency: 'BRL'}}</b>
+                    </h3>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-text-center">
+                <ion-col>
+                  <ion-label position="fixed"><b>Total Comissão</b>
+                  </ion-label>
+                  <ion-label>
+                    <h3><b style="color: #35bd00">{{totalComissao | currency: 'BRL'}}</b></h3>
+                  </ion-label>
+                </ion-col>
+
+                <ion-col>
+                  <ion-label position="fixed">Data Venda</ion-label>
+                  <ion-label>
+                    <h3><b>{{dataVenda}}</b></h3>
+                  </ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label position="fixed"><b>Produtos</b>
+                  </ion-label>
+                  <ion-label>
+                    <h3 style="color: var(--ion-color-danger)">
+                      <b> {{quantidadeVendida}}</b>
+                    </h3>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-button type="submit" class="paddingBtn" expand="block" color="success" (click)="registrarVenda()">
+              <ion-icon slot="start" name="receipt-outline"></ion-icon> REGISTRAR
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card style="top: 1%;">
+          <ion-list>
+            <ion-item-sliding *ngFor="let produtos of produtos">
+              <ion-item>
+
+                <ion-avatar slot="start">
+                  <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
+                  <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
+                </ion-avatar>
+
+                <ion-label>
+                  <h3>{{produtos.produto}}</h3>
+                  <h3>{{produtos.categoria}}</h3>
+
+                  <h3 style="color: #0576d0">
+                    <b>Comissão - {{produtos.comissao}}%</b>
+                  </h3>
+
+                  <h3 style="color: #d00575">
+                    <b>Estoque - {{produtos.estoque}}</b>
+                  </h3>
+
+                  <h3 style="color: #27c400">
+                    <b>Preço - {{produtos.valorDeVenda | currency: 'BRL'}} Oferta!</b>
+                  </h3>
+
+                </ion-label>
+
+                <ion-item style="margin-bottom: 15% !important ">
+                  <ion-avatar slot="start">
+                    <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
+                    </ion-img>
+                  </ion-avatar>
+                </ion-item>
+
+              </ion-item>
+
+              <ion-item-options side="start" class="itemOptionsList">
+                <ion-item-option style="margin: 5px !important" color="warning"
+                  (click)="atualizarProduto(produtos.doc, produtos.dataVenda, produtos.vendedor, produtos.unidade, produtos.clienteId, produtos.cliente,produtos.clienteFidelidade,produtos.produtoId,produtos.produto,produtos.imagem,produtos.categoria,produtos.quantidadeVendida,produtos.fidelidade,produtos.comissao, produtos.gorjeta, produtos.desconto, produtos.estoque,produtos.estoqueFinal,produtos.valorDeVenda,produtos.valorDeCusto,produtos.totalComissao,produtos.totalDeCusto,produtos.totalBruto,produtos.totalLiquido,produtos.totalLucro)">
+                  <ion-icon slot="start" name="create-outline"></ion-icon>Alterar
+                </ion-item-option>
+
+              </ion-item-options>
+              <ion-item-options side="end" class="itemOptionsList">
+                <ion-item-option style="margin: 5px !important" color="danger"
+                  (click)="excluirProduto(produtos.doc, produtos.produto)">
+                  <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
+                </ion-item-option>
+              </ion-item-options>
+            </ion-item-sliding>
+          </ion-list>
+
+        </ion-card>
+
+
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab (click)="sair()">
+    <ion-fab-button color="facebook">
+      <ion-icon name="arrow-undo-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

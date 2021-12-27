@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Cadastro de Produtos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Speakers</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item>
+    <ion-label position="stacked" color="primary">Categoria</ion-label>
+    <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+    <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione"  [value]="categoria" (select)="setCategoria($event.target.value)">
+      <ion-select-option>Categoria</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked" color="primary">Produto</ion-label>
+    <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+    <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione" [(ngModel)]="produto">
+      <ion-select-option>Produto</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked" color="primary">Marca</ion-label>
+    <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+    <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione" [(ngModel)]="marca">
+      <ion-select-option>Marca</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>  
+    <ion-label position="stacked" color="primary">Descrição</ion-label>
+    <ion-icon name="list-circle-outline" slot="start"></ion-icon>
+    <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione"  [value]="descricao" (select)="setDescricao($event.target.value) ">
+      <ion-select-option *ngFor="let item of selects" [value]="item.id"> {{item.id}} - {{item.descricao}}
+      </ion-select-option> 
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked" color="primary">Quantidade</ion-label>
+    <ion-input name="username" type="text" spellcheck="false" autocapitalize="off" required [(ngModel)]="quantidade">
+    </ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked" color="primary">Valor</ion-label>
+    <ion-input type="number" [value]="valorDeVenda" (input)="setQuantity($event.target.value)">
+    </ion-input>
+  </ion-item>
+
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" (click)="addTransation()">Cadastrar</ion-button>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>

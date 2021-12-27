@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/loja.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Novos Produtos</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+        <form #loginForm="ngForm" (ngSubmit)="cadastrarTipoVenda(loginForm)" autocomplete="off" class="login-form">
+          <ion-row>
+            <ion-col>
+              <ion-list inset>
+
+                <!-- Imagem do Produto-->
+                <div class="personal-image" *ngIf="unidade === 'Barbearia Olimpo Gyn'" style="text-align: center;">
+                  <label class="label">
+                    <input id="uploadPhoto" type="file" accept="image/*" style="display: none"
+                      (change)="touchCapturandoImg($event)" />
+                    <img *ngIf="imagem === '' " src="\assets\img\produto-sem-imagem-cadastro.png" alt="avatar">
+                    <img *ngIf="imagem != '' " src="{{imagem}}" alt="avatar">
+                  </label>
+                </div>
+
+                <ion-item>
+                  <ion-icon name="podium-outline" slot="start"></ion-icon>
+                  <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione uma Categoria"
+                    [(ngModel)]="categoria" name="categoria" [interfaceOptions]="selecioneUmaCategoria" required>
+                    <ion-select-option *ngFor="let categoria of categorias">{{categoria.descricao}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="chatbubble-ellipses-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Descrição do Produto" name="descricao" id="descricao" type="text" required
+                    [(ngModel)]="descricao"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="trail-sign-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Quantidade do Produto" name="quantidade" id="quantidade" type="number"
+                    [(ngModel)]="quantidade"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="gift-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Fidelidade do Produto" name="fidelidade" id="fidelidade" type="text" required
+                    [(ngModel)]="fidelidade"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="repeat-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Comissão do Produto %" name="comissao" id="comissao" type="text" required
+                    [(ngModel)]="comissao"> </ion-input>
+                </ion-item>
+
+
+                <ion-item>
+                  <ion-icon name="wallet-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Valor de Custo" name="valorCusto" id="valorCusto" type="number"
+                    [(ngModel)]="valorCusto" required> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="cash-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Valor de Venda" name="valorVenda" id="valorVenda" type="number"
+                    [(ngModel)]="valorVenda" required> </ion-input>
+                </ion-item>
+
+                <!-- <ion-item  >
+                  <ion-icon name="logo-facebook" slot="start"></ion-icon>
+                  <ion-input  placeholder="Facebook" name="facebook" id="facebook" type="text" 
+                    [(ngModel)]="facebook"> </ion-input>
+                </ion-item>
+
+                <ion-item  >
+                  <ion-icon name="logo-instagram" slot="start"></ion-icon>
+                  <ion-input placeholder="Instagram" name="instagram" id="instagram" type="text" 
+                    [(ngModel)]="instagram"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="logo-twitter" slot="start"></ion-icon>
+                  <ion-input  placeholder="Twitter" name="twitter" id="twitter" type="text" 
+                    [(ngModel)]="twitter"> </ion-input>
+                </ion-item> -->
+
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <!-- <ion-row>
+            <ion-col>
+              <ion-button class="submit-btn" fulltype="submit"  style="right: 30%;">ENTRAR</ion-button>
+            </ion-col>
+          </ion-row> -->
+
+          <ion-row>
+            <ion-col>
+              <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+              <ion-button class="submit-btn" fulltype="submit" (click)="cadastrarTipoVenda(loginForm)">Cadastrar
+              </ion-button>
+
+              <!-- <ion-button class="submit-btn" fulltype="submit" color="warning" (click)="touchCapturandoImgs()">
+                <ion-icon slot="start" name="camera-outline"></ion-icon> Imagem
+              </ion-button> -->
+
+            </ion-col>
+          </ion-row>
+
+        </form>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>

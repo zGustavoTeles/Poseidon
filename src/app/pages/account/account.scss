@@ -1,0 +1,32 @@
+img {
+  max-width: 140px;
+  border-radius: 50%;
+}
+
+.loginPage {
+  // background-image: url(../../assets/img/background.png) 0 0/100% 100% no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.login-container {
+  border-radius: 10px;
+  opacity: 0.9;
+  width: 80%;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.login-logo {
+  vertical-align: center;
+  text-align: center;
+}
+
+.login-form {
+  opacity: none !important;
+}
+
+ion-content {
+  --background: url("/assets/img/background.png") no-repeat center center / cover !important;
+}

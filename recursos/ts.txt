@@ -1,0 +1,60 @@
+import { Injectable } from '@angular/core';
+import { PdfFileUtil } from './pdfFile.util';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
+
+/**
+ * Classe responsavel pela manuteção e controle das menagens de erro e envio para oo suporte
+ * @author Starley Cazorla
+ */
+
+@Injectable()
+export class MessageErroSuporteUtil {
+
+    constructor(
+        public pdfFileUtil: PdfFileUtil,
+        private alertCtrl: AlertController,
+        private router: Router) {
+
+    }
+
+    /**
+     * Usado para notificar o ususario em caso de erro e enviar o erro para o suporte!
+     * @param erro - Caminho do erro! Buscar produtos!
+     * @param msg - O erro que foi encontrado!
+     * @param rotaAlteranativa - Ir para home!
+     */
+    async mensagemErroSuporte(tituloMsg: any, mensagemDeErro: any, rotaAlteranativa: string) {
+        const alert = await this.alertCtrl.create({
+            message: '<img src="assets/imgs/atencao.png" alt="auto"> <br><br> <b>Ops! Um erro ao <text>' + tituloMsg + '</text> <br><br> Motivo: </b> <text>' + mensagemDeErro + ' </text>! <br><br> Caso o erro persista envie o erro ao suporte!',
+            backdropDismiss: false,
+            cssClass: 'alertaCss',
+            buttons: [
+                {
+                    text: 'Enviar Erro',
+                    handler: async () => {
+                        await this.pdfFileUtil.criarPdfNotificacao(tituloMsg, mensagemDeErro);
+
+                        if (rotaAlteranativa !== '') {
+                            this.router.navigateByUrl('' + rotaAlteranativa + '');
+                        }
+                    }
+                }, {
+                    text: 'Voltar',
+                    handler: () => {
+                        console.log('Confirm Okay');
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+}
+
+
+----------VERSÃO--------------------
+
+
+    // "GERAR_APK": "ionic cordova build android --prod --release"

@@ -1,0 +1,120 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <h4>Cadastro de Novas Empresas</h4>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+
+  <ion-card>
+
+    <form #cadastroFuncionariosForm="ngForm" novalidate>
+
+
+      <ion-item class="ion-activated">
+        <ion-icon name="map-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">Nome Completo da Unidade:</ion-label>
+        <ion-input type="text" [(ngModel)]="nomeDaUnidade" name="nome" type="text" #nomeDaUnidadeVal="ngModel"
+          spellcheck="false" autocapitalize="off" required>
+        </ion-input>
+
+      </ion-item>
+
+      <ion-text color="danger" style="font-size: 50%;">
+        <p [hidden]="nomeDaUnidadeVal.valid || submitted == false" class="ion-padding-start">
+          Nome Obrigatório!
+        </p>
+      </ion-text>
+
+      <ion-item class="ion-activated">
+        <ion-icon name="map-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">Nome Completo do Proprietário:</ion-label>
+        <ion-input type="text" [(ngModel)]="nomeDoProprietario" name="nome" type="text" #nomeDoProprietarioVal="ngModel"
+          spellcheck="false" autocapitalize="off" required>
+        </ion-input>
+
+      </ion-item>
+
+      <ion-text color="danger" style="font-size: 50%;">
+        <p [hidden]="nomeDoProprietarioVal.valid || submitted == false" class="ion-padding-start">
+          Nome Obrigatório!
+        </p>
+      </ion-text>
+
+      <ion-item class="ion-activated">
+        <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">Telefone da Undiade:</ion-label>
+        <ion-input [(ngModel)]="telefoneDaUnidade" name="numero" type="number" #telefoneDaUnidadeVal="ngModel"
+          spellcheck="false" autocapitalize="off" required>
+        </ion-input>
+
+      </ion-item>
+
+      <ion-text color="danger" style="font-size: 50%;">
+        <p [hidden]="telefoneDaUnidadeVal.valid || submitted == false" class="ion-padding-start">
+          Número Obrigatório!
+        </p>
+      </ion-text>
+
+      <ion-item class="ion-activated">
+        <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">Telefone do Proprietário:</ion-label>
+        <ion-input [(ngModel)]="telefoneDoProprietario" name="numero" type="number" #telefoneDoProprietarioVal="ngModel"
+          spellcheck="false" autocapitalize="off" required>
+        </ion-input>
+
+      </ion-item>
+
+      <ion-text color="danger" style="font-size: 50%;">
+        <p [hidden]="telefoneDoProprietarioVal.valid || submitted == false" class="ion-padding-start">
+          Número Obrigatório!
+        </p>
+      </ion-text>
+
+      <ion-item class="ion-activated">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">Endereço Completo Da Unidade</ion-label>
+        <ion-input type="text" [(ngModel)]="enderecoUnidade" name="email" type="text" #enderecoUnidadeVal="ngModel"
+          spellcheck="false" autocapitalize="off" required>
+        </ion-input>
+
+      </ion-item>
+
+      <ion-text color="danger" style="font-size: 50%;">
+        <p [hidden]="enderecoUnidadeVal.valid || submitted == false" class="ion-padding-start">
+          E-mail Obrigatório!
+        </p>
+      </ion-text>
+
+      <ion-item class="ion-activated">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">CNPJ da Unidade:</ion-label>
+        <ion-input type="text" [(ngModel)]="cnpjDaUnidade" name="email" type="text" #cnpjDaUnidadeVal="ngModel"
+          spellcheck="false" autocapitalize="off">
+        </ion-input>
+      </ion-item>
+
+      <ion-item class="ion-activated">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label position="floating" color="facebook">CPF do Proprietário:</ion-label>
+        <ion-input type="text" [(ngModel)]="cpfdoProprietario" name="email" type="text" #cpfdoProprietarioVal="ngModel"
+          spellcheck="false" autocapitalize="off">
+        </ion-input>
+      </ion-item>
+    </form>
+
+  </ion-card>
+
+  <ion-row>
+    <ion-col>
+      <ion-button (click)="cadastrarFuncionario(cadastroFuncionariosForm)" type="submit" expand="block" color="warning">
+        Cadastrar</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

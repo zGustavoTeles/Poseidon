@@ -1,0 +1,17 @@
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+
+import { SpeakerListPage } from './speaker-list';
+import { SpeakerListPageRoutingModule } from './speaker-list-routing.module';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    IonicModule,
+    SpeakerListPageRoutingModule
+  ],
+  declarations: [SpeakerListPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
+})
+export class SpeakerListModule {}

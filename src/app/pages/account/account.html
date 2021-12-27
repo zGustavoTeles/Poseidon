@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/loja.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Perfil do Usuário(a)</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+
+        <!------------------------------------------------PERFIL SEM IMAGEM--------------------------------------------------------------------------->
+
+        <div *ngIf="unidade != 'Barbearia Olimpo Gyn'">
+
+          <!--  --------------------------------------------- "perfil === 'Balcão'|| perfil  === 'Administrador' || perfil  === 'Colaborador'"  ----------------------- --------------------------------------------------------- -->
+          <div class="ion-padding-top ion-text-center"
+            *ngIf="perfil === 'Balcão'|| perfil  === 'Administrador' || perfil  === 'Colaborador'">
+            <img src="\assets\img\barbeiro_masculino2.png" alt="avatar" *ngIf="sexo === 'Masculino'">
+            <img src="\assets\img\barbeiro_feminino2.png" alt="avatar" *ngIf="sexo === 'Feminino'">
+            <img src="\assets\img\barbeiro_indefinido2.png" alt="avatar" *ngIf="sexo === 'Prefiro Não Dizer'">
+            <h2>{{nome}}</h2>
+
+            <ion-list inset>
+              <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
+              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item>
+              <ion-item (click)="support()" style="color: #000000">Suporte</ion-item>
+              <ion-item (click)="logout()" style="color: #000000">Sair</ion-item>
+            </ion-list>
+          </div>
+
+          <!--  --------------------------------------------- CLIENTE  ----------------------- --------------------------------------------------------- -->
+          <div *ngIf="perfil === 'Cliente'" class="ion-padding-top ion-text-center">
+            <img src="\assets\img\cliente_masculino2.png" alt="avatar" *ngIf="sexo === 'Masculino'">
+            <img src="\assets\img\cliente_feminino2.png" alt="avatar" *ngIf="sexo === 'Feminino'">
+            <img src="\assets\img\cliente_indefinido2.png" alt="avatar" *ngIf="sexo === 'Prefiro Não Dizer'">
+            <h2>{{nome}}</h2>
+
+            <ion-list inset>
+              <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
+              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item>
+              <ion-item (click)="support()" style="color: #000000">Suporte</ion-item>
+              <ion-item (click)="logout()" style="color: #000000">Sair</ion-item>
+            </ion-list>
+          </div>
+
+        </div>
+
+
+        <!------------------------------------------------PERFIL COM IMAGEM--------------------------------------------------------------------------->
+
+        <div *ngIf="unidade === 'Barbearia Olimpo Gyn'">
+          <!--  --------------------------------------------- "perfil === 'Balcão'|| perfil  === 'Administrador' || perfil  === 'Colaborador'"  ----------------------- --------------------------------------------------------- -->
+          <div *ngIf="perfil === 'Balcão'|| perfil  === 'Administrador' || perfil  === 'Colaborador'"
+            class="ion-padding-top ion-text-center">
+            <label class="label">
+              <input id="uploadPhoto" type="file" accept="image/*" style="display: none"
+                (change)="touchCapturandoImg($event)" />
+              <img src="\assets\img\barbeiro_masculino2.png" alt="avatar" *ngIf="sexo === 'Masculino' && imagem === ''">
+              <img src="\assets\img\barbeiro_feminino2.png" alt="avatar" *ngIf="sexo === 'Feminino' && imagem === ''">
+              <img src="\assets\img\barbeiro_indefinido2.png" alt="avatar"
+                *ngIf="sexo === 'Prefiro Não Dizer' && imagem === ''">
+              <img *ngIf="imagem != '' " src="{{imagem}}">
+            </label>
+            <h2>{{nome}}</h2>
+
+            <ion-list inset>
+              <!-- <ion-item (click)="updatePicture()">Imagem</ion-item> -->
+              <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
+              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item>
+              <ion-item (click)="support()" style="color: #000000">Suporte</ion-item>
+              <ion-item (click)="logout()" style="color: #000000">Sair</ion-item>
+            </ion-list>
+          </div>
+
+          <!--  --------------------------------------------- CLIENTE  ----------------------- --------------------------------------------------------- -->
+          <div *ngIf="perfil === 'Cliente'" class="ion-padding-top ion-text-center">
+            <img src="\assets\img\cliente_masculino2.png" alt="avatar" *ngIf="sexo === 'Masculino' && imagem === ''">
+            <img src="\assets\img\cliente_feminino2.png" alt="avatar" *ngIf="sexo === 'Feminino' && imagem === ''">
+            <img src="\assets\img\cliente_indefinido2.png" alt="avatar"
+              *ngIf="sexo === 'Prefiro Não Dizer' && imagem === ''">
+            <img *ngIf="imagem != '' " src="{{imagem}}">
+            <h2>{{nome}}</h2>
+
+            <ion-list inset>
+              <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
+              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item>
+              <ion-item (click)="support()" style="color: #000000">Suporte</ion-item>
+              <ion-item (click)="logout()" style="color: #000000">Sair</ion-item>
+            </ion-list>
+          </div>
+
+        </div>
+        <!--  --------------------------------------------- f i m  ----------------------- --------------------------------------------------------- -->
+
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,44 @@
+<!-- * Div responsavel por exibir a tabela de preço -->
+<div style="display: flow-root !important;">
+  <p style="text-align: center;" color="danger">Comandas em Aberto</p>
+  <p style="text-align: center; color: tomato;" *ngIf="clientesTemp.length <= 0">No momento nenhuma comanda foi
+    encontrada!</p>
+  <ion-card *ngFor="let cliente of clientesTemp" (click)="touchTabelaEscohida(cliente)" style="border-radius: 10px;">
+    <ion-card-content class="ion-no-padding">
+      <ion-grid class="grid-detalhe-produto ion-no-padding" style="padding: 2%; font-size: 12px !important">
+        <ion-row class="ion-text-center">
+
+          <ion-label style="color: rgb(20, 113, 220);">
+            <b>Unidade - {{cliente[0]}} </b>
+          </ion-label>
+
+        </ion-row>
+
+        <ion-row>
+          <ion-col style="text-align: start;">
+            <span position="fixed">Vendedor</span>
+            <div>
+              <ion-badge color="primary">
+                {{cliente[1]}}
+              </ion-badge>
+            </div>
+
+            <span position="fixed">Cliente
+            </span>
+            <div>
+              <ion-badge color="tertiary">{{cliente[2]}}
+              </ion-badge>
+            </div>
+
+            <div style="text-align: end;">
+              <ion-badge color="success">100%
+              </ion-badge>
+            </div>
+
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>

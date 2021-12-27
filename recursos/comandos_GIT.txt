@@ -1,0 +1,6 @@
+Desfazendo commit
+
+-> git reset --hard
+
+--------------------------------
+b33bedf

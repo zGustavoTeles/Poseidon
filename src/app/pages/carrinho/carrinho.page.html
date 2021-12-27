@@ -1,0 +1,132 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title color="danger">Registro De Vendas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <span *ngIf="ios">Filtro</span>
+        <span *ngIf="!ios">
+          <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+          <ion-badge style="background-color: #070606;">{{quantidadeInserida}}</ion-badge>
+        </span>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+
+  <ion-card style="top: 1%;">
+    <ion-list>
+      <ion-item *ngFor="let produtos of produtos">
+        <ion-avatar slot="start">
+          <img src="\assets\img\cliente_indefinido.png" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{produtos.descricao}}</h2>
+          <h3>{{produtos.categoria}}</h3>
+          <h3 style="color: #0576d0">
+            <b>Preço - {{produtos.valorDeVenda | currency: 'BRL'}}</b>
+          </h3>
+          <h3 style="color: #d00575">
+            <b>Quantidade - {{produtos.quantidade}}</b>
+          </h3>
+        </ion-label>
+        <p style="height: 10%; font-size: 70%; background-color: rgb(85, 170, 0);">PROMOÇÃO</p>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+  <br>
+
+  <ion-item class="ion-activated">
+    <ion-icon name="person-add-outline" slot="start"></ion-icon>
+    <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione um Cliente" [(ngModel)]="cliente"
+      name="perfil" type="text" spellcheck="false" autocapitalize="off" required>
+      <ion-select-option *ngFor="let cliente of clientes">{{cliente.nome}}</ion-select-option>
+    </ion-select>
+
+  </ion-item>
+
+  <ion-card class="ion-no-padding ion-padding-bottom" style="border-radius: 10px;">
+    <ion-card-content class="ion-no-padding" *ngFor="let produto of produtos">
+
+      <ion-grid [style.font-size]="0.9 + 'em'" color="danger">
+        <ion-row>
+          <ion-col class="inputColBorder">
+            <ion-label [style.font-size]="0.8 + 'em'">Quantidade</ion-label>
+            <ion-input id="inputQuantidade" #inputQuantidade type="number" placeholder="1" [ngModel]=quantidadeInserida
+              (ngModelChange)="quantidadeInserida=$event" (keyup)="calculaTotalEven($event);"
+              (input)="setQuantidadeInserida($event.target.value)">
+            </ion-input>
+          </ion-col>
+
+          <ion-col class="inputColBorder">
+            <ion-label [style.font-size]="0.8 + 'em'">Total</ion-label>
+            <ion-input id="inputTotal" #inputTotal type="number" placeholder="{{totalDaVenda | currency: 'BRL'}}"
+              [ngModel]=totalDaVenda>
+            </ion-input>
+          </ion-col>
+
+        </ion-row>
+
+      </ion-grid>
+
+      <ion-grid class="grid-detalhe-produto">
+        <ion-row class="ion-text-center">
+          <ion-col>
+            <ion-label position="fixed">Valor Produto</ion-label>
+            <ion-label>
+              <h3 style="color: var(--ion-color-danger)">
+                <b>{{produto.valorDeVenda | currency: 'BRL'}}</b>
+              </h3>
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label position="fixed" color="success">Estoque Produto</ion-label>
+            <ion-label>
+              <h3><b>{{produto.quantidade}}</b></h3>
+            </ion-label>
+          </ion-col>
+
+          <ion-col>
+            <ion-label position="fixed">Categoria</ion-label>
+            <ion-label>
+              <h3><b>{{produto.categoria}}</b></h3>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-text-center">
+          <ion-col>
+            <ion-label position="fixed">Promoção</ion-label>
+            <ion-label>
+              <h3 style="color: #0576d0">
+                <b>{{produto.valorDeVenda | currency: 'BRL'}}</b>
+              </h3>
+            </ion-label>
+          </ion-col>
+
+          <ion-col>
+            <ion-label position="fixed">Agregado</ion-label>
+            <ion-label>
+              <h3><b>{{estoqueFinal}}</b></h3>
+            </ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label position="fixed"><b>Venda</b>
+            </ion-label>
+            <ion-label>
+              <h3><b> {{produto.quantidade}}</b></h3>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-button type="submit" class="paddingBtn" expand="block" color="warning" (click)="inserirProdutoCarrinho()">
+        <ion-icon slot="start" name="cart-outline"></ion-icon> ADICIONAR
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

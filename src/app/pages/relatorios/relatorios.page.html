@@ -1,0 +1,86 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/loja.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Comanda dos Clientes</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+
+        <br>
+        <ion-card>
+          <!-- <ion-virtual-scroll [items]="vendas" approxItemHeight="81px">
+
+      <ion-list *virtualItem="let item; let itemBounds = bounds;"> -->
+          <ion-item-sliding *ngFor="let venda of vendas">
+
+
+            <ion-item>
+              <ion-avatar slot="start">
+                <img src="\assets\img\produto_carrinho.png" />
+              </ion-avatar>
+              <ion-label>
+                <h2 style="color: #000000">{{venda.cliente}}</h2>
+                <h3 style="color: #000000">{{venda.categoria}}</h3>
+                <h3 style="color: #0576d0">
+                  <b>Vendedor - {{venda.vendedor}}</b>
+                </h3>
+                <h3 style="color: #ce0000">
+                  <b>Unidade - {{venda.unidade}}</b>
+                </h3>
+                <p style="font-size: 70%; color:#18a805;">
+                  <ion-icon name="basket-outline"></ion-icon>
+                  COMANDA DO CLIENTE
+                </p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item-options side="start" class="itemOptionsList"
+              *ngIf="perfil === 'Administrador' ||  perfil === 'Balcão' || perfil === 'Desenvolvedor'">
+              <ion-item-option style="margin: 5px !important" color="primary"
+                (click)="abrirComanda(venda.doc, venda.cliente)">
+                <ion-icon slot="start" name="cart-outline"></ion-icon>Abrir
+              </ion-item-option>
+
+            </ion-item-options>
+
+            <ion-item-options side="end" class="itemOptionsList" *ngIf="perfil != 'Cliente'">
+              <ion-item-option style="margin: 5px !important" color="danger"
+                (click)="excluirComanda(venda.doc, venda.cliente, true)">
+                <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
+              </ion-item-option>
+            </ion-item-options>
+
+          </ion-item-sliding>
+          <!-- </ion-list>
+
+    </ion-virtual-scroll> -->
+
+        </ion-card>
+
+        <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
+    <ion-fab-button color="danger">
+      <ion-icon name="cart-outline"></ion-icon>
+      <ion-badge color="danger">{{quantidadeCarrinho}}</ion-badge>
+    </ion-fab-button>
+  </ion-fab> -->
+
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>

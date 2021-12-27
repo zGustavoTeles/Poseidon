@@ -1,0 +1,468 @@
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class FirebaseService {
+    collectionName = 'olimpoTrasation'
+    constructor(
+        private firestore: AngularFirestore,
+        private angularFire: AngularFireAuth,
+    ) { }
+
+    cadastrarEmpresa(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Unidades").add(dados);
+    }
+
+    cadastrarUsuario(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Usuarios").add(dados);
+    }
+
+    cadastrarNotificao(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Noticias").add(dados);
+    }
+
+    cadastrarGastoDoMes(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Gastos").add(dados);
+    }
+
+    cadastrarVale(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Vales").add(dados);
+    }
+
+    cadastrarUnidades(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Unidades").add(dados);
+    }
+
+    cadastraProdutos(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Produtos").add(dados);
+    }
+
+    cadastraVendasProdutosTemp(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Vendas_Produtos_Temp").add(dados);
+    }
+
+    cadastraVendasClienteTemp(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp").add(dados);
+    }
+
+    cadastraVendasCliente(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Vendas_Cliente").add(dados);
+    }
+
+    cadastraVendasProdutos(dados: any) {
+        return this.firestore.collection("Barbearia Dos Barbudos " + "_Vendas_Produtos").add(dados);
+    }
+
+    // get_dados(collectionName: String) {
+    //     return this.firestore.collection(collectionName, raf=).get();
+    // }
+
+    atualizaProduto(produtoId: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Produtos' + '/' + produtoId).update(dados);
+    }
+
+    updateUsuario(usuarioId: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Usuarios' + '/' + usuarioId).update(dados);
+    }
+
+    atualizaProdutoComanda(produtoId: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Produtos_Temp' + '/' + produtoId).update(dados);
+    }
+
+    atualizaFidelidadeCliente(clienteId: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Usuarios' + '/' + clienteId).update(dados);
+    }
+
+    atualizaUsuario(usuarioId: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Usuarios' + '/' + usuarioId).update(dados);
+    }
+
+    deletaVendaProdutoTemp(produtoId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Produtos_Temp' + '/' + produtoId).delete();
+    }
+
+    deletaVendaProdutos(produtoId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Produtos' + '/' + produtoId).delete();
+    }
+
+    deletaVendaClienteTemp(vendaId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Cliente_Temp' + '/' + vendaId).delete();
+    }
+
+    deletaVendaCliente(clienteId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Cliente' + '/' + clienteId).delete();
+    }
+
+    deletaNotificao(notificaoId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Noticias' + '/' + notificaoId).delete();
+    }
+
+    deletaColaborador(colaboradorId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Usuarios' + '/' + colaboradorId).delete();
+    }
+
+    deletaCliente(clienteId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Usuarios' + '/' + clienteId).delete();
+    }
+
+    deletaProduto(produtoId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Produtos' + '/' + produtoId).delete();
+    }
+
+    deletaComanda(comandaId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Produtos_Temp' + '/' + comandaId).delete();
+    }
+
+    deletaProdutoComanda(comandaId: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Vendas_Produtos_Temp' + '/' + comandaId).delete();
+    }
+
+    delete_dados(record_id) {
+        this.firestore.doc(this.collectionName + '/' + record_id).delete();
+    }
+
+    // get(email: any) {
+    //     return this.firestore
+    //         .collection("CLIENTE_01_USUARIOS", (ref) => ref.where("email", "==", email)).valueChanges();
+    // }
+
+    get(uid: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("uid", "==", uid))
+            .valueChanges();
+    }
+
+    getUsuario(email: string) {
+        return this.firestore
+
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("email", "==", email))
+            .valueChanges();
+    }
+
+    // getUser(
+
+    //     : string) {
+    //     return this.firestore
+    //         .collection("Usuarios", (ref) => ref.where("uid", "==", uid))
+    //         .snapshotChanges();
+    // }
+
+    getAllUserForPush() {
+        return this.firestore.collection("Usuarios", (ref) => ref.where("tokenPush", ">", "")).snapshotChanges();
+    }
+
+    fetch(doc: string) {
+        return this.firestore.doc("Usuarios/" + doc).valueChanges();
+    }
+
+    // create(user: Usuario) {
+    //     delete user.password;
+    //     return this.firestore.collection("Usuarios").add(user);
+    // }
+
+    list() {
+        return this.firestore.collection("PRODUTOS", (ref) => ref.orderBy("nome", "asc")).snapshotChanges();
+    }
+
+    listaBarbeiros(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("unidade", "==", unidade))
+            .snapshotChanges();
+    }
+
+    listaColaboradores(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("unidade", "==", unidade))
+            .snapshotChanges();
+    }
+
+    carregaColaboradores(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
+    buscaInfoColaborador(unidade: any, nome: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("unidade", "==", unidade).where("nome", "==", nome))
+            .valueChanges();
+    }
+
+    listaColaboradoresValue(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
+    listaColaboradoresSelect() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.orderBy("nome"))
+            .snapshotChanges();
+    }
+
+    getDadosUsuario(email: string) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("email", "==", email))
+            .valueChanges();
+    }
+
+    getDadosUsuarioDoc(email: string) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("email", "==", email))
+            .snapshotChanges();
+    }
+
+    carregaCategorias() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Categorias", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaProdutos() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaProdutosIdDocumento() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.orderBy("descricao"))
+            .snapshotChanges();
+    }
+
+    carregaVendasTemp() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
+            .snapshotChanges();
+    }
+
+    carregaVendasTempUnidade(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
+            .snapshotChanges();
+    }
+
+    carregaVendasTempUnidadeCarrinho(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
+    carregaVendasClienteTemp() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
+            .valueChanges();
+    }
+
+    carregaVendasProdutosFidelidade(cliente: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Produtos", (ref) => ref.where("cliente", "==", cliente)).valueChanges();
+    }
+
+    carregaVendasClienteTempInsert(cliente: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .valueChanges();
+    }
+
+    carregaVendasClienteTempSelect() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
+            .valueChanges();
+    }
+
+    carregaVendasProdutosTemp(cliente: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .valueChanges();
+    }
+
+
+    carregaVendasProdutosTempDocumento(cliente: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .snapshotChanges();
+    }
+
+    carregaVendasProdutosTempDoc(cliente: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .snapshotChanges();
+    }
+
+    carregaVendasProdutosDoc(cliente: any, dataVenda: any, formaDePagamento: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Produtos", (ref) => ref.where("cliente", "==", cliente).where("dataVenda", "==", dataVenda).where("formaDePagamento", "==", formaDePagamento))
+            .snapshotChanges();
+    }
+
+    carregaVendasCliente(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente", (ref) => ref.where('dataVenda', '>=', dataInicial).where('dataVenda', '<=', dataFinal))
+            .snapshotChanges();
+    }
+
+    carregaVendasClienteRelatorio(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente", (ref) => ref.where('dataVenda', '>=', dataInicial).where('dataVenda', '<=', dataFinal))
+            .valueChanges();
+    }
+
+    carregaVendasClienteRelatorioDoc(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente", (ref) => ref.where('dataVenda', '>=', dataInicial).where('dataVenda', '<=', dataFinal))
+            .snapshotChanges();
+    }
+
+    // carregaVendasClienteRelatorioColaborador(dataInicial: any, dataFinal: any, colaborador: any) {
+    //     return this.firestore
+    //         .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente", (ref) => ref.where('vendedor', '==', colaborador).where('dataVenda', '>=', dataInicial).where('dataVenda', '<=', dataFinal))
+    //         .valueChanges();
+    // }
+
+    carregaGastosNoMes(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Gastos", (ref) => ref.where('dataDoGasto', '>=', dataInicial).where('dataDoGasto', '<=', dataFinal))
+            .valueChanges();
+    }
+
+    carregaGastos() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Gastos", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaVales() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vales", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaValesFiltroData(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vales", (ref) => ref.where('dataDoVale', '>=', dataInicial).where('dataDoVale', '<=', dataFinal))
+            .valueChanges();
+    }
+
+    carregaInfoProduto(descricao: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.where("descricao", "==", descricao))
+            .valueChanges();
+    }
+
+    carregaInfoProdutoDocumento(descricao: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.where("descricao", "==", descricao))
+            .snapshotChanges();
+    }
+
+    carregaFormasDePagamento() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Formas_De_Pagamentos", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaValorDoProduto(descricao: string) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.where("descricao", "==", + descricao))
+            .valueChanges();
+    }
+
+    carregaPerfis() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Perfis", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaSexos() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Sexos", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    carregaNoticais(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Noticias", (ref) => ref.where("unidade", "==", unidade))
+            .snapshotChanges();
+    }
+
+    atualizaNoticias(notificaoId: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Noticias' + '/' + notificaoId).update(dados);
+    }
+
+    carregaUnidades(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Unidades", (ref) => ref.where("nomeDaUnidade", "==", unidade))
+            .valueChanges();
+    }
+
+    carregaImagens(unidade: any) {
+        return this.firestore
+            .collection("Barbershop " + "_Imagens", (ref) => ref.where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
+    carregaUnidadesCadastro() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Unidades", (ref) => ref.orderBy("nomeDaUnidade"))
+            .valueChanges();
+    }
+
+    carregaBarbeiro(unidade: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
+            .snapshotChanges();
+    }
+
+    listaClientes() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.orderBy("nome"))
+            .snapshotChanges();
+    }
+
+    carregaInfoCliente(email: any) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("email", "==", email))
+            .valueChanges();
+    }
+
+    listaClientesCombo() {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("perfil", "==", "Cliente"))
+            .valueChanges();
+    }
+
+    buscaProduto(descricao: string) {
+        return this.firestore
+            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.where("descricao", "==", + descricao))
+            .valueChanges();
+    }
+
+    atualizaStatus(documento: any, dados: any) {
+        this.firestore.doc('Barbearia Dos Barbudos ' + '_Usuarios' + '/' + documento).update(dados);
+    }
+
+
+    /**
+     * *---------------> FIREBASE USUÁRIOS <---------------------
+     */
+
+    updateEmail(youEmail: any, password: any, newEmail: any) {
+        this.angularFire.signInWithEmailAndPassword(youEmail, password)
+            .then(function (userCredential) {
+                userCredential.user.updateEmail(newEmail)
+            })
+    }
+
+    updateSenha(youEmail: any, password: any, newPassword: any) {
+        this.angularFire.signInWithEmailAndPassword(youEmail, password)
+            .then(function (userCredential) {
+                userCredential.user.updatePassword(newPassword)
+            })
+    }
+
+}
+

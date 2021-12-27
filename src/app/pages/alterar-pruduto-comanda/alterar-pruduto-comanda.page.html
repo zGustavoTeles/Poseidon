@@ -1,0 +1,168 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/loja.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Alterar Produto na Comanda</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+
+        <ion-card style="top: 1%;">
+          <ion-list>
+            <ion-item>
+
+              <ion-avatar slot="start">
+                <img *ngIf="imagem === '' " src="\assets\img\cliente_indefinido.png" />
+                <img *ngIf="imagem != '' " src="{{imagem}}" />
+              </ion-avatar>
+              
+              <ion-label>
+                <h3>{{produto}}</h3>
+                <h3>{{categoria}}</h3>
+                <h3 style="color: #0576d0">
+                  <b>Preço - {{valorDeVenda | currency: 'BRL'}}</b>
+                </h3>
+                <h3 style="color: #d00575">
+                  <b>Estoque - {{estoque}}</b>
+                </h3>
+                <h3 style="color: #27c400">
+                  <b>Comissão - {{comissao}}% Oferta!!</b>
+                </h3>
+              </ion-label>
+
+              <ion-item style="margin-bottom: 15% !important ">
+                <ion-avatar slot="start">
+                  <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading..."></ion-img>
+                </ion-avatar>
+              </ion-item>
+
+
+            </ion-item>
+          </ion-list>
+
+        </ion-card>
+        <br>
+
+        <ion-card class="ion-no-padding ion-padding-bottom" style="border-radius: 10px;">
+          <ion-card-content class="ion-no-padding">
+
+            <!-- <ion-item>
+              <ion-icon name="person-add-outline" slot="start"></ion-icon>
+              <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione uma Cliente"
+                [(ngModel)]="cliente" name="cliente" required>
+                <ion-select-option>{{cliente}}</ion-select-option>
+              </ion-select>
+            </ion-item> -->
+
+            <br>
+            <ion-grid [style.font-size]="0.9 + 'em'" color="danger">
+              <ion-row>
+                <ion-col class="inputColBorder">
+                  <ion-label [style.font-size]="0.8 + 'em'">Quantidade</ion-label>
+                  <ion-input id="inputQuantidade" #inputQuantidade type="number" placeholder="{{quantidadeInserida}}"
+                    [ngModel]=quantidadeInserida (ngModelChange)="quantidadeInserida=$event"
+                    (keyup)="calculaTotalEven($event);" (input)="setQuantidadeInserida($event.target.value)">
+                  </ion-input>
+                  <ion-label [style.font-size]="0.8 + 'em'">Gorjeta</ion-label>
+                  <ion-input id="inputGorjeta" #inputGorjeta type="number" placeholder="{{gorjeta}}" [ngModel]=gorjeta
+                    (ngModelChange)="gorjeta=$event" (keyup)="calculaGorjeta($event);"
+                    (input)="setGorjetaInserida($event.target.value)">
+                  </ion-input>
+                </ion-col>
+                <ion-col class="inputColBorder">
+                  <ion-label [style.font-size]="0.8 + 'em'">Desconto</ion-label>
+                  <ion-input id="inputDesconto" #inputDesconto type="number"
+                    placeholder="{{desconto | currency: 'BRL'}}" [ngModel]=desconto (ngModelChange)="desconto=$event"
+                    (keyup)="calculaTotalEven($event);" (input)="setDescontoInserido($event.target.value)">
+                  </ion-input>
+                  <ion-label [style.font-size]="0.8 + 'em'">Total</ion-label>
+                  <ion-input id="inputTotal" #inputTotal type="number" placeholder="{{totalBruto | currency: 'BRL'}}"
+                    placeholder="{{totalBruto}}" [ngModel]=totalBruto>
+                  </ion-input>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <ion-grid class="grid-detalhe-produto">
+              <ion-row class="ion-text-center">
+                <ion-col>
+                  <ion-label position="fixed">Valor Produto</ion-label>
+                  <ion-label>
+                    <h3 style="color: var(--ion-color-danger)">
+                      <b>{{valorDeVenda | currency: 'BRL'}}</b>
+                    </h3>
+                  </ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label position="fixed" color="success">Estoque Produto</ion-label>
+                  <ion-label>
+                    <h3><b>{{estoque}}</b></h3>
+                  </ion-label>
+                </ion-col>
+
+                <ion-col>
+                  <ion-label position="fixed">Total Líquido</ion-label>
+                  <ion-label>
+                    <h3><b style="color: #e98c00">{{totalLiquido | currency: 'BRL'}}</b></h3>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+              <ion-row class="ion-text-center">
+                <ion-col>
+                  <ion-label position="fixed">Total Bruto</ion-label>
+                  <ion-label>
+                    <h3 style="color: #0576d0">
+                      <b>{{totalBruto | currency: 'BRL'}}</b>
+                    </h3>
+                  </ion-label>
+                </ion-col>
+
+                <ion-col>
+                  <ion-label position="fixed">Estoque Final</ion-label>
+                  <ion-label>
+                    <h3><b>{{estoqueFinal}}</b></h3>
+                  </ion-label>
+                </ion-col>
+                <ion-col>
+                  <ion-label position="fixed"><b>Total Comissão</b>
+                  </ion-label>
+                  <ion-label>
+                    <h3><b style="color: #35bd00">{{totalComissao | currency: 'BRL'}}</b></h3>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-button type="submit" class="paddingBtn" expand="block" color="primary"
+              (click)="insereDadosTemp(produto,clienteId, clienteFidelidade)">
+              <ion-icon slot="start" name="basket-outline"></ion-icon> Alterar
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab (click)="sair()">
+    <ion-fab-button color="facebook">
+      <ion-icon name="arrow-undo-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  1
+</ion-content>

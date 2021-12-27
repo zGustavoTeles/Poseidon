@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/colaborador.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Alterar Cliente</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+        <form #loginForm="ngForm" (ngSubmit)="atualizarFuncionario(loginForm)" autocomplete="off" class="login-form">
+          <ion-row>
+            <ion-col>
+              <ion-list inset>
+
+                <!-- <ion-item>
+                  <ion-icon name="home-outline" slot="start"></ion-icon>
+                  <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="{{unidade}}" [(ngModel)]="unidade"
+                    name="unidade" required>
+                    <ion-select-option *ngFor="let unidade of unidades">{{unidade.nomeDaUnidade}}</ion-select-option>
+                  </ion-select>
+                </ion-item> -->
+
+                <ion-item>
+                  <ion-icon name="map-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Nome Completo" name="nome" id="nome" type="text" required
+                    [(ngModel)]="nome"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Celular" name="numero" id="numero" type="number" required
+                    [(ngModel)]="numero"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="mail-outline" slot="start"></ion-icon>
+                  <ion-input  placeholder="E-mail" name="email" id="email" disabled="true" type="text" required
+                    [(ngModel)]="email"> </ion-input>
+                </ion-item>
+
+                <ion-item >
+                  <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Senha" name="senha" id="senha" disabled="true" type="password" required
+                    [(ngModel)]="senha"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="female-outline" slot="start"></ion-icon>
+                  <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="{{sexo}}" [(ngModel)]="sexo"
+                    name="sexo" required>
+                    <ion-select-option *ngFor="let sexos of sexos">{{sexos.descricao}}</ion-select-option>
+                  </ion-select>
+                </ion-item>
+
+                <ion-item  >
+                  <ion-icon name="logo-whatsapp" slot="start"></ion-icon>
+                  <ion-input placeholder="WhatsApp" name="whatsapp" id="whatsapp" type="number" 
+                    [(ngModel)]="whatsapp"> </ion-input>
+                </ion-item>
+
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row>
+            <ion-col>
+              <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+              <ion-button class="submit-btn" fulltype="submit" (click)="atualizarFuncionario(loginForm)">
+                <ion-icon slot="start" name="body-outline"></ion-icon>Alterar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </form>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab (click)="sair()">
+    <ion-fab-button color="facebook">
+      <ion-icon name="arrow-undo-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

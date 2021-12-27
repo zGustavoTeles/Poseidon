@@ -1,0 +1,2399 @@
+------------------------>GLOBAL CSS<-----------------------------------
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import "~@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+  font-family: GoogleSans;
+  src: url("/assets/fonts/Exo2-Regular.ttf");
+}
+
+* {
+  font-family: GoogleSans !important;
+}
+
+// App Styles
+// ----------------------------------------------------------------------------
+// Put style rules here that you want to apply to the entire application. These
+// styles are for the entire navCtrl and not just one component. Additionally, this
+// file can hold Sass mixins, functions, and placeholder classes to be imported
+// and used throughout the application.
+
+ion-menu ion-content {
+  --background: var(--ion-item-background, var(--ion-background-color, #fff));
+}
+
+ion-menu.md ion-content {
+  --padding-start: 8px;
+  --padding-end: 8px;
+  --padding-top: 8px;
+  --padding-bottom: 20px;
+}
+
+ion-menu.md ion-note {
+  margin-bottom: 30px;
+}
+
+ion-menu.md ion-list-header,
+ion-menu.md ion-note {
+  padding-left: 10px;
+}
+
+ion-menu.md ion-list#inbox-list ion-list-header {
+  font-size: 22px;
+  font-weight: 600;
+
+  min-height: 20px;
+}
+
+ion-menu.md ion-list#labels-list ion-list-header {
+  font-size: 16px;
+
+  margin-bottom: 18px;
+
+  color: #757575;
+
+  min-height: 26px;
+}
+
+ion-menu.md ion-item {
+  // --padding-start: 10px;
+  --padding-end: 10px;
+  //border-radius: 10px !important;
+}
+
+ion-menu.md ion-item.selected {
+  --background: #2474a5 !important;
+  border-radius: 10px !important;
+}
+
+ion-menu.md ion-item.selected ion-icon {
+  color: white !important;
+}
+
+ion-menu.md ion-item ion-label {
+  font-weight: 500;
+}
+
+ion-menu.ios ion-content {
+  --padding-bottom: 20px;
+}
+
+ion-menu.ios ion-note {
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+ion-menu.ios ion-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 50px;
+}
+
+ion-menu.ios ion-item.selected ion-icon {
+  color: white !important;
+}
+
+ion-menu.ios ion-item ion-icon {
+  font-size: 24px;
+  color: #73849a;
+}
+
+ion-menu.ios ion-list#labels-list ion-list-header {
+  margin-bottom: 8px;
+}
+
+ion-menu.ios ion-list-header,
+ion-menu.ios ion-note {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+ion-menu.ios ion-note {
+  margin-bottom: 8px;
+}
+
+ion-note {
+  display: inline-block;
+  font-size: 16px;
+
+  color: var(--ion-color-medium-shade);
+}
+
+ion-item.selected {
+  --color: white;
+}
+
+.avisoErroPedidoSuite {
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #a20b1f;
+  // border-radius: 10px;
+  margin: 0px;
+
+  span {
+    color: white;
+  }
+}
+
+.spaceBetween {
+  text-align: start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.font12 {
+  font-size: 12px !important;
+}
+
+.font09em {
+  font-size: 0.9em;
+}
+
+.font1em {
+  font-size: 1em;
+}
+
+.font-weight-unset {
+  font-weight: unset;
+}
+
+.cor-cinza {
+  color: var(--ion-color-step-600, #666);
+}
+
+.full-width {
+  min-width: 100%;
+}
+
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
+}
+
+.cardShadow {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.margin10 {
+  margin: 10px;
+}
+
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.padding-left10 {
+  padding-left: 10px;
+}
+
+.justify {
+  display: flex;
+  justify-content: space-between;
+}
+
+.center {
+  text-align: center;
+  align-items: center;
+  align-self: center;
+}
+
+.titulo-topo {
+  width: auto;
+  font-size: 1em;
+}
+
+// Card title blue
+.cardHeader {
+  background-color: #2474a5;
+  height: 42px;
+  padding-top: 4px;
+}
+
+ion-content,
+ion-list,
+ion-item,
+ion-searchbar {
+  --background: #fdfdfd !important;
+  background: #fdfdfd !important;
+  background-color: transparent !important;
+}
+
+.itemOptionsList {
+  padding-bottom: 17px;
+  padding-top: 10px;
+
+  ion-item-option {
+    border-radius: 10px !important;
+  }
+}
+
+.no-horizontal-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Icones de detalhe pedido
+.iconDados {
+  width: 20px;
+  padding-bottom: 5px;
+}
+
+div.alert-radio-label {
+  word-wrap: break-word;
+}
+
+// Alerta aqui
+ion-alert {
+  .alert-wrapper {
+    width: 95% !important;
+    max-width: unset !important;
+    border-radius: 10px !important;
+
+    .alert-radio-group {
+      max-height: auto;
+
+      .alert-radio-label {
+        font-size: 0.8em;
+      }
+    }
+  }
+}
+
+div.alert-head {
+  background-color: #2474a5 !important;
+
+  h2 {
+    color: #fff !important;
+    text-align: center !important;
+    text-transform: uppercase !important;
+    font-size: 18px !important;
+  }
+}
+
+div.alert-button-group.sc-ion-alert-md,
+div.alert-button-group.sc-ion-alert-ios {
+  display: flex;
+  justify-content: center;
+
+  // Botao cancelar
+  .alert-button:first-child {
+    border-color: var(--ion-color-warning) !important;
+    background-color: var(--ion-color-warning) !important;
+    color: var(--ion-color-warning-contrast) !important;
+  }
+
+  // Botao ok Select
+  .alert-button:last-child {
+    border-color: var(--ion-color-primary) !important;
+    background-color: var(--ion-color-primary) !important;
+    color: var(--ion-color-light) !important;
+  }
+}
+
+.text-center {
+  display: table;
+  position: relative;
+  margin: 50% auto auto auto;
+}
+
+//***************************
+//******** RELATORIOS *******
+//***************************
+
+.cardShadow {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.fontDownItem {
+  font-size: 13px !important;
+  color: cadetblue !important;
+}
+
+.fontNameItem {
+  font-size: 14px !important;
+  padding-top: 3px !important;
+  // padding-left: 3px !important;
+  width: 100% !important;
+
+  ion-input {
+    text-transform: uppercase !important;
+  }
+}
+
+// Centralizar tabelas
+.gridCenter {
+  column-count: 3;
+  column-gap: auto;
+  align-content: left;
+}
+
+.paddingBtn {
+  --border-radius: 10px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+.paddingBtnPopover {
+  --border-radius: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+// Deixar os icones com tamanho padrao e alinhado
+.widthIcon {
+  zoom: 1.5;
+  vertical-align: middle;
+}
+
+//******************
+//***** PEDIDO *****
+//******************
+.codigo_pedido {
+  color: #4c8dff;
+  margin-bottom: 1vh;
+  font-weight: bold;
+}
+
+#grid-pedidos {
+  margin-top: 5%;
+  padding: 0;
+  text-align: center;
+
+  ion-row:first-child {
+    font-weight: bold;
+    color: var(--ion-color-primary-tint);
+  }
+
+  ion-row:first-child,
+  ion-row:last-child {
+    border-bottom: 1px solid #000000;
+  }
+}
+
+.resumo-verba {
+  // -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  // -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  // box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  ion-label {
+    color: gray;
+  }
+
+  .resumo-verba-titulo {
+    color: rgb(0, 92, 99);
+  }
+
+  .resumo-verba-valores {
+    font-size: 0.7em;
+    margin: 6px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+
+  .resumo-verba-nome-empresa {
+    font-size: 0.7em;
+    margin-top: 5px;
+    color: #555;
+  }
+
+  hr {
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+
+  .verba-positiva {
+    color: rgb(1, 44, 124);
+  }
+
+  .verba-negativa {
+    color: var(--ion-color-danger);
+  }
+}
+
+//***************************
+//***** DETALHES PEDIDO *****
+//***************************
+#dados-pedido {
+  ion-row {
+    align-items: center;
+  }
+
+  #resumo-pedido {
+    text-align: justify;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  ion-item {
+    border: 1px solid #ccc;
+    font-size: 0.9em;
+  }
+
+  ion-item.ios {
+    border: none;
+    font-size: 0.9em;
+  }
+
+  ion-list {
+    z-index: 1;
+    padding-top: 0;
+    box-shadow: 0px 5px 5px 2px #aaa;
+    margin-top: -15px;
+    position: relative;
+    font-size: 0.8em;
+
+    ion-item {
+      border-top: unset;
+      border-right: unset;
+      border-bottom: 1px solid #ccc;
+      border-left: unset;
+
+      &:last-child {
+        border-bottom: unset;
+      }
+    }
+  }
+}
+
+.mensagem-tabela-preco-fixo {
+  background-color: var(--ion-color-danger);
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+
+  ion-label {
+    color: var(--ion-color-danger-contrast);
+    font-weight: bold;
+  }
+}
+
+// Inputs no detalhe do produto para pedido
+.inputColBorder,
+.inputColBorderSmall {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  ion-label {
+    font-size: 14px;
+  }
+  ion-input {
+    text-align: center;
+    border-radius: 10px;
+    background-color: #d9d9da47;
+    color: #060606;
+    border-bottom: solid 1.5px;
+    border-color: cornflowerblue;
+
+    input {
+      padding-right: 10px;
+    }
+  }
+}
+
+.inputColBorderSmall {
+  ion-label {
+    font-size: 0.6em;
+  }
+}
+
+.list-md,
+list-ios {
+  padding-top: 0px;
+  padding-bottom: 2px;
+}
+
+#select-clientes,
+#select-unidades,
+#select-tipo-operacao {
+  margin-bottom: 5%;
+}
+
+#select-clientes,
+#select-unidades,
+#select-unidades-totais,
+#select-tabela-precos,
+#select-tipo-operacao {
+  ion-select {
+    padding-left: 2px;
+  }
+  ion-icon:first-child {
+    margin-right: 5px;
+    color: var(--ion-color-primary-tint);
+  }
+
+  ion-icon:last-child {
+    color: var(--ion-color-step-600, #666);
+    margin-left: 0;
+  }
+}
+
+.content-div {
+  padding: 7% 5% 0 5%;
+}
+
+#dados-pedido-cliente {
+  ion-card {
+    border-radius: 10px !important;
+    margin: unset;
+    box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.77);
+  }
+
+  ion-slide {
+    display: block;
+
+    ion-item {
+      --padding-start: 0;
+    }
+  }
+
+  ion-icon {
+    color: var(--ion-color-primary-tint);
+    margin-right: 10px;
+  }
+
+  ion-grid {
+    padding: 0 0 2px 4%;
+    text-align: start;
+  }
+}
+
+#situacao-financeira,
+#grupo-financeiro,
+#documentacao,
+#dados-cadastrais,
+#endereco {
+  font-size: 0.9em;
+
+  ion-grid {
+    ion-row:nth-child(odd) {
+      line-height: 0.5em;
+    }
+
+    ion-row:nth-child(even) {
+      margin-bottom: 20px;
+    }
+  }
+
+  ion-label {
+    line-height: 1em;
+  }
+
+  .cor-verde {
+    color: var(--ion-color-success-shade);
+  }
+
+  .cor-vermelha {
+    color: var(--ion-color-danger);
+  }
+}
+
+#dados-cadastrais,
+#contato {
+  font-size: 0.9em;
+
+  ion-item {
+    border: none;
+  }
+
+  ion-grid {
+    ion-row:nth-child(odd) {
+      line-height: 0.5em;
+    }
+
+    // ion-row:nth-child(even) {
+    //   margin-bottom: 20px;
+    // }
+  }
+
+  .cor-verde {
+    color: var(--ion-color-success-shade);
+  }
+
+  .cor-vermelha {
+    color: var(--ion-color-danger);
+  }
+}
+
+#dados-cadastrais,
+#endereco {
+  .quebra-de-linha {
+    word-break: break-word;
+  }
+
+  ion-grid {
+    ion-row:nth-child(odd) {
+      line-height: 0.5em;
+    }
+
+    ion-row:nth-child(even) {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+#toolbar-produtos-kits.md,
+#toolbar-check.md {
+  // height: 30px;
+
+  ion-label {
+    padding-bottom: 9px;
+  }
+}
+
+#toolbar-produtos-kits.ios,
+#toolbar-check.ios {
+  height: unset !important;
+
+  ion-segment {
+    width: 100%;
+  }
+
+  ion-label.ios {
+    padding-bottom: unset;
+    font-size: unset !important;
+  }
+}
+
+#toolbar-produto-page.ios,
+#toolbar-produto.check.ios {
+  ion-title {
+    padding-left: unset;
+  }
+}
+
+#segment-pedido-check,
+#segment-produtos {
+  // ion-label {
+  //   font-size: 0.7em !important;
+  // }
+
+  .segment-button-checked {
+    border-radius: 5px !important;
+    background-color: #2474a5 !important;
+    color: white !important;
+    //border: 0.2px solid white;
+  }
+}
+
+#segment-produtos.ios,
+#segment-pedido-check.ios {
+  width: 100%;
+}
+
+#segment-pedido-check.ios {
+  ion-segment-button {
+    font-size: 0.7em;
+  }
+}
+
+.produto-listagem-outer {
+  font-size: 12px;
+  width: 100%;
+
+  .produto-listagem {
+    margin-top: unset !important;
+    border-bottom: 1px solid #244381;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    & > div:first-child {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      height: 20px;
+
+      ion-row {
+        display: contents;
+      }
+
+      // ion-label:first-child {
+      //   color: var(--ion-color-primary-tint);
+      // }
+
+      // ion-label:nth-child(2) {
+      //   color: var(--ion-color-primary);
+      // }
+
+      // ion-label:last-child {
+      //   color: var(--ion-color-primary);
+      // }
+
+      ion-icon {
+        font-size: 1.8em;
+      }
+    }
+
+    div:nth-child(4) {
+      // margin: 2% 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      // ion-label {
+      //   font-weight: bold;
+      // }
+
+      ion-badge {
+        margin: 1%;
+        font-size: 12px;
+        padding: 4px;
+      }
+    }
+
+    #dadosItemPedidoTemp {
+      font-size: 12px;
+      padding-bottom: 5px;
+      div {
+        display: flex;
+        justify-content: space-between;
+        margin: 1% 0;
+      }
+    }
+  }
+
+  & > div:nth-child(2) {
+    ion-label {
+      font-weight: bold;
+    }
+  }
+
+  ion-searchbar {
+    background-color: transparent !important;
+    input {
+      font-size: 1em;
+    }
+  }
+}
+
+.mensagem-restricao-venda {
+  word-break: break-all;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+//*******************
+//***** PRODUTO *****
+//*******************
+#grid-produtos {
+  ion-col:first-child {
+    align-self: center;
+  }
+}
+
+.grid-detalhe-produto,
+.grid-detalhe-produto.ios {
+  //font-size: 0.9em;
+  font-size: 0.7em;
+  margin: 1px;
+  padding-top: 2em;
+
+  ion-row {
+    ion-col {
+      //background-color: red;
+      margin: 1px;
+    }
+  }
+
+  ion-label {
+    width: unset !important;
+  }
+
+  #estoqueBadge {
+    display: inline-flex;
+
+    h4 {
+      padding-right: 7px;
+    }
+  }
+
+  #controladoTogue {
+    display: inline-flex;
+
+    h4 {
+      padding-right: 7px;
+    }
+  }
+}
+
+.grid-detalhe-produto h4 {
+  font-size: 0.9em;
+  color: #1e2023;
+}
+
+#produto-page-unidades,
+#kit-page-unidades {
+  margin: 5%;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+#detalhe-produto-estoque.ios {
+  ion-item {
+    font-size: 1em;
+  }
+}
+
+//*******************
+//***** CLIENTE *****
+//*******************
+#segment-dados {
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+
+  .segment-dados-titulo {
+    font-size: 14px;
+    font-weight: bold;
+    // color: var(--ion-color-primary-tint);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    padding-top: 9px;
+  }
+
+  ion-card {
+    box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.77);
+    border-radius: 10px !important;
+    margin: 0 0 2% 0;
+    // border-top-right-radius: 15px !important;
+    // border-top-left-radius: 15px !important;
+    // border-bottom-left-radius: 15px !important;
+    // border-bottom-right-radius: 15px !important;
+
+    ion-card-header {
+      font-size: 1.1em;
+    }
+
+    ion-card-content {
+      padding: 0 2%;
+      line-height: 1em;
+      font-size: 1.1em;
+
+      ion-row:nth-child(even) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.clienteInfo {
+  text-align: end;
+  padding-right: 40px;
+  // padding-bottom: 25px;
+
+  b {
+    font-size: 25px;
+    position: absolute;
+    color: #f44336;
+  }
+}
+
+.cashInfo {
+  text-align: end;
+  padding-right: 40px;
+  // padding-bottom: 25px;
+
+  b {
+    font-size: 25px;
+    position: absolute;
+    color: #2e7d32;
+  }
+}
+
+//****************************
+//***** LISTA DE PEDIDOS *****
+//****************************
+#segment-list-pedido {
+  padding-top: 10px;
+  // padding-bottom: 10px;
+
+  .segment-dados-titulo {
+    font-weight: bold;
+    // color: var(--ion-color-primary-tint);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    height: 42px;
+    padding-top: 9px;
+    font-size: 0.9em;
+  }
+
+  ion-card {
+    box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.77);
+    border-radius: 10px !important;
+    // padding-top: 10px;
+    // padding-bottom: 10px;
+    margin: 0 0 2% 0;
+    // border-top-right-radius: 15px !important;
+    // border-top-left-radius: 15px !important;
+    // border-bottom-left-radius: 15px !important;
+    // border-bottom-right-radius: 15px !important;
+
+    ion-card-header {
+      font-size: 1.1em;
+    }
+
+    ion-card-content {
+      padding: 0 2%;
+      line-height: 1em;
+      font-size: 1.1em;
+
+      ion-row:nth-child(even) {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+// .cardBorder {
+//   border-top-right-radius: 15px !important;
+//   border-top-left-radius: 15px !important;
+//   border-bottom-left-radius: 15px !important;
+//   border-bottom-right-radius: 15px !important;
+// }
+
+.seguimento-pedidos {
+  display: flex;
+  background-color: #2474a5;
+  justify-content: space-between;
+  color: white;
+  height: 42px;
+  padding-top: 9px;
+}
+
+.seguimento-titulos {
+  padding-top: 13px;
+  height: 42px;
+}
+
+//*******************
+//***** TITULOS *****
+//*******************
+.icone-detalhes {
+  transition: all 150ms ease;
+  z-index: 1;
+  color: var(--ion-color-primary-tint);
+
+  &:active {
+    transform: scale(1.2, 1.2);
+  }
+}
+
+//*******************
+//****** LOGIN ******
+//*******************
+#acesso-pendente {
+  div {
+    text-align: center;
+    height: 100%;
+    align-items: center;
+    align-content: center;
+    display: grid;
+  }
+
+  h3 {
+    color: var(--ion-color-danger);
+  }
+
+  ion-label {
+    font-size: 0.9em;
+  }
+}
+
+//*******************
+//***** CONEXÃO *****
+//*******************
+#content-conexao {
+  div {
+    padding-top: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+}
+
+//*******************
+//**** REFRESHER ****
+//*******************
+ion-refresher {
+  position: unset !important;
+}
+
+//*************************************
+//***** Alerta com 1 ou 2 botões ******
+//*************************************
+.alertaCss,
+.alertaCssTres {
+  // Tamanho dinamico do alerta de acordo com a quantidade de informações colocadas!
+  .alert-message.sc-ion-alert-md,
+  .alert-message.sc-ion-alert-ios {
+    padding-top: 10px !important;
+    max-height: unset !important;
+  }
+
+  text-align: center;
+  border-radius: 10px !important;
+  overflow: hidden;
+
+  // Tamanho da imagem no alerta deixar o padrao de 20%!
+  img {
+    display: inline-flex;
+    width: 20%;
+  }
+
+  ion-img {
+    display: inline-flex;
+    width: 40%;
+  }
+
+  .alert-title {
+    color: var(--ion-color-danger);
+  }
+  text {
+    color: darkcyan;
+  }
+  b {
+    color: #000;
+  }
+  p {
+    color: gray;
+  }
+  .textRed {
+    color: #f44336;
+  }
+
+  // Verde
+  .salvarButton {
+    border-color: var(--ion-color-success) !important;
+    background-color: var(--ion-color-success) !important;
+    color: var(--ion-color-light) !important;
+    // background-color: #DFF0D8 !important;
+    // color: #3C763D !important;
+  }
+
+  // Azul
+  .salvarEnviarButton {
+    border-color: #1471dc !important;
+    background-color: #1471dc;
+    color: var(--ion-color-light) !important;
+    // background-color: #D9EDF7 !important;
+    // color: #31708F !important;
+  }
+
+  // Vermelho
+  .cancelarButton {
+    border-color: var(--ion-color-danger) !important;
+    background-color: var(--ion-color-danger) !important;
+    color: var(--ion-color-light) !important;
+    // background-color: #F2DEDE !important;
+    // color: #A94442 !important;
+  }
+
+  // Amarelo
+  .voltarButton {
+    // border-color: var(--ion-color-medium) !important;
+    // background-color: var(--ion-color-medium) !important;
+    // color: var(--ion-color-medium-contrast) !important;
+
+    border-color: var(--ion-color-warning) !important;
+    background-color: var(--ion-color-warning) !important;
+    color: var(--ion-color-warning-contrast) !important;
+    // background-color: #FCF8E3 !important;
+    // color: #8A6D3B !important;
+  }
+
+  .okButton {
+    border-color: var(--ion-color-primary) !important;
+    background-color: var(--ion-color-primary) !important;
+    color: var(--ion-color-light) !important;
+    // background-color: #D9EDF7 !important;
+    // color: #31708F !important;
+  }
+
+  .alert-button {
+    // writing-mode: vertical-lr;
+    height: 35px !important;
+    border-radius: 10px !important;
+    border: 0.3px solid !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  // Centralizando botões
+  .alert-button-group {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+//*************************************
+//***** Alerta com tres escolhas ******
+//*************************************
+.alertaCssTres {
+  .sc-ion-alert-ios {
+    padding: 0 !important;
+  }
+
+  .alert-button-group {
+    writing-mode: vertical-lr !important;
+  }
+}
+
+.my-class .alert-wrapper {
+  max-width: 94% !important;
+}
+
+//**************************
+//***** Alterta Toast ******
+//**************************
+.toastCss {
+  text-align: center;
+}
+
+.checkboxButtonTotais {
+  margin-left: -8px;
+  margin-right: 8px;
+}
+
+//********************************
+//***** Sombra tab selected ******
+//********************************
+.tab-selected,
+.segment-button-checked {
+  border-radius: 5px;
+  background-color: rgb(50 50 50 / 77%); //#39558d;
+  color: white;
+  //border: 0.2px solid white;
+}
+
+//.segment-button-checked {
+// border-radius: 10px !important;
+//  background-color: #3c66a7;
+//  border: 0.2px solid white;
+//}
+
+//************************************************
+//***** Barra de Rolagem e Borda nos botoes ******
+//************************************************
+.alert-radio-group::-webkit-scrollbar,
+.alert-checkbox-group::-webkit-scrollbar {
+  width: 1em;
+  display: block !important;
+}
+
+// Sombra
+// .alert-radio-group::-webkit-scrollbar-track,
+// .alert-checkbox-group::-webkit-scrollbar-track {
+// -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+// }
+
+.alert-radio-group::-webkit-scrollbar-thumb,
+.alert-checkbox-group::-webkit-scrollbar-thumb {
+  background-color: var(--ion-color-primary) !important;
+  border-radius: 3px;
+  outline: 1px solid slategrey;
+}
+
+.alert-button {
+  height: 35px !important;
+  border-radius: 10px !important;
+  border: 0.3px solid !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+//***********************************
+//***** Tamanho footer cliente ******
+//***********************************
+.segment-scrollable.sc-ion-segment-md-h,
+.segment-scrollable.sc-ion-segment-ios-h {
+  height: 50px;
+}
+
+//**********************************
+//***** Slide filtro produtos ******
+//**********************************
+.horizontal-scroll {
+  overflow: hidden;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 36px;
+}
+
+//******************************
+//***** Para modal imagem ******
+//******************************
+.close-fake {
+  ion-icon {
+    font-size: 2rem;
+  }
+  margin-top: 40px;
+
+  ion-slides {
+    // width: 100vh;
+    height: 95%;
+    display: flex;
+  }
+
+  img {
+    // padding-top: 20px;
+    // padding-bottom: 20px;
+    width: 100%;
+  }
+}
+
+//********************
+//***** COCKPIT ******
+//********************
+.cockPit {
+  display: grid;
+  text-align: center;
+
+  ion-label {
+    padding-bottom: 4px;
+    color: white;
+  }
+}
+
+//*************************
+//***** PROGRESS BAR ******
+//*************************
+$primary: #00d1b2;
+$text: #4a4a4a;
+$progress-bar-background-color: #dbdbdb;
+$dummy-invert: white;
+$colors: (
+  "primary": (
+    $primary,
+    $dummy-invert,
+  ),
+  "link": (
+    #209cee,
+    $dummy-invert,
+  ),
+  "info": (
+    #2474a5,
+    $dummy-invert,
+  ),
+  "success": (
+    #23d160,
+    $dummy-invert,
+  ),
+  "warning": (
+    #ffdd57,
+    $dummy-invert,
+  ),
+  "danger": (
+    #ff3860,
+    $dummy-invert,
+  ),
+);
+
+.progress {
+  background: $progress-bar-background-color;
+
+  &::-webkit-progress-bar {
+    background: transparent !important; // override bulma.css
+  }
+
+  &:indeterminate {
+    animation: progress-indeterminate 1.5s linear infinite;
+    background: $progress-bar-background-color linear-gradient(to right, $text 30%, $progress-bar-background-color 30%)
+      top left / 150% 150% no-repeat;
+
+    &::-moz-progress-bar {
+      background: transparent !important; // override bulma.css
+    }
+
+    @each $name, $pair in $colors {
+      $color: nth($pair, 1);
+      &.is-#{$name} {
+        background: $progress-bar-background-color
+          linear-gradient(to right, $color 30%, $progress-bar-background-color 30%)
+          top
+          left /
+          150%
+          150%
+          no-repeat;
+      }
+    }
+  }
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// *********************** //
+// ****** Card Home ****** //
+// *********************** //
+.cardHomeButton {
+  border-radius: 10px !important;
+  height: 40px;
+  color: white;
+  text-align: center;
+  padding-top: 11px;
+}
+.contato {
+  background-color: darkslategrey;
+}
+.pedido {
+  background-color: tomato;
+}
+.produto {
+  background-color: steelblue;
+}
+.atividade {
+  background-color: #26a69a;
+}
+.naopositivo {
+  background-color: #6830b1;
+}
+.relVenda {
+  background-color: #38b6ff;
+}
+.relMeta {
+  background-color: #ffbd59;
+}
+
+// ***************************** //
+// ****** Pagamentos Page ****** //
+// ***************************** //
+.viewPagamento {
+  ion-grid.cardON {
+    background-color: #1d1d27;
+    border-radius: 10px !important;
+    padding: 15px;
+    margin-bottom: 15px;
+    max-width: 400px !important;
+    .msg {
+      background-color: #2758b3;
+    }
+  }
+  ion-grid.cardOFF {
+    background-color: #f36b45;
+    border-radius: 10px !important;
+    padding: 10px;
+    margin-bottom: 15px;
+    max-width: 400px !important;
+    .msg {
+      background-color: #616161;
+    }
+  }
+  .msg {
+    //background-color: #679cff;
+    float: left;
+    padding: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: 0.8em;
+    color: white;
+    border-radius: 5px;
+  }
+  .number {
+    color: white;
+    font-size: 1.5em;
+    line-height: 2em;
+    text-align: center;
+  }
+  .digits {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+  .date {
+    color: white;
+    font-size: 0.8em;
+  }
+  .bank {
+    text-align: right;
+    color: white;
+    font-size: 0.8em;
+  }
+  .brand {
+    max-width: 40%;
+    float: right;
+  }
+  .ON {
+    height: 8px;
+    width: 8px;
+    background-color: #8de278;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 2px;
+  }
+  .OFF {
+    height: 8px;
+    width: 8px;
+    background-color: #fb5f5f;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 2px;
+  }
+  .chip {
+    img {
+      max-width: 50px;
+      padding-top: 5%;
+      border-radius: 10% !important;
+      overflow: hidden;
+    }
+  }
+}
+
+.cssPagamento {
+  p {
+    text-align: center;
+  }
+  h3 {
+    text-align: center;
+  }
+}
+
+// ***************************** //
+// ****** CSS POPOVER ****** //
+// ***************************** //
+.cssPopover {
+  .popover-content {
+    --min-width: 70% !important;
+    border-radius: 10px !important;
+
+    top: 6.9% !important;
+    left: unset !important;
+    right: 0px !important;
+
+    transform-origin: right top !important;
+  }
+}
+
+.cssPopoverFiltro {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-radius: 10px !important;
+  // padding-left: 10px;
+  // padding-right: 10px;
+}
+
+.cssPopoverGrafico {
+  .popover-content {
+    --min-width: 95% !important;
+    border-radius: 4px !important;
+
+    // top: 6.9% !important;
+    // left: unset !important;
+    // right: 0px !important;
+
+    transform-origin: center top !important;
+  }
+}
+
+// **************************** //
+// ******** Sobre Page ******** //
+// **************************** //
+.cssSobrePage {
+  p {
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  ion-img {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+// ******************************* //
+// ****** MODIFICANDO MODAL ****** //
+// ******************************* //
+.modalInterno {
+  .modal-wrapper.sc-ion-modal-md,
+  .modal-wrapper.sc-ion-modal-ios {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+// ************************** //
+// ****** BORDA FOOTER ****** //
+// ************************** //
+.borderFooter {
+  border: solid 0.1px !important;
+  border-color: #244381 !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+}
+
+// ************************** //
+// ****** LOADING CSS ****** //
+// ************************* //
+.loadingCss {
+  text-align: center !important;
+  .loading-wrapper.sc-ion-loading-md {
+    background: white !important;
+    border-radius: 10px !important;
+
+    .spinner-crescent {
+      color: #e61915 !important;
+    }
+  }
+  // Tamanho da imagem no alerta deixar o padrao de 20%!
+  img {
+    width: 20%;
+  }
+
+  ion-img {
+    display: inline-flex;
+    width: 40%;
+  }
+}
+
+ion-spinner {
+  color: #e61915 !important;
+}
+
+// *********************************** //
+// ****** Texto na borda da div ****** //
+// *********************************** //
+.textoBordaDiv {
+  position: relative !important;
+  top: 8px;
+  left: 20px;
+  width: 30%;
+  background-color: #ff5722d4 !important;
+  color: white !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  border-radius: 10px !important;
+  text-align: center !important;
+  font-size: 14px !important;
+}
+
+.sombraComponente {
+  box-shadow: 1px 1px 5px rgba(50, 50, 50, 0.77);
+}
+
+// *********************************** //
+// ************** Itens ************** //
+// *********************************** //
+.itens-verba-detalhe.ios {
+  font-size: 0.8em;
+  height: unset !important;
+
+  ion-row {
+    padding-bottom: 0 !important;
+  }
+
+  ion-col {
+    padding: 0;
+  }
+
+  ion-label {
+    padding-bottom: 0 !important;
+  }
+}
+
+.ocultar-se-vazio:empty {
+  display: none;
+}
+
+.img-filtro {
+  max-width: 30px !important;
+  max-height: 30px;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* CSS do filtro */
+.cssDoFiltro {
+  height: 48px;
+  width: 100vw;
+  border: 1px solid;
+  display: flex;
+
+  & > span:first-child {
+    border-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
+    display: flex;
+  }
+}
+
+// ************************************ //
+// ************** Agenda ************** //
+// ************************************ //
+.avisoAgendamento {
+  text-align: center;
+  text-transform: uppercase;
+  background-color: #ff6b00;
+  // border-radius: 10px;
+  margin: 0px;
+
+  span {
+    color: white;
+  }
+}
+
+
+
+---------------------->VARIABLES CSS<------------------------------
+
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+/** Ionic CSS Variables **/
+:root {
+  .sizeShort {
+    ion-title,
+    ion-card-title,
+    ion-card-header,
+    ion-list,
+    ion-card,
+    p,
+    h1,
+    h2,
+    h3,
+    ion-label,
+    ion-card-subtitle,
+    ion-card-title {
+      font-size: 95%;
+    }
+  }
+}
+
+:root {
+  .sizeNormal {
+    ion-title,
+    ion-card-title,
+    ion-card-header,
+    ion-list,
+    ion-card,
+    p,
+    h1,
+    h2,
+    h3,
+    ion-label,
+    ion-card-subtitle,
+    ion-card-title {
+      font-size: 100%;
+    }
+  }
+}
+
+:root {
+  .sizeBig {
+    ion-title,
+    ion-card-title,
+    ion-card-header,
+    ion-list,
+    ion-card,
+    p,
+    h1,
+    h2,
+    h3,
+    ion-label,
+    ion-card-subtitle,
+    ion-card-title {
+      font-size: 105%;
+    }
+  }
+}
+
+/** Ionic CSS Variables **/
+:root {
+  /** primary **/
+  --ion-color-primary: #244381;
+  --ion-color-primary-rgb: 56, 128, 255;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #3171e0;
+  --ion-color-primary-tint: #4c8dff;
+
+  /** secondary **/
+  --ion-color-secondary: #0cd1e8;
+  --ion-color-secondary-rgb: 12, 209, 232;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #0bb8cc;
+  --ion-color-secondary-tint: #24d6ea;
+
+  /** tertiary **/
+  --ion-color-tertiary: #7044ff;
+  --ion-color-tertiary-rgb: 112, 68, 255;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #633ce0;
+  --ion-color-tertiary-tint: #7e57ff;
+
+  /** success **/
+  //--ion-color-success: #10dc60;
+  //--ion-color-success-rgb: 16, 220, 96;
+  //--ion-color-success-contrast: #ffffff;
+  //--ion-color-success-contrast-rgb: 255, 255, 255;
+  //--ion-color-success-shade: #0ec254;
+  //--ion-color-success-tint: #28e070;
+  --ion-color-success: #2e7d32;
+  --ion-color-success-rgb: 46, 125, 50;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #286e2c;
+  --ion-color-success-tint: #438a47;
+
+  /** warning **/
+  //--ion-color-warning: #ffce00;
+  //--ion-color-warning-rgb: 255, 206, 0;
+  //--ion-color-warning-contrast: #ffffff;
+  //--ion-color-warning-contrast-rgb: 255, 255, 255;
+  //--ion-color-warning-shade: #e0b500;
+  //--ion-color-warning-tint: #ffd31a;
+  --ion-color-warning: #ffc107;
+  --ion-color-warning-rgb: 255, 193, 7;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #e0aa06;
+  --ion-color-warning-tint: #ffc720;
+
+  /** danger **/
+  //--ion-color-danger: #f04141;
+  //--ion-color-danger-rgb: 245, 61, 61;
+  //--ion-color-danger-contrast: #ffffff;
+  //--ion-color-danger-contrast-rgb: 255, 255, 255;
+  //--ion-color-danger-shade: #d33939;
+  //--ion-color-danger-tint: #f25454;
+  --ion-color-danger: #f44336;
+  --ion-color-danger-rgb: 244, 67, 54;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #d73b30;
+  --ion-color-danger-tint: #f5564a;
+
+  /** dark **/
+  --ion-color-dark: #222428;
+  --ion-color-dark-rgb: 34, 34, 34;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #1e2023;
+  --ion-color-dark-tint: #383a3e;
+
+  /** medium **/
+  --ion-color-medium: #989aa2;
+  --ion-color-medium-rgb: 152, 154, 162;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #86888f;
+  --ion-color-medium-tint: #a2a4ab;
+
+  /** light **/
+  --ion-color-light: #f4f5f8;
+  --ion-color-light-rgb: 244, 244, 244;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #d7d8da;
+  --ion-color-light-tint: #f5f6f9;
+
+  /** azulClaro **/
+  --ion-color-azulclaro: #3498db;
+  --ion-color-azulclaro-rgb: 52, 152, 219;
+  --ion-color-azulclaro-contrast: #000000;
+  --ion-color-azulclaro-contrast-rgb: 0, 0, 0;
+  --ion-color-azulclaro-shade: #2e86c1;
+  --ion-color-azulclaro-tint: #48a2df;
+
+  /** verdeClaro **/
+  --ion-color-verdeclaro: #239b56;
+  --ion-color-verdeclaro-rgb: 35, 155, 86;
+  --ion-color-verdeclaro-contrast: #ffffff;
+  --ion-color-verdeclaro-contrast-rgb: 255, 255, 255;
+  --ion-color-verdeclaro-shade: #1f884c;
+  --ion-color-verdeclaro-tint: #39a567;
+
+  /** azulMarinho **/
+  --ion-color-azulmarinho: #1471dc;
+  --ion-color-azulmarinho-rgb: 20, 113, 220;
+  --ion-color-azulmarinho-contrast: #ffffff;
+  --ion-color-azulmarinho-contrast-rgb: 255, 255, 255;
+  --ion-color-azulmarinho-shade: #1263c2;
+  --ion-color-azulmarinho-tint: #2c7fe0;
+
+  /** verdeaqua **/
+  --ion-color-verdeaqua: #005c63;
+  --ion-color-verdeaqua-rgb: 0, 92, 99;
+  --ion-color-verdeaqua-contrast: #ffffff;
+  --ion-color-verdeaqua-contrast-rgb: 255, 255, 255;
+  --ion-color-verdeaqua-shade: #005157;
+  --ion-color-verdeaqua-tint: #1a6c73;
+
+  /** azulProfundo **/
+  --ion-color-azulprofundo: #012c7c;
+  --ion-color-azulprofundo-rgb: 1, 44, 124;
+  --ion-color-azulprofundo-contrast: #ffffff;
+  --ion-color-azulprofundo-contrast-rgb: 255, 255, 255;
+  --ion-color-azulprofundo-shade: #01276d;
+  --ion-color-azulprofundo-tint: #1a4189;
+
+  // verdeacripel
+  --ion-color-verdeacripel: #6ec071;
+  --ion-color-verdeacripel-rgb: 110, 192, 113;
+  --ion-color-verdeacripel-contrast: #000000;
+  --ion-color-verdeacripel-contrast-rgb: 0, 0, 0;
+  --ion-color-verdeacripel-shade: #61a963;
+  --ion-color-verdeacripel-tint: #7dc67f;
+
+  // azulacripel
+  --ion-color-azulacripel: #00bcd4;
+  --ion-color-azulacripel-rgb: 0, 188, 212;
+  --ion-color-azulacripel-contrast: #000000;
+  --ion-color-azulacripel-contrast-rgb: 0, 0, 0;
+  --ion-color-azulacripel-shade: #00a5bb;
+  --ion-color-azulacripel-tint: #1ac3d8;
+
+  // Laranja
+  --ion-color-laranja: #ff9933;
+  --ion-color-laranja-rgb: 255, 153, 51;
+  --ion-color-laranja-contrast: #000000;
+  --ion-color-laranja-contrast-rgb: 0, 0, 0;
+  --ion-color-laranja-shade: #e0872d;
+  --ion-color-laranja-tint: #ffa347;
+
+  // Orange
+  --ion-color-orange: #f05924;
+  --ion-color-orange-rgb: 240, 89, 36;
+  --ion-color-orange-contrast: #000000;
+  --ion-color-orange-contrast-rgb: 0, 0, 0;
+  --ion-color-orange-shade: #d34e20;
+  --ion-color-orange-tint: #f26a3a;
+
+  //BlackGray
+  --ion-color-blackgray: #29282c;
+  --ion-color-blackgray-rgb: 41, 40, 44;
+  --ion-color-blackgray-contrast: #ffffff;
+  --ion-color-blackgray-contrast-rgb: 255, 255, 255;
+  --ion-color-blackgray-shade: #242327;
+  --ion-color-blackgray-tint: #3e3e41;
+
+  //RoxoVivo
+  --ion-color-roxovivo: #4f48ec;
+  --ion-color-roxovivo-rgb: 79, 72, 236;
+  --ion-color-roxovivo-contrast: #ffffff;
+  --ion-color-roxovivo-contrast-rgb: 255, 255, 255;
+  --ion-color-roxovivo-shade: #463fd0;
+  --ion-color-roxovivo-tint: #615aee;
+
+  //NewGray
+  --ion-color-newgray: #737678;
+  --ion-color-newgray-rgb: 115, 118, 120;
+  --ion-color-newgray-contrast: #ffffff;
+  --ion-color-newgray-contrast-rgb: 255, 255, 255;
+  --ion-color-newgray-shade: #65686a;
+  --ion-color-newgray-tint: #818486;
+}
+
+.ion-color-newgray {
+  --ion-color-base: var(--ion-color-newgray);
+  --ion-color-base-rgb: var(--ion-color-newgray-rgb);
+  --ion-color-contrast: var(--ion-color-newgray-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-newgray-contrast-rgb);
+  --ion-color-shade: var(--ion-color-newgray-shade);
+  --ion-color-tint: var(--ion-color-newgray-tint);
+}
+
+.ion-color-roxovivo {
+  --ion-color-base: var(--ion-color-roxovivo);
+  --ion-color-base-rgb: var(--ion-color-roxovivo-rgb);
+  --ion-color-contrast: var(--ion-color-roxovivo-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-roxovivo-contrast-rgb);
+  --ion-color-shade: var(--ion-color-roxovivo-shade);
+  --ion-color-tint: var(--ion-color-roxovivo-tint);
+}
+
+.ion-color-blackgray {
+  --ion-color-base: var(--ion-color-blackgray);
+  --ion-color-base-rgb: var(--ion-color-blackgray-rgb);
+  --ion-color-contrast: var(--ion-color-blackgray-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-blackgray-contrast-rgb);
+  --ion-color-shade: var(--ion-color-blackgray-shade);
+  --ion-color-tint: var(--ion-color-blackgray-tint);
+}
+
+.ion-color-orange {
+  --ion-color-base: var(--ion-color-orange);
+  --ion-color-base-rgb: var(--ion-color-orange-rgb);
+  --ion-color-contrast: var(--ion-color-orange-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-orange-contrast-rgb);
+  --ion-color-shade: var(--ion-color-orange-shade);
+  --ion-color-tint: var(--ion-color-orange-tint);
+}
+
+.ion-color-azulacripel {
+  --ion-color-base: var(--ion-color-azulacripel);
+  --ion-color-base-rgb: var(--ion-color-azulacripel-rgb);
+  --ion-color-contrast: var(--ion-color-azulacripel-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-azulacripel-contrast-rgb);
+  --ion-color-shade: var(--ion-color-azulacripel-shade);
+  --ion-color-tint: var(--ion-color-azulacripel-tint);
+}
+
+.ion-color-verdeacripel {
+  --ion-color-base: var(--ion-color-verdeacripel);
+  --ion-color-base-rgb: var(--ion-color-verdeacripel-rgb);
+  --ion-color-contrast: var(--ion-color-verdeacripel-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-verdeacripel-contrast-rgb);
+  --ion-color-shade: var(--ion-color-verdeacripel-shade);
+  --ion-color-tint: var(--ion-color-verdeacripel-tint);
+}
+
+.ion-color-azulprofundo {
+  --ion-color-base: var(--ion-color-azulprofundo);
+  --ion-color-base-rgb: var(--ion-color-azulprofundo-rgb);
+  --ion-color-contrast: var(--ion-color-azulprofundo-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-azulprofundo-contrast-rgb);
+  --ion-color-shade: var(--ion-color-azulprofundo-shade);
+  --ion-color-tint: var(--ion-color-azulprofundo-tint);
+}
+
+.ion-color-verdeaqua {
+  --ion-color-base: var(--ion-color-verdeaqua);
+  --ion-color-base-rgb: var(--ion-color-verdeaqua-rgb);
+  --ion-color-contrast: var(--ion-color-verdeaqua-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-verdeaqua-contrast-rgb);
+  --ion-color-shade: var(--ion-color-verdeaqua-shade);
+  --ion-color-tint: var(--ion-color-verdeaqua-tint);
+}
+
+.ion-color-azulmarinho {
+  --ion-color-base: var(--ion-color-azulmarinho);
+  --ion-color-base-rgb: var(--ion-color-azulmarinho-rgb);
+  --ion-color-contrast: var(--ion-color-azulmarinho-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-azulmarinho-contrast-rgb);
+  --ion-color-shade: var(--ion-color-azulmarinho-shade);
+  --ion-color-tint: var(--ion-color-azulmarinho-tint);
+}
+
+.ion-color-verdeclaro {
+  --ion-color-base: var(--ion-color-verdeclaro);
+  --ion-color-base-rgb: var(--ion-color-verdeclaro-rgb);
+  --ion-color-contrast: var(--ion-color-verdeclaro-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-verdeclaro-contrast-rgb);
+  --ion-color-shade: var(--ion-color-verdeclaro-shade);
+  --ion-color-tint: var(--ion-color-verdeclaro-tint);
+}
+
+.ion-color-azulclaro {
+  --ion-color-base: var(--ion-color-azulclaro);
+  --ion-color-base-rgb: var(--ion-color-azulclaro-rgb);
+  --ion-color-contrast: var(--ion-color-azulclaro-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-azulclaro-contrast-rgb);
+  --ion-color-shade: var(--ion-color-azulclaro-shade);
+  --ion-color-tint: var(--ion-color-azulclaro-tint);
+}
+
+.ion-color-laranja {
+  --ion-color-base: var(--ion-color-laranja);
+  --ion-color-base-rgb: var(--ion-color-laranja-rgb);
+  --ion-color-contrast: var(--ion-color-laranja-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-laranja-contrast-rgb);
+  --ion-color-shade: var(--ion-color-laranja-shade);
+  --ion-color-tint: var(--ion-color-laranja-tint);
+}
+
+//@media (prefers-color-scheme: dark) {
+//  /*
+//   * Dark Colors
+//   * -------------------------------------------
+//   */
+//
+//  body {
+//    /** primary **/
+//    --ion-color-primary: #244381;
+//    --ion-color-primary-rgb: 56, 128, 255;
+//    --ion-color-primary-contrast: #ffffff;
+//    --ion-color-primary-contrast-rgb: 255, 255, 255;
+//    --ion-color-primary-shade: #3171e0;
+//    --ion-color-primary-tint: #4c8dff;
+//
+//    /** secondary **/
+//    --ion-color-secondary: #0cd1e8;
+//    --ion-color-secondary-rgb: 12, 209, 232;
+//    --ion-color-secondary-contrast: #ffffff;
+//    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+//    --ion-color-secondary-shade: #0bb8cc;
+//    --ion-color-secondary-tint: #24d6ea;
+//
+//    /** tertiary **/
+//    --ion-color-tertiary: #7044ff;
+//    --ion-color-tertiary-rgb: 112, 68, 255;
+//    --ion-color-tertiary-contrast: #ffffff;
+//    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+//    --ion-color-tertiary-shade: #633ce0;
+//    --ion-color-tertiary-tint: #7e57ff;
+//
+//    /** success **/
+//    //--ion-color-success: #10dc60;
+//    //--ion-color-success-rgb: 16, 220, 96;
+//    //--ion-color-success-contrast: #ffffff;
+//    //--ion-color-success-contrast-rgb: 255, 255, 255;
+//    //--ion-color-success-shade: #0ec254;
+//    //--ion-color-success-tint: #28e070;
+//    --ion-color-success: #2e7d32;
+//    --ion-color-success-rgb: 46, 125, 50;
+//    --ion-color-success-contrast: #ffffff;
+//    --ion-color-success-contrast-rgb: 255, 255, 255;
+//    --ion-color-success-shade: #286e2c;
+//    --ion-color-success-tint: #438a47;
+//
+//    /** warning **/
+//    //--ion-color-warning: #ffce00;
+//    //--ion-color-warning-rgb: 255, 206, 0;
+//    //--ion-color-warning-contrast: #ffffff;
+//    //--ion-color-warning-contrast-rgb: 255, 255, 255;
+//    //--ion-color-warning-shade: #e0b500;
+//    //--ion-color-warning-tint: #ffd31a;
+//    --ion-color-warning: #ffc107;
+//    --ion-color-warning-rgb: 255, 193, 7;
+//    --ion-color-warning-contrast: #000000;
+//    --ion-color-warning-contrast-rgb: 0, 0, 0;
+//    --ion-color-warning-shade: #e0aa06;
+//    --ion-color-warning-tint: #ffc720;
+//
+//    /** danger **/
+//    //--ion-color-danger: #f04141;
+//    //--ion-color-danger-rgb: 245, 61, 61;
+//    //--ion-color-danger-contrast: #ffffff;
+//    //--ion-color-danger-contrast-rgb: 255, 255, 255;
+//    //--ion-color-danger-shade: #d33939;
+//    //--ion-color-danger-tint: #f25454;
+//    --ion-color-danger: #f44336;
+//    --ion-color-danger-rgb: 244, 67, 54;
+//    --ion-color-danger-contrast: #ffffff;
+//    --ion-color-danger-contrast-rgb: 255, 255, 255;
+//    --ion-color-danger-shade: #d73b30;
+//    --ion-color-danger-tint: #f5564a;
+//
+//    /** dark **/
+//    --ion-color-dark: #222428;
+//    --ion-color-dark-rgb: 34, 34, 34;
+//    --ion-color-dark-contrast: #ffffff;
+//    --ion-color-dark-contrast-rgb: 255, 255, 255;
+//    --ion-color-dark-shade: #1e2023;
+//    --ion-color-dark-tint: #383a3e;
+//
+//    /** medium **/
+//    --ion-color-medium: #989aa2;
+//    --ion-color-medium-rgb: 152, 154, 162;
+//    --ion-color-medium-contrast: #ffffff;
+//    --ion-color-medium-contrast-rgb: 255, 255, 255;
+//    --ion-color-medium-shade: #86888f;
+//    --ion-color-medium-tint: #a2a4ab;
+//
+//    /** light **/
+//    --ion-color-light: #f4f5f8;
+//    --ion-color-light-rgb: 244, 244, 244;
+//    --ion-color-light-contrast: #000000;
+//    --ion-color-light-contrast-rgb: 0, 0, 0;
+//    --ion-color-light-shade: #d7d8da;
+//    --ion-color-light-tint: #f5f6f9;
+//
+//    /** azulClaro **/
+//    --ion-color-azulclaro: #3498db;
+//    --ion-color-azulclaro-rgb: 52, 152, 219;
+//    --ion-color-azulclaro-contrast: #000000;
+//    --ion-color-azulclaro-contrast-rgb: 0, 0, 0;
+//    --ion-color-azulclaro-shade: #2e86c1;
+//    --ion-color-azulclaro-tint: #48a2df;
+//
+//    /** verdeClaro **/
+//    --ion-color-verdeclaro: #239b56;
+//    --ion-color-verdeclaro-rgb: 35, 155, 86;
+//    --ion-color-verdeclaro-contrast: #ffffff;
+//    --ion-color-verdeclaro-contrast-rgb: 255, 255, 255;
+//    --ion-color-verdeclaro-shade: #1f884c;
+//    --ion-color-verdeclaro-tint: #39a567;
+//
+//    /** azulMarinho **/
+//    --ion-color-azulmarinho: #1471dc;
+//    --ion-color-azulmarinho-rgb: 20, 113, 220;
+//    --ion-color-azulmarinho-contrast: #ffffff;
+//    --ion-color-azulmarinho-contrast-rgb: 255, 255, 255;
+//    --ion-color-azulmarinho-shade: #1263c2;
+//    --ion-color-azulmarinho-tint: #2c7fe0;
+//
+//    /** verdeaqua **/
+//    --ion-color-verdeaqua: #005c63;
+//    --ion-color-verdeaqua-rgb: 0, 92, 99;
+//    --ion-color-verdeaqua-contrast: #ffffff;
+//    --ion-color-verdeaqua-contrast-rgb: 255, 255, 255;
+//    --ion-color-verdeaqua-shade: #005157;
+//    --ion-color-verdeaqua-tint: #1a6c73;
+//
+//    /** azulProfundo **/
+//    --ion-color-azulprofundo: #012c7c;
+//    --ion-color-azulprofundo-rgb: 1, 44, 124;
+//    --ion-color-azulprofundo-contrast: #ffffff;
+//    --ion-color-azulprofundo-contrast-rgb: 255, 255, 255;
+//    --ion-color-azulprofundo-shade: #01276d;
+//    --ion-color-azulprofundo-tint: #1a4189;
+//
+//    // verdeacripel
+//    --ion-color-verdeacripel: #6ec071;
+//    --ion-color-verdeacripel-rgb: 110, 192, 113;
+//    --ion-color-verdeacripel-contrast: #000000;
+//    --ion-color-verdeacripel-contrast-rgb: 0, 0, 0;
+//    --ion-color-verdeacripel-shade: #61a963;
+//    --ion-color-verdeacripel-tint: #7dc67f;
+//
+//    // azulacripel
+//    --ion-color-azulacripel: #00bcd4;
+//    --ion-color-azulacripel-rgb: 0, 188, 212;
+//    --ion-color-azulacripel-contrast: #000000;
+//    --ion-color-azulacripel-contrast-rgb: 0, 0, 0;
+//    --ion-color-azulacripel-shade: #00a5bb;
+//    --ion-color-azulacripel-tint: #1ac3d8;
+//
+//    // Laranja
+//    --ion-color-laranja: #ff9933;
+//    --ion-color-laranja-rgb: 255, 153, 51;
+//    --ion-color-laranja-contrast: #000000;
+//    --ion-color-laranja-contrast-rgb: 0, 0, 0;
+//    --ion-color-laranja-shade: #e0872d;
+//    --ion-color-laranja-tint: #ffa347;
+//
+//    // Orange
+//    --ion-color-orange: #f05924;
+//    --ion-color-orange-rgb: 240, 89, 36;
+//    --ion-color-orange-contrast: #000000;
+//    --ion-color-orange-contrast-rgb: 0, 0, 0;
+//    --ion-color-orange-shade: #d34e20;
+//    --ion-color-orange-tint: #f26a3a;
+//
+//    //BlackGray
+//    --ion-color-blackgray: #29282c;
+//    --ion-color-blackgray-rgb: 41, 40, 44;
+//    --ion-color-blackgray-contrast: #ffffff;
+//    --ion-color-blackgray-contrast-rgb: 255, 255, 255;
+//    --ion-color-blackgray-shade: #242327;
+//    --ion-color-blackgray-tint: #3e3e41;
+//
+//    //RoxoVivo
+//    --ion-color-roxovivo: #4f48ec;
+//    --ion-color-roxovivo-rgb: 79, 72, 236;
+//    --ion-color-roxovivo-contrast: #ffffff;
+//    --ion-color-roxovivo-contrast-rgb: 255, 255, 255;
+//    --ion-color-roxovivo-shade: #463fd0;
+//    --ion-color-roxovivo-tint: #615aee;
+//  }
+//  .ion-color-roxovivo {
+//    --ion-color-base: var(--ion-color-roxovivo);
+//    --ion-color-base-rgb: var(--ion-color-roxovivo-rgb);
+//    --ion-color-contrast: var(--ion-color-roxovivo-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-roxovivo-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-roxovivo-shade);
+//    --ion-color-tint: var(--ion-color-roxovivo-tint);
+//  }
+//
+//  .ion-color-blackgray {
+//    --ion-color-base: var(--ion-color-blackgray);
+//    --ion-color-base-rgb: var(--ion-color-blackgray-rgb);
+//    --ion-color-contrast: var(--ion-color-blackgray-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-blackgray-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-blackgray-shade);
+//    --ion-color-tint: var(--ion-color-blackgray-tint);
+//  }
+//
+//  .ion-color-orange {
+//    --ion-color-base: var(--ion-color-orange);
+//    --ion-color-base-rgb: var(--ion-color-orange-rgb);
+//    --ion-color-contrast: var(--ion-color-orange-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-orange-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-orange-shade);
+//    --ion-color-tint: var(--ion-color-orange-tint);
+//  }
+//
+//  .ion-color-azulacripel {
+//    --ion-color-base: var(--ion-color-azulacripel);
+//    --ion-color-base-rgb: var(--ion-color-azulacripel-rgb);
+//    --ion-color-contrast: var(--ion-color-azulacripel-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-azulacripel-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-azulacripel-shade);
+//    --ion-color-tint: var(--ion-color-azulacripel-tint);
+//  }
+//
+//  .ion-color-verdeacripel {
+//    --ion-color-base: var(--ion-color-verdeacripel);
+//    --ion-color-base-rgb: var(--ion-color-verdeacripel-rgb);
+//    --ion-color-contrast: var(--ion-color-verdeacripel-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-verdeacripel-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-verdeacripel-shade);
+//    --ion-color-tint: var(--ion-color-verdeacripel-tint);
+//  }
+//
+//  .ion-color-azulprofundo {
+//    --ion-color-base: var(--ion-color-azulprofundo);
+//    --ion-color-base-rgb: var(--ion-color-azulprofundo-rgb);
+//    --ion-color-contrast: var(--ion-color-azulprofundo-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-azulprofundo-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-azulprofundo-shade);
+//    --ion-color-tint: var(--ion-color-azulprofundo-tint);
+//  }
+//
+//  .ion-color-verdeaqua {
+//    --ion-color-base: var(--ion-color-verdeaqua);
+//    --ion-color-base-rgb: var(--ion-color-verdeaqua-rgb);
+//    --ion-color-contrast: var(--ion-color-verdeaqua-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-verdeaqua-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-verdeaqua-shade);
+//    --ion-color-tint: var(--ion-color-verdeaqua-tint);
+//  }
+//
+//  .ion-color-azulmarinho {
+//    --ion-color-base: var(--ion-color-azulmarinho);
+//    --ion-color-base-rgb: var(--ion-color-azulmarinho-rgb);
+//    --ion-color-contrast: var(--ion-color-azulmarinho-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-azulmarinho-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-azulmarinho-shade);
+//    --ion-color-tint: var(--ion-color-azulmarinho-tint);
+//  }
+//
+//  .ion-color-verdeclaro {
+//    --ion-color-base: var(--ion-color-verdeclaro);
+//    --ion-color-base-rgb: var(--ion-color-verdeclaro-rgb);
+//    --ion-color-contrast: var(--ion-color-verdeclaro-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-verdeclaro-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-verdeclaro-shade);
+//    --ion-color-tint: var(--ion-color-verdeclaro-tint);
+//  }
+//
+//  .ion-color-azulclaro {
+//    --ion-color-base: var(--ion-color-azulclaro);
+//    --ion-color-base-rgb: var(--ion-color-azulclaro-rgb);
+//    --ion-color-contrast: var(--ion-color-azulclaro-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-azulclaro-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-azulclaro-shade);
+//    --ion-color-tint: var(--ion-color-azulclaro-tint);
+//  }
+//
+//  .ion-color-laranja {
+//    --ion-color-base: var(--ion-color-laranja);
+//    --ion-color-base-rgb: var(--ion-color-laranja-rgb);
+//    --ion-color-contrast: var(--ion-color-laranja-contrast);
+//    --ion-color-contrast-rgb: var(--ion-color-laranja-contrast-rgb);
+//    --ion-color-shade: var(--ion-color-laranja-shade);
+//    --ion-color-tint: var(--ion-color-laranja-tint);
+//  }
+
+  /*
+   * iOS Dark Theme
+   * -------------------------------------------
+   */
+
+  //.ios body {
+  //  --ion-background-color: #000000;
+  //  --ion-background-color-rgb: 0, 0, 0;
+  //
+  //  --ion-text-color: #ffffff;
+  //  --ion-text-color-rgb: 255, 255, 255;
+  //
+  //  --ion-color-step-50: #0d0d0d;
+  //  --ion-color-step-100: #1a1a1a;
+  //  --ion-color-step-150: #262626;
+  //  --ion-color-step-200: #333333;
+  //  --ion-color-step-250: #404040;
+  //  --ion-color-step-300: #4d4d4d;
+  //  --ion-color-step-350: #595959;
+  //  --ion-color-step-400: #666666;
+  //  --ion-color-step-450: #737373;
+  //  --ion-color-step-500: #808080;
+  //  --ion-color-step-550: #8c8c8c;
+  //  --ion-color-step-600: #999999;
+  //  --ion-color-step-650: #a6a6a6;
+  //  --ion-color-step-700: #b3b3b3;
+  //  --ion-color-step-750: #bfbfbf;
+  //  --ion-color-step-800: #cccccc;
+  //  --ion-color-step-850: #d9d9d9;
+  //  --ion-color-step-900: #e6e6e6;
+  //  --ion-color-step-950: #f2f2f2;
+  //
+  //  --ion-toolbar-background: #0d0d0d;
+  //
+  //  --ion-item-background: #1c1c1c;
+  //  --ion-item-background-activated: #313131;
+  //}
+
+  /*
+   * Material Design Dark Theme
+   * -------------------------------------------
+   */
+
+  //.md body {
+  //  --ion-background-color: #121212;
+  //  --ion-background-color-rgb: 18, 18, 18;
+  //
+  //  --ion-text-color: #ffffff;
+  //  --ion-text-color-rgb: 255, 255, 255;
+  //
+  //  --ion-border-color: #222222;
+  //
+  //  --ion-color-step-50: #1e1e1e;
+  //  --ion-color-step-100: #2a2a2a;
+  //  --ion-color-step-150: #363636;
+  //  --ion-color-step-200: #414141;
+  //  --ion-color-step-250: #4d4d4d;
+  //  --ion-color-step-300: #595959;
+  //  --ion-color-step-350: #656565;
+  //  --ion-color-step-400: #717171;
+  //  --ion-color-step-450: #7d7d7d;
+  //  --ion-color-step-500: #898989;
+  //  --ion-color-step-550: #949494;
+  //  --ion-color-step-600: #a0a0a0;
+  //  --ion-color-step-650: #acacac;
+  //  --ion-color-step-700: #b8b8b8;
+  //  --ion-color-step-750: #c4c4c4;
+  //  --ion-color-step-800: #d0d0d0;
+  //  --ion-color-step-850: #dbdbdb;
+  //  --ion-color-step-900: #e7e7e7;
+  //  --ion-color-step-950: #f3f3f3;
+  //
+  //  --ion-item-background: #1a1b1e;
+  //}
+
+//  ion-title.title-large {
+//    --color: white;
+//  }
+//}

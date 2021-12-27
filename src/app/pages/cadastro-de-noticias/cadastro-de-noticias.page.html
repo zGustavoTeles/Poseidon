@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/colaborador.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Novas Notificações</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+        <form #loginForm="ngForm" (ngSubmit)="cadastrarNotificacao(loginForm)" autocomplete="off" class="login-form">
+          <ion-row>
+            <ion-col>
+              <ion-list inset>
+                <ion-item>
+                  <ion-icon name="git-compare-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Título da Notificação" name="titulo" id="titulo" type="text" required
+                    [(ngModel)]="titulo">
+                  </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="chatbox-ellipses-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Descrição da Notificação" name="mensagem" id="mensagem" type="text" required
+                    [(ngModel)]="mensagem">
+                  </ion-input>
+                </ion-item>
+
+                <!-- <ion-item>
+                  <ion-icon name="calendar-number-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Data Inicial da Notificação" name="dataInicial" id="dataInicial" type="date"
+                    required [(ngModel)]="dataInicial">
+                  </ion-input>
+                </ion-item> -->
+
+                <!-- <ion-item>
+                  <ion-icon name="calendar-number-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Data Final da Notificação" name="dataFinal" id="dataFinal" type="date"
+                    required [(ngModel)]="dataFinal">
+                  </ion-input>
+                </ion-item> -->
+
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+          <br>
+          <br>
+
+          <ion-row>
+            <ion-col>
+              <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+              <ion-button class="submit-btn" fulltype="submit" (click)="cadastrarNotificacao(loginForm)">Cadastrar
+              </ion-button>
+            </ion-col>
+          </ion-row>
+
+        </form>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>

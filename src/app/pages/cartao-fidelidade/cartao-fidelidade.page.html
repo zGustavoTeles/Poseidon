@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar color="facebook">
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+
+        <ion-item color="facebook">
+            <ion-avatar slot="end">
+                <ion-img src="/assets/gif/loja.gif" alt="loading...">
+                </ion-img>
+            </ion-avatar>
+            <ion-label style="text-align: center;">
+                <h2>Cartão Fidelidade</h2>
+            </ion-label>
+        </ion-item>
+
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+    <ion-grid style="height: 100%">
+        <ion-row justify-content-center align-items-center style="height: 80%">
+            <ion-grid class="login-container">
+
+                <div class="ion-padding">
+                    <ion-card>
+                        <ion-card-header>
+                            Fidelidade Calculada
+                        </ion-card-header>
+                        <ion-card-content>
+                            <canvas #lineCanvas style="position: relative; height:20vh; width:40vw"></canvas>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+
+                <div id="segment-dados">
+                    <ion-card class="ion-no-padding segment-dados">
+                        <ion-card-header class="cardHeader">
+                            <ion-label class="segment-dados-titulo ion-text-uppercase">
+                                <ion-icon name="qr-code-outline"></ion-icon>
+                                <b style="color: #d00575">{{fidelidade}}</b> de <b style="color: #0576d0">{{10}}</b>
+                                premiação!
+                            </ion-label>
+                        </ion-card-header>
+
+                        <ion-card-content>
+                            <!-- Notificação Vendedor -->
+                            <div>
+                                <div>
+                                    <ion-item style="padding-top: 10px !important;">
+                                        <ion-avatar slot="start">
+                                            <!-- <ion-img src="\assets\img\unidades.gif" style="display: contents;"></ion-img> -->
+                                            <ion-img src="/assets/gif/premiacao.gif" alt="loading..."></ion-img>
+                                        </ion-avatar>
+
+                                        <ion-progress-bar *ngIf="fidelidade === 0" value="{{0.0}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 1" value="{{0.1}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 2" value="{{0.2}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 3" value="{{0.3}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 4" value="{{0.4}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 5" value="{{0.5}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 6" value="{{0.6}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 7" value="{{0.7}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 8" value="{{0.8}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade === 9" value="{{0.9}}"></ion-progress-bar>
+                                        <ion-progress-bar *ngIf="fidelidade >= 10" value="{{1.0}}"></ion-progress-bar>
+
+                                        <ion-icon name="gift-outline" slot="end" style="color:#2474A5"></ion-icon>
+                                    </ion-item>
+                                </div>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+
+
+            </ion-grid>
+        </ion-row>
+    </ion-grid>
+</ion-content>

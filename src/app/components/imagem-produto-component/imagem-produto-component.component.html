@@ -1,0 +1,26 @@
+<ion-content class="close-fake animated fadeIn">
+
+  <ion-item lines="none" style="justify-content: center;">
+
+      <ion-button (click)="close()" fill="clear" slot="end" color="dark">
+          Fechar
+          <ion-icon name="close" slot="end"></ion-icon>
+      </ion-button>
+
+  </ion-item>
+
+  <!-- Buscando imagens do banco -->
+  <ion-slides pager="true" [options]="sliderOpts"  *ngIf="!comBase64">
+      <ion-slide id="imagens">
+          <img [src]="produtoUrlImg">
+      </ion-slide>
+  </ion-slides>
+
+    <!-- Buscando imagens do cadastro com base 64 embutida -->
+    <ion-slides pager="true" [options]="sliderOpts" *ngIf="comBase64">
+      <ion-slide id="imagens" *ngFor="let itens of produtoUrlImg">
+          <img src="{{'data:image/jpeg;base64,' + itens}}">
+      </ion-slide>
+  </ion-slides>
+
+</ion-content>

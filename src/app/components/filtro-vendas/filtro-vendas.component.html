@@ -1,0 +1,358 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-title>
+      Formas de Pagamento
+    </ion-title>
+
+    <ion-searchbar #search *ngIf="searchBarVisible" animated (ionInput)="pesquisarItensNoFiltro($event)" slot="end"
+      (ionBlur)="tirarFoco($event)" placeholder="Digite aqui para pesquisar..."></ion-searchbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="exibleSearchBar()"
+        *ngIf="exibeListaFornecedores || exibeListaTabelasPreco || exibeListaMarcaProduto || exibeListaPrincipioAtivo">
+        <ion-icon slot="icon-only" [name]="searchBarVisible ? 'close': 'search'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="fecharModal()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content forceOverscroll="false" [scrollEvents]="true" id="filtro" *ngIf="exibeFiltro">
+
+  <ion-list>
+
+    <ion-row>
+      <ion-col style="height: 45px; padding-top: 0px;">
+        <ion-item style="font-size: 14px;">
+          <ion-label><b>Cartão Fidelidade</b></ion-label>
+          <ion-toggle [(ngModel)]="cartaoFidelidade"></ion-toggle>
+        </ion-item>
+      </ion-col>
+
+      <ion-col style="height: 45px; padding-top: 0px;">
+        <ion-item style="font-size: 14px;">
+          <ion-label><b>Cartão de Crédito</b></ion-label>
+          <ion-toggle [(ngModel)]="cartaoCredito"></ion-toggle>
+        </ion-item>
+      </ion-col>
+
+      <ion-col style="height: 45px; padding-top: 0px;">
+        <ion-item style="font-size: 14px;">
+          <ion-label><b>Cartão de Débito</b></ion-label>
+          <ion-toggle [(ngModel)]="cartaoDebito"></ion-toggle>
+        </ion-item>
+      </ion-col>
+
+      <ion-col style="height: 45px; padding-top: 0px;">
+        <ion-item style="font-size: 14px;">
+          <ion-label><b>Dinheiro</b></ion-label>
+          <ion-toggle [(ngModel)]="dinheiro"></ion-toggle>
+        </ion-item>
+      </ion-col>
+
+      <ion-col style="height: 45px; padding-top: 0px;">
+        <ion-item style="font-size: 14px;">
+          <ion-label><b>Pix 24Hr</b></ion-label>
+          <ion-toggle [(ngModel)]="pix24Hr"></ion-toggle>
+        </ion-item>
+      </ion-col>
+
+    </ion-row>
+
+    <!-- <ion-item (click)="exibeFaixaOrdem = exibeFaixaOrdem === false" class="font1em">
+      <span class="justify">
+        <ion-label>Tipo Ordenação: <b>{{tipoOrdemSelecionada}}</b></ion-label>
+      </span>
+      <ion-icon *ngIf="!exibeFaixaOrdem" slot="end" color="primary" name="arrow-down-circle-outline"
+        style="font-size: 1.2em;">
+      </ion-icon>
+      <ion-icon *ngIf="exibeFaixaOrdem" slot="end" color="danger" name="arrow-up-circle-outline"
+        style="font-size: 1.2em;">
+      </ion-icon>
+    </ion-item> -->
+
+    <div *ngIf="exibeFaixaOrdem" class="animated fadeInUp margin10">
+      <ion-list>
+        <ion-radio-group>
+          <ion-item *ngFor="let item of tipoOrdenacao">
+            <ion-label>{{item}}</ion-label>
+            <ion-radio slot="start" (click)="tipoOrdem(item)"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+
+    <!-- <ion-item (click)="exibeFaixaClassificacao = exibeFaixaClassificacao === false" class="font1em">
+      <span class="justify">
+        <ion-label>Tipo Classificação: <b>{{tipoClassificacaoSelecionada}}</b></ion-label>
+      </span>
+      <ion-icon *ngIf="!exibeFaixaClassificacao" slot="end" color="primary" name="arrow-down-circle-outline"
+        style="font-size: 1.2em;">
+      </ion-icon>
+      <ion-icon *ngIf="exibeFaixaClassificacao" slot="end" color="danger" name="arrow-up-circle-outline"
+        style="font-size: 1.2em;">
+      </ion-icon>
+
+    </ion-item> -->
+    <div *ngIf="exibeFaixaClassificacao" class="animated fadeInUp margin10">
+      <ion-list>
+        <ion-radio-group>
+          <ion-item *ngFor="let item of tipoClassificacao" class="font1em">
+            <ion-label>{{item.nomeGrupoProduto}}</ion-label>
+            <ion-radio slot="start" (click)="tipoClass(item.nomeGrupoProduto)"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+    </div>
+  </ion-list>
+
+  <!-- Essas opções de filtros não devem aparecer para quando o  -->
+  <!-- <div *ngIf="!validaFlagsUtil.usaFiltroProdutosDivimed"> -->
+  <!-- Lista de promocoes SAP -->
+  <!-- <ion-item (click)="touchExibirListaPromocoesSap()" class="font1em"
+          *ngIf="cargaInicialUtil.dadosGerais.emTipoIntegracao === 'SAP'">
+          Lista de promoções
+          <ion-icon name="bonfire-outline" slot="end" style="color: red;"></ion-icon>
+      </ion-item> -->
+
+  <!-- Lista de fornecedores -->
+  <!-- <ion-item (click)="touchExibirListaFornecedores()" class="font1em">
+          Lista de fornecedores
+          <ion-icon name="storefront-outline" slot="end" style="color: cornflowerblue;"></ion-icon>
+      </ion-item>
+
+      <ion-item (click)="touchExibirListaTabelasPreco()" class="font1em">
+          Tabelas de preço
+          <ion-icon name="cash-outline" slot="end" color="success"></ion-icon>
+      </ion-item>
+
+      <ion-item (click)="touchExibirListaMarcaProduto()" class="font1em"
+          *ngIf="cargaInicialUtil.dadosGerais.emTipoIntegracao === 'PC_SISTEMAS'">
+          Marca do Produto
+          <ion-icon name="list" slot="end" color="dark"></ion-icon>
+      </ion-item>
+
+      <ion-item (click)="touchExibirListaPrincipioAtivo()" class="font1em">
+          Lista de substâncias
+          <ion-icon name="flask-outline" slot="end" style="color: tomato;"></ion-icon>
+      </ion-item> -->
+
+  <!-- Descrição do filtro desejado -->
+  <!-- <ion-list>
+          <ion-list-header class="font1em"><b>Digite o que deseja filtrar:</b></ion-list-header>
+          <ion-item>
+              <ion-input placeholder="Nome" style="text-transform:uppercase" [(ngModel)]="tipoDescricao"
+                  (ionBlur)="mostrarFooter = true" (ionFocus)="mostrarFooter = false"
+                  (keyup.enter)="touchAddDescricaoFiltro(tipoDescricao,$event)">
+              </ion-input> -->
+  <!-- <span [ngStyle]="{'color': codigo ? 'red' : '#2e7d32'}" style="padding-right: 17px !important;"> -->
+  <!-- <ion-icon [ngStyle]="{'color': !tipoDescricao ? 'red' : '#2e7d32'}" slot="end" name="add-circle-outline"
+                  style="width: 24px !important;
+            height: 37px; padding-right: 20px;" (click)="touchAddDescricaoFiltro(tipoDescricao,$event)">
+              </ion-icon> -->
+  <!-- </span> -->
+  <!-- <span *ngIf="codBarras" [ngStyle]="{'color': !codigo ? '#244381' : '#2e7d32'}" -->
+  <!-- <span style="padding-right: 17px !important;"> -->
+  <!-- <ion-icon slot="end" color="tertiary" name="barcode-outline" style="width: 24px !important;
+            height: 37px;" (click)="touchAbrirLeitorDeCodigo()">
+              </ion-icon> -->
+  <!-- </span> -->
+  <!-- </ion-item>
+      </ion-list>
+  </div> -->
+
+
+  <!-- Filtros definidos -->
+  <ion-list-header *ngIf="filtroDefinido.length > 0"><b>Filtros Adicionados:</b></ion-list-header>
+
+  <p style="display: flow-root; text-align: center;">
+    <ion-chip outline color="primary" *ngFor="let filtro of filtroDefinido" (click)="touchDeletarFiltro(filtro)">
+      <div>
+        <ion-label>{{filtro}}</ion-label>
+      </div>
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-chip>
+  </p>
+
+  <!-- Botoes para filtro -->
+  <div class="cssPopoverFiltro">
+    <ion-button expand="block" class="paddingBtnPopover" color="facebook" (click)="touchAplicarFiltro()"
+      [disabled]="filtroDefinido.length === 0 && !cartaoFidelidade && !cartaoCredito && !cartaoDebito && !dinheiro  && !pix24Hr && tipoOrdemSelecionada === '' && tipoClassificacaoSelecionada === ''">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon> Aplicar
+    </ion-button>
+
+    <ion-button
+      [disabled]="filtroDefinido.length === 0 && !cartaoFidelidade && !cartaoCredito && !cartaoDebito && !dinheiro  && !pix24Hr && tipoOrdemSelecionada === '' && tipoClassificacaoSelecionada === ''"
+      expand="block" class="paddingBtnPopover" color="facebook" fill="outline" (click)="touchLimparFiltro()">
+      <ion-icon slot="start" name="refresh-circle"></ion-icon> Limpar
+    </ion-button>
+  </div>
+</ion-content>
+
+<!-- Usado para definir as Promoções -->
+<ion-content class="animated bounceInRight ion-padding" id="listaFornecedores" *ngIf="exibeListaPromocoesSap">
+
+  <ion-item *ngIf="filtros" style="height: 10px; padding-bottom: 48px; width: 100vw; display: -webkit-box;">
+    <p>Filtro:</p>
+    <p class="horizontal-scroll">
+      <ion-chip outline color="danger" *ngIf="textoDoFiltro" (click)="touchDeletarFiltro('textoDoFiltro')">
+        <div>
+          <ion-label>{{textoDoFiltro}}</ion-label>
+        </div>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+    </p>
+  </ion-item>
+
+
+  <ion-list>
+    <ion-list-header class="font1em">
+      <ion-label><b>Existem {{listaPromocoesSAP.length}} promoçõese!</b> </ion-label>
+      <ion-label style="color: darkcyan;">{{promocoesSapSelecionadas.length}}
+        selecionadas!</ion-label>
+    </ion-list-header>
+    <div style="height: 50vh; overflow: auto">
+      <ion-list>
+        <ion-item class="font1em" *ngFor="let promocao of listaPromocoesSAP"
+          (click)="touchSelecionarPromocaoSap(promocao)">
+          <ion-label>{{promocao.descricao}}</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-list>
+  <ion-button expand="block" class="paddingBtnPopover"
+    color="{{promocoesSapSelecionadas.length > 0 ? 'success' : 'warning'}}" (click)="touchVoltarParaFiltro()">
+    <ion-icon slot="start" name="arrow-back"></ion-icon> {{msgButtonPromocaoSap}}
+  </ion-button>
+</ion-content>
+
+<!-- Usado para definir os fornecedores -->
+<ion-content class="animated bounceInRight ion-padding" id="listaFornecedores" *ngIf="exibeListaFornecedores">
+
+  <ion-item *ngIf="filtros" style="height: 10px; padding-bottom: 48px; width: 100vw; display: -webkit-box;">
+    <p>Filtro:</p>
+    <p class="horizontal-scroll">
+      <ion-chip outline color="danger" *ngIf="textoDoFiltro" (click)="touchDeletarFiltro('textoDoFiltro')">
+        <div>
+          <ion-label>{{textoDoFiltro}}</ion-label>
+        </div>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+    </p>
+  </ion-item>
+
+
+  <ion-list>
+    <ion-list-header class="font1em">
+      <ion-label><b>Existem {{listaFornecedores.length}} fornecedores!</b> </ion-label>
+      <ion-label style="color: darkcyan;">{{fornecedoresSelecionados.length}}
+        selecionados!</ion-label>
+    </ion-list-header>
+    <div style="height: 50vh; overflow: auto">
+      <ion-list>
+        <ion-item class="font1em" *ngFor="let fornecedor of listaFornecedores"
+          (click)="touchSelecionarFornecedor(fornecedor)">
+          <ion-label>{{fornecedor.nome}}</ion-label>
+          <ion-checkbox slot="end"></ion-checkbox>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-list>
+  <ion-button expand="block" class="paddingBtnPopover"
+    color="{{fornecedoresSelecionados.length > 0 ? 'success' : 'warning'}}" (click)="touchVoltarParaFiltro()">
+    <ion-icon slot="start" name="arrow-back"></ion-icon> {{msgButtonFornecedor}}
+  </ion-button>
+</ion-content>
+
+<!-- Usado para definir as tabelas de preco -->
+<ion-content class="animated bounceInRight ion-padding" id="listaTabelasPreco" *ngIf="exibeListaTabelasPreco">
+
+  <ion-item *ngIf="filtros" style="height: 10px; padding-bottom: 48px; width: 100vw; display: -webkit-box;">
+    <p>Filtro:</p>
+    <p class="horizontal-scroll">
+      <ion-chip outline color="danger" *ngIf="textoDoFiltro" (click)="touchDeletarFiltro('textoDoFiltro')">
+        <div>
+          <ion-label>{{textoDoFiltro}}</ion-label>
+        </div>
+        <ion-icon name="close-circle"></ion-icon>
+      </ion-chip>
+    </p>
+  </ion-item>
+
+  <ion-list>
+    <ion-list-header class="font1em">
+      <ion-label><b>Existem {{listaTabelasPreco.length}} tabelas de preço!</b> </ion-label>
+      <ion-label style="color: darkcyan;">{{tabelasPrecoSelecionadas.length}}
+        selecionadas!</ion-label>
+    </ion-list-header>
+    <div style="height: 50vh; overflow: auto">
+      <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400">
+        <ion-list *cdkVirtualFor="let tabelaPreco of listaTabelasPreco">
+          <ion-item class="font09em" (click)="touchSelecionarTabelaPreco(tabelaPreco)">
+            <ion-label>{{tabelaPreco.descricao}}</ion-label>
+            <ion-checkbox [(ngModel)]="tabelaPreco.checked" [checked]="tabelaPreco.cheked" slot="end">
+            </ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </ion-list>
+  <ion-button expand="block" class="paddingBtnPopover"
+    color="{{tabelasPrecoSelecionadas.length > 0 ? 'success' : 'warning'}}" (click)="touchVoltarParaFiltro()">
+    <ion-icon slot="start" name="arrow-back"></ion-icon> {{msgButtonTabelaPreco}}
+  </ion-button>
+</ion-content>
+
+<ion-content class="animated bounceInRight ion-padding" [scrollEvents]="true" *ngIf="exibeResumoProdutos">
+
+  <ion-list>
+    <ion-radio-group>
+      <ion-list-header><b style="color: rgb(1, 44, 124)">Agrupar Por</b></ion-list-header>
+      <ion-item *ngFor="let item of tipoResumoItens">
+        <ion-label>{{item}}</ion-label>
+        <ion-radio slot="start" (click)="tipoResumoSelecionado = item"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+  <div class="cssPopoverFiltro" style="justify-content: center !important;">
+    <ion-button expand="block" class="paddingBtnPopover" (click)="touchAplicarFiltro()"
+      [disabled]="tipoResumoSelecionado === ''">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon> Aplicar
+    </ion-button>
+  </div>
+
+</ion-content>
+
+<!-- Usado para definir os princípios ativos -->
+<ion-content class="animated bounceInRight  ion-padding" id="listaPrincipiosAtivos" *ngIf="exibeListaPrincipioAtivo">
+
+  <ion-list>
+    <ion-list-header class="font1em">
+      <ion-label><b>Existem {{listaPrincipiosAtivos.length}} substâncias!</b> </ion-label>
+      <ion-label style="color: darkcyan;">{{principioAtivoSelecionado.length}}
+        selecionados!</ion-label>
+    </ion-list-header>
+    <div style="height: 50vh; overflow: auto">
+      <cdk-virtual-scroll-viewport itemSize="30" minBufferPx="200" maxBufferPx="400">
+        <ion-list *cdkVirtualFor="let principio of listaPrincipiosAtivos">
+          <ion-item class="font1em" (click)="touchSelecionarPrincipioAtivo(principio)">
+            <ion-label>{{principio.principioAtivo}}</ion-label>
+            <ion-checkbox [(ngModel)]="principio.checked" [checked]="principio.checked" slot="end">
+            </ion-checkbox>
+          </ion-item>
+        </ion-list>
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </ion-list>
+
+  <ion-button expand="block" class="paddingBtnPopover"
+    color="{{principioAtivoSelecionado.length > 0 ? 'success' : 'warning'}}" (click)="touchVoltarParaFiltro()">
+    <ion-icon slot="start" name="arrow-back"></ion-icon> {{msgButtonPrincipioAtivo}}
+  </ion-button>
+
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar color="facebook">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-item color="facebook">
+      <ion-avatar slot="end">
+        <ion-img src="/assets/gif/loja.gif" alt="loading...">
+        </ion-img>
+      </ion-avatar>
+      <ion-label style="text-align: center;">
+        <h2>Suporte ao Usuário</h2>
+      </ion-label>
+    </ion-item>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="loginPage" scroll="false">
+  <ion-grid style="height: 100%">
+    <ion-row justify-content-center align-items-center style="height: 80%">
+      <ion-grid class="login-container">
+        <form #loginForm="ngForm" (ngSubmit)="submitForm(loginForm)" autocomplete="off" class="login-form">
+          <ion-row>
+            <ion-col>
+              <ion-list inset>
+
+                <div class="support-logo">
+                  <img src="/assets/gif/suporte.gif" alt="loading...">
+                </div>
+
+                <form #submitForm="ngForm" novalidate (ngSubmit)="submit(submitForm)">
+                  <ion-list lines="none">
+                    <ion-item>
+                      <ion-label position="stacked" color="primary">Por favor digite sua mensagem!</ion-label>
+                      <ion-textarea [(ngModel)]="supportMessage" name="supportQuestion" #supportQuestion="ngModel"
+                        rows="6" required></ion-textarea>
+                    </ion-item>
+                  </ion-list>
+
+                  <ion-text color="danger">
+                    <p [hidden]="supportQuestion.valid || submitted === false" class="ion-padding-start">
+                      Mensagem Obrigatória!
+                    </p>
+                  </ion-text>
+
+                  <div class="ion-padding">
+                    <ion-button expand="block" type="submit">Enviar</ion-button>
+                  </div>
+                </form>
+
+              </ion-list>
+            </ion-col>
+          </ion-row>
+
+        </form>
+      </ion-grid>
+    </ion-row>
+  </ion-grid>
+</ion-content>
