@@ -212,37 +212,37 @@ export class FirebaseService {
 
     carregaCategorias() {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Categorias", (ref) => ref.orderBy("descricao"))
+            .collection("Poseidon " + "_Categorias", (ref) => ref.orderBy("descricao"))
             .valueChanges();
     }
 
     carregaProdutos() {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.orderBy("descricao"))
+            .collection("Poseidon " + "_Produtos", (ref) => ref.orderBy("descricao"))
             .valueChanges();
     }
 
     carregaProdutosIdDocumento() {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Produtos", (ref) => ref.orderBy("descricao"))
+            .collection("Poseidon " + "_Produtos", (ref) => ref.orderBy("descricao"))
             .snapshotChanges();
     }
 
     carregaVendasTemp() {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
             .snapshotChanges();
     }
 
     carregaVendasTempUnidade(unidade: any) {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
             .snapshotChanges();
     }
 
     carregaVendasTempUnidadeCarrinho(unidade: any) {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
             .valueChanges();
     }
 
@@ -259,19 +259,19 @@ export class FirebaseService {
 
     carregaVendasClienteTempInsert(cliente: any) {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("cliente", "==", cliente))
             .valueChanges();
     }
 
     carregaVendasClienteTempSelect() {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
             .valueChanges();
     }
 
     carregaVendasProdutosTemp(cliente: any) {
         return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))
             .valueChanges();
     }
 
@@ -590,6 +590,178 @@ export class FirebaseService {
     public findAllEmpresas() {
         return this.firestore
             .collection("Poseidon " + "_Empresas", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+
+    /**
+     * *---------------> FIREBASE CARRINHO <---------------------
+     */
+
+    async registerSaleClientTemp(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Vendas_Cliente_Temp").add(dados).then(async data => {
+                    let dadosVendaCliente =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateSaleClientTemp(data.id, dadosVendaCliente[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateSaleClientTemp(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Cliente_Temp' + '/' + documento).update(dados);
+    }
+
+    public findAllSaleClientTemp(documento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("documento", "==", documento))
+            .valueChanges();
+    }
+
+    async deleteSaleClientTemp(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Cliente_Temp' + '/' + documento).delete();
+    }
+
+    async registerProductTemp(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Vendas_Produtos_Temp").add(dados).then(async data => {
+                    let dadosVendaProduto =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateProductTemp(data.id, dadosVendaProduto[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateProductTemp(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Produtos_Temp' + '/' + documento).update(dados);
+    }
+
+    async deleteProductTemp(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Produtos_Temp' + '/' + documento).delete();
+    }
+
+    public findAllProductTemp(documento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("documento", "==", documento))
+            .valueChanges();
+    }
+
+    public findAllPaymentMethods() {
+        return this.firestore
+            .collection("Poseidon " + "_Formas_De_Pagamento", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    /**
+     * *---------------> FIREBASE REGISTRO DE VENDAS <---------------------
+     */
+
+    async registerSaleClientVenda(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Vendas_Cliente").add(dados).then(async data => {
+                    let dadosVendaCliente =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateSaleClientVenda(data.id, dadosVendaCliente[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateSaleClientVenda(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Cliente' + '/' + documento).update(dados);
+    }
+
+    public findAllSaleClientVenda(documento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Cliente", (ref) => ref.where("documento", "==", documento))
+            .valueChanges();
+    }
+
+    async registerProductVenda(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Vendas_Produtos").add(dados).then(async data => {
+                    let dadosVendaProduto =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateProductVenda(data.id, dadosVendaProduto[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateProductVenda(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Produtos' + '/' + documento).update(dados);
+    }
+
+    public findAllProductVenda(documento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos", (ref) => ref.where("documento", "==", documento))
+            .valueChanges();
+    }
+
+    findAllProductVendaRelatorio(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Cliente", (ref) => ref.where('dataVenda', '>=', dataInicial).where('dataVenda', '<=', dataFinal))
+            .valueChanges();
+    }
+
+    
+    /**
+     * *---------------> GASTOS CADASTRAIS <---------------------
+     */
+
+     findAllSpendingMonth(dataInicial: any, dataFinal: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Gastos", (ref) => ref.where('dataDoGasto', '>=', dataInicial).where('dataDoGasto', '<=', dataFinal))
             .valueChanges();
     }
 

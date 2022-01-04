@@ -53,7 +53,7 @@
             <ion-item-options side="start" class="itemOptionsList"
               *ngIf="perfil === 'Administrador' ||  perfil === 'Balcão' || perfil === 'Desenvolvedor'">
               <ion-item-option style="margin: 5px !important" color="primary"
-                (click)="abrirComanda(venda.doc, venda.cliente)">
+                (click)="abrirComanda(venda.documento, venda.cliente)">
                 <ion-icon slot="start" name="cart-outline"></ion-icon>Abrir
               </ion-item-option>
 
@@ -61,7 +61,7 @@
 
             <ion-item-options side="end" class="itemOptionsList" *ngIf="perfil != 'Cliente'">
               <ion-item-option style="margin: 5px !important" color="danger"
-                (click)="excluirComanda(venda.doc, venda.cliente, true)">
+                (click)="excluirComanda(venda.documento, venda.cliente, true)">
                 <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
               </ion-item-option>
             </ion-item-options>

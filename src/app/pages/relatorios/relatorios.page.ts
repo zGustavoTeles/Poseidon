@@ -78,7 +78,7 @@ export class RelatoriosPage implements OnInit {
     }
 
     async carregaVendasTemp() {
-
+        this.vendas = [];
         const loading = await this.loadingController.create({
             message: '<ion-img src="/assets/gif/loading.gif" alt="loading..."></ion-img> <br> Carregando Comandas...',
             spinner: null,
@@ -86,18 +86,10 @@ export class RelatoriosPage implements OnInit {
         });
         await loading.present();
 
-        this.firebaseService.carregaVendasTempUnidade(this.unidade).subscribe(data => {
-            this.vendas = [];
-            data.forEach(row => {
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-
-                this.vendas.push(line);
-            });
+        this.firebaseService.findAllSaleClientTemp(this.unidade).subscribe(data => {
+            this.vendas = data;
         });
-
         loading.dismiss();
-
     }
 
     async carregaFormasDePagamento() {

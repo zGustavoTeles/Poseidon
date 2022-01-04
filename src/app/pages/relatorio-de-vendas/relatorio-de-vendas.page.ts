@@ -120,7 +120,7 @@ export class RelatorioDeVendasPage implements OnInit {
             await loading.present();
             try {
 
-                this.firebaseService.carregaVendasClienteRelatorio(this.startDate, this.endDate).subscribe(data => {
+                this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
                     let quantidadeDados = 1;
                     let dados = 0;
                     let clienteAnterior = '';
@@ -179,16 +179,16 @@ export class RelatorioDeVendasPage implements OnInit {
                         this.totalLucro = (this.totalLucro - this.totalDeGastos);
                     });        
     
-                    this.firebaseService.carregaValesFiltroData(this.startDate, this.endDate).subscribe(data => {
-                        this.totalVales = 0;
-                        this.valesAux = data;
-                        for (let vale of this.valesAux) {
-                            if (vale.unidade === this.unidade) {
-                                this.totalVales += vale.valorDoVale;
-                            }
-                        }
-                        this.totalLucro = (this.totalLucro - this.totalVales);
-                    });
+                    // this.firebaseService.carregaValesFiltroData(this.startDate, this.endDate).subscribe(data => {
+                    //     this.totalVales = 0;
+                    //     this.valesAux = data;
+                    //     for (let vale of this.valesAux) {
+                    //         if (vale.unidade === this.unidade) {
+                    //             this.totalVales += vale.valorDoVale;
+                    //         }
+                    //     }
+                    //     this.totalLucro = (this.totalLucro - this.totalVales);
+                    // });
                 });
                
                 loading.dismiss();

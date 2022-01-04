@@ -168,39 +168,15 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     public async validaInsercaoProduto(cliente: any, clienteId: any, fidelidade: any, colaborador: any) {
 
         if (cliente === undefined || cliente === null || cliente === 'Selecione um Cliente') {
-            const alert = await this.alertController.create({
-                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                <text>A Escolha do Cliente é Obrigatória. No Entanto Você Deseja Inserir esse Produto para um Cliente <b>Indefinido?</b></text>`,
-                backdropDismiss: false,
-                header: "Atenção",
-                cssClass: "alertaCss",
+            cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
+            this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
+            this.firebaseService.carregaVendasClienteTempInsert(cliente).subscribe(data => {
 
-                buttons: [
-                    {
-                        text: 'Não',
-                        role: 'cancel',
-                        cssClass: 'cancelcancelarButton',
-                        handler: async () => {
-                            return;
-                        }
-                    },
-                    {
-                        text: 'Sim',
-                        cssClass: 'okButton',
-                        handler: async () => {
-                            cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
-                            this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
-                            this.firebaseService.carregaVendasClienteTempInsert(cliente).subscribe(data => {
-
-                                if (data[0] !== undefined && data[0] !== null)
-                                    this.clienteValido = false;
-                                this.insereDadosTemp(clienteId, fidelidade, colaborador);
-                            });
-                        }
-                    }
-                ]
+                if (data[0] !== undefined && data[0] !== null)
+                    this.clienteValido = false;
+                this.insereDadosTemp(clienteId, fidelidade, colaborador);
+                
             });
-            await alert.present();
         } else {
             this.firebaseService.carregaVendasClienteTempInsert(cliente).subscribe(data => {
                 if (data[0] !== undefined && data[0] !== null)
@@ -429,7 +405,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     "fidelidade": fidelidade
                 }];
             if (InserirProdutoCarrinhoPage.produtoInserido === false) {
-                this.firebaseService.cadastraVendasClienteTemp(dadosCliente[0]);
+                this.firebaseService.registerSaleClientTemp(dadosCliente[0]);
             }
         }
     }
@@ -475,7 +451,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     InserirProdutoCarrinhoPage.produtoInserido = true;
                     ComandaPage.comandaNaoRegistrada = false;
 
-                    this.firebaseService.cadastraVendasProdutosTemp(dadosProdutos[0]);
+                    this.firebaseService.registerProductTemp(dadosProdutos[0]);
                     this.modalCtrl.dismiss();
                     InserirProdutoCarrinhoPage.produtoInserido = true;
                 }
