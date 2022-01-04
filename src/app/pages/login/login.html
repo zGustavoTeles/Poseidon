@@ -5,7 +5,7 @@
         <form #loginForm="ngForm" (ngSubmit)="onLogin()" autocomplete="off" class="login-form">
           <ion-row align-items-center>
             <ion-col>
-              <img src="assets/img/logo_branca.png" width="150" height="150">
+              <img src="assets/img/logo_branca.png" width="150" height="200">
             </ion-col>
           </ion-row>
           <ion-row>
@@ -33,7 +33,7 @@
             <ion-col>
               <div *ngIf="error" class="alert alert-danger">{{error}}</div>
               <ion-button class="submit-btn" fulltype="submit" [disabled]="!loginForm.form.valid" (click)="onLogin()">Entrar</ion-button>
-              <ion-button class="submit-btn" fulltype="submit"  color="warning" (click)="cadastrar()">Cadastrar</ion-button>
+              <ion-button class="submit-btn" fulltype="submit"  color="warning" [disabled]="true" (click)="cadastrar()">Poseidon</ion-button>
             </ion-col>
           </ion-row>
           <br>

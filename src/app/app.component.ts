@@ -246,14 +246,14 @@ export class AppComponent implements OnInit {
 
     public async verificaUsuarioLogado() {
 
-        if (this.dadosRepositories.getLocalStorage('login') === "true") {
+        // if (this.dadosRepositories.getLocalStorage('login') === "true") {
 
             this.getDadosUsuario();
             this.menu.enable(true);
             this.router.navigateByUrl('/app/tabs/home');
-        } else {
-            this.router.navigateByUrl('/login');
-        }
+        // } else {
+        //     this.router.navigateByUrl('/login');
+        // }
 
     }
 

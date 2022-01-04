@@ -113,7 +113,7 @@ export class LoginPage {
     }
 
     async cadastrar() {
-        this.router.navigateByUrl('cadastro-usuarios');
+        // this.router.navigateByUrl('cadastro-usuarios');
     }
 
     async setDadosUsuario(uid: any) {

@@ -45,10 +45,10 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.getDadosUsuario();
-        this.carregaProdutos();
-        this.carregaNoticias();
-        this.carregaUnidades();
-        this.carregaImagens();
+        // this.carregaProdutos();
+        // this.carregaNoticias();
+        // this.carregaUnidades();
+        // this.carregaImagens();
     }
 
     getDadosUsuario() {

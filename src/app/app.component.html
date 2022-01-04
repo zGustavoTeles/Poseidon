@@ -66,7 +66,7 @@
 
         <!-- </ion-list> -->
 
-        <div *ngIf="perfil  === 'Administrador'">
+        <div>
           <ion-menu-toggle autoHide="false" *ngFor="let p of appPagesAdministrador; let i = index">
             <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
               <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
@@ -113,7 +113,7 @@
         <!--------------------------------------------- FINANÇAS DO APLICATIVO ----------------------------------------------------------------------- -->
 
         <!------------------------------------------------------- ADMINISTRADOR ------------------------------------------------------------------------------ -->
-        <ion-list lines="none" *ngIf="perfil  === 'Administrador'">
+        <ion-list lines="none">
           <ion-list-header>
             Finanças
           </ion-list-header>
@@ -167,7 +167,7 @@
         <!--------------------------------------------- CADASTROS DO APLICATIVO ----------------------------------------------------------------------- -->
 
         <!------------------------------------------------------- ADMINISTRADOR ------------------------------------------------------------------------------ -->
-        <ion-list lines="none" *ngIf="perfil  === 'Administrador'">
+        <ion-list lines="none">
           <ion-list-header>
             Cadastros
           </ion-list-header>
