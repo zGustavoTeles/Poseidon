@@ -83,6 +83,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     cliente: any;
     unidade: any;
     perfil: any;
+    email: any;
     produtoUid: any;
     clienteId: any;
     clienteFidelidade;
@@ -91,6 +92,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     clientesTempAux: any = [];
     clienteTemp: any;
     clientesTempCount: number = 0;
+
+    venda: any = [];
 
     public static descricao: any;
     public static categoria: any;
@@ -112,6 +115,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     ngOnInit() {
         this.unidade = this.dadosRepositories.getLocalStorage('unidade');
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
+        this.email = this.dadosRepositories.getLocalStorage('email');
         this.colaboradorVendedor = this.dadosRepositories.getLocalStorage('nome');
         this.cliente = 'Selecione um Cliente';
         this.colaborador = 'Selecione um Colaborador(a)';
@@ -119,6 +123,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.desconto = 0;
         this.carregaInfoProduto();
         // this.carregaClientes();
+        this.clienteId = this.colaboradorVendedor;
+        this.fidelidade = 0;
         // this.carregaColaboradores();
         this.carregaClientesEmAberto();
 
@@ -170,7 +176,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         if (cliente === undefined || cliente === null || cliente === 'Selecione um Cliente') {
             cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
             this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
-            this.firebaseService.carregaVendasClienteTempInsert(cliente).subscribe(data => {
+            this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
 
                 if (data[0] !== undefined && data[0] !== null)
                     this.clienteValido = false;
@@ -178,7 +184,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 
             });
         } else {
-            this.firebaseService.carregaVendasClienteTempInsert(cliente).subscribe(data => {
+            this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
                 if (data[0] !== undefined && data[0] !== null)
                     this.clienteValido = false;
                 this.insereDadosTemp(clienteId, fidelidade, colaborador);
@@ -261,13 +267,14 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
                         if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
 
-                            this.firebaseService.buscaInfoColaborador(this.unidade, colaborador).subscribe(data => {
+                            this.firebaseService.findAllUser(this.email).subscribe(data => {
                                 let dados: any = [];
 
                                 dados = data[0];
 
                                 this.perfilColaborador = dados.perfil;
                                 this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                                clienteId = this.venda.documento;
                                 this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
                             })
 
@@ -284,9 +291,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                         if (this.estoqueFinal >= 0) {
                             if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
 
-                                this.firebaseService.buscaInfoColaborador(this.unidade, colaborador).subscribe(data => {
+                                this.firebaseService.findAllUser(this.email).subscribe(data => {
                                     let dados: any = [];
-
                                     dados = data[0];
 
                                     this.perfilColaborador = dados.perfil;
@@ -404,8 +410,15 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     "cliente": this.cliente,
                     "fidelidade": fidelidade
                 }];
+
+                console.log('aquiiii');
+                console.log(dadosCliente[0]);
+                
             if (InserirProdutoCarrinhoPage.produtoInserido === false) {
                 this.firebaseService.registerSaleClientTemp(dadosCliente[0]);
+                this.firebaseService.findAWhereSaleTemp(this.unidade).subscribe(data => {
+                    this.venda = data;
+                });
             }
         }
     }

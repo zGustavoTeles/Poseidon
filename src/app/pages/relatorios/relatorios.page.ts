@@ -86,7 +86,7 @@ export class RelatoriosPage implements OnInit {
         });
         await loading.present();
 
-        this.firebaseService.findAllSaleClientTemp(this.unidade).subscribe(data => {
+        this.firebaseService.findAWhereSaleTemp(this.unidade).subscribe(data => {
             this.vendas = data;
         });
         loading.dismiss();

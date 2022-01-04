@@ -631,6 +631,18 @@ export class FirebaseService {
             .valueChanges();
     }
 
+    public findAWhereSaleTemp(unidade: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
+    public findWhereSaleClientTemp(cliente: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("cliente", "==", cliente))
+            .valueChanges();
+    }
+
     async deleteSaleClientTemp(documento: any) {
         this.firestore.doc('Poseidon ' + '_Vendas_Cliente_Temp' + '/' + documento).delete();
     }
