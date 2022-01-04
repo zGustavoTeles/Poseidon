@@ -30,14 +30,14 @@
 
             <ion-item>
 
-              <ion-avatar slot="start" *ngIf="unidade === 'Barbearia Olimpo Gyn'">
+              <ion-avatar slot="start">
                 <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
                 <img *ngIf="produtos.imagem != '' "  src="{{produtos.imagem}}" />
               </ion-avatar>
 
-              <ion-avatar slot="start" *ngIf="unidade != 'Barbearia Olimpo Gyn'">
+              <!-- <ion-avatar slot="start" *ngIf="unidade != 'Barbearia Olimpo Gyn'">
                 <img src="\assets\img\cliente_indefinido.png" />
-              </ion-avatar>
+              </ion-avatar> -->
 
               <ion-label>
                 <h3>{{produtos.descricao}}</h3>
@@ -63,18 +63,18 @@
 
             <ion-item-options side="start" class="itemOptionsList" *ngIf="perfil != 'Cliente'">
               <ion-item-option style="margin: 5px !important" color="primary"
-                (click)="inserirProdutoCarrinho(produtos.doc, produtos.descricao, produtos.categoria, produtos.quantidade, produtos.valorDeVenda)">
+                (click)="inserirProdutoCarrinho(produtos.documento, produtos.descricao, produtos.categoria, produtos.quantidade, produtos.valorDeVenda)">
                 <ion-icon slot="start" name="cart-outline"></ion-icon>Inserir
               </ion-item-option>
 
             </ion-item-options>
             <ion-item-options side="end" class="itemOptionsList" *ngIf="perfil === 'Administrador' || perfil === 'Balcão'">
               <ion-item-option style="margin: 5px !important" color="warning"
-                (click)="atualizarProduto(produtos.doc, produtos.imagem, produtos.unidade,produtos.categoria,produtos.descricao,produtos.quantidade,produtos.fidelidade,produtos.comissao,produtos.valorDeCusto,produtos.valorDeVenda )">
+                (click)="atualizarProduto(produtos.documento, produtos.imagem, produtos.unidade,produtos.categoria,produtos.descricao,produtos.quantidade,produtos.fidelidade,produtos.comissao,produtos.valorDeCusto,produtos.valorDeVenda )">
                 <ion-icon slot="start" name="create-outline"></ion-icon>Alterar
               </ion-item-option>
               <ion-item-option style="margin: 5px !important" color="danger"
-                (click)="excluirProduto(produtos.doc, produtos.descricao)">
+                (click)="excluirProduto(produtos.documento, produtos.descricao)">
                 <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
               </ion-item-option>
             </ion-item-options>

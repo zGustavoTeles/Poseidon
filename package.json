@@ -1,14 +1,14 @@
 {
-  "name": "barbudos",
+  "name": "Poseidon",
   "version": "1.1.512",
-  "description": "Barbudos",
+  "description": "Poseidon",
   "author": "Gustavo Teles",
   "license": "Apache-2.0",
   "scripts": {
     "GERAR_APK_APARELHO": "ionic cordova run android --device --debug",
     "GERAR_APK": "ionic cordova build android",
     "PROD_GERANDO_AAB": "ionic cordova build android --configuration production --release -- -- --packageType=bundle",
-    "PROD_ASSINANDO_AAB": "jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore Barbudos.keystore platforms/android/app/build/outputs/bundle/release/app-release.aab Barbudos"
+    "PROD_ASSINANDO_AAB": "jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 -keystore Poseidon.keystore platforms/android/app/build/outputs/bundle/release/app-release.aab Poseidon"
   },
   "repository": {
     "type": "git",

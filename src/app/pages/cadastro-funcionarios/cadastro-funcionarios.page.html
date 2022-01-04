@@ -29,7 +29,7 @@
                 <ion-item>
                   <ion-icon name="person-add-outline" slot="start"></ion-icon>
                   <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione um Perfil"
-                    [(ngModel)]="perfil" name="perfil" required>
+                  [interfaceOptions]="selecioneUmPerfil" [(ngModel)]="perfil" name="perfil" required>
                     <ion-select-option *ngFor="let perfil of perfis">{{perfil.descricao}}</ion-select-option>
                   </ion-select>
                 </ion-item>
@@ -37,7 +37,7 @@
                 <ion-item>
                   <ion-icon name="female-outline" slot="start"></ion-icon>
                   <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione um Sexo"
-                    [(ngModel)]="sexo" name="sexo" required>
+                  [interfaceOptions]="selecioneUmSexo" [(ngModel)]="sexo" name="sexo" required>
                     <ion-select-option *ngFor="let sexo of sexos">{{sexo.descricao}}</ion-select-option>
                   </ion-select>
                 </ion-item>

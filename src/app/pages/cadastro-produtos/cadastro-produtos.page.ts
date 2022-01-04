@@ -61,13 +61,10 @@ export class CadastroTipoProdutoPage implements OnInit {
         this.imagem = '';
     }
 
-    carregaCategorias() {
-
-        this.firebaseService.carregaCategorias().subscribe(data => {
-            console.log(data)
-
+   public async carregaCategorias() {
+        this.firebaseService.findAllCategory().subscribe(data => {
             this.categorias = data;
-        })
+        });
 
     }
 
@@ -102,7 +99,7 @@ export class CadastroTipoProdutoPage implements OnInit {
 
                     console.log(dados);
 
-                    this.firebaseService.cadastraProdutos(dados[0]);
+                    this.firebaseService.registerProduct(dados[0]);
 
                     const alert = await this.alertController.create({
                         message: `<img src="assets/img/atencao.png" alt="auto"><br><br>

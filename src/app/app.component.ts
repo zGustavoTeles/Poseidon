@@ -234,26 +234,17 @@ export class AppComponent implements OnInit {
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
     }
-    public async setDocumentoUsuario() {
-        this.faribaseService.getDadosUsuarioDoc(this.email).subscribe(data => {
-            data.forEach(row => {
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-                this.dadosRepositories.setLocalStorage('documento', line.doc);
-            });
-        });
-    }
-
+    
     public async verificaUsuarioLogado() {
 
-        // if (this.dadosRepositories.getLocalStorage('login') === "true") {
+        if (this.dadosRepositories.getLocalStorage('login') === "true") {
 
             this.getDadosUsuario();
             this.menu.enable(true);
             this.router.navigateByUrl('/app/tabs/home');
-        // } else {
-        //     this.router.navigateByUrl('/login');
-        // }
+        } else {
+            this.router.navigateByUrl('/login');
+        }
 
     }
 

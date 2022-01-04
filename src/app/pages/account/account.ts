@@ -52,7 +52,6 @@ export class AccountPage implements OnInit {
             this.dadosRepositories.removeLocalStorage('imagem');
             this.dadosRepositories.setLocalStorage('imagem', this.imagem);
             this.appComponent.getDadosUsuario();
-            this.appComponent.setDocumentoUsuario();
         };
         reader.readAsDataURL(event.target.files[0]);
     }

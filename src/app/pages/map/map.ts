@@ -105,7 +105,7 @@ export class MapPage implements OnInit {
         this.vendedor = this.infoLogin.getUsername;
         this.dataVenda = new Date;
         this.getDadosUsuario();
-        this.carregaProdutos();
+        this.findAllProducts();
         this.ios = this.config.get('mode') === 'ios';
     }
 
@@ -113,8 +113,7 @@ export class MapPage implements OnInit {
     async touchOpcoesFiltro(ev: any) {
     }
 
-    async carregaProdutos() {
-
+    public async findAllProducts() {
         const loading = await this.loadingController.create({
             message: '<ion-img src="/assets/gif/loading.gif" alt="loading..."></ion-img> <br> Carregando Produtos...',
             spinner: null,
@@ -122,45 +121,20 @@ export class MapPage implements OnInit {
         });
         await loading.present();
 
-        this.firebaseService.carregaProdutosIdDocumento().subscribe(data => {
-            this.produtos = [];
-            this.quantidade = 0;
-            data.forEach(row => {
-                this.produtosAux = [];
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-                this.produtosAux.push(line);
-                for (let produto of this.produtosAux) {
-                    if (produto.unidade === this.unidade) {
-                        this.produtos.push(produto);
-                        this.quantidade += 1;
-                    }
-                }
-            });
+        this.produtos = [];
+        this.quantidade = 0;
+        this.produtosAux = [];
 
+        this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
+            this.produtosAux = data;
+            for (let produto of this.produtosAux) {
+                if (produto.unidade === this.unidade) {
+                    this.produtos.push(produto);
+                    this.quantidade += 1;
+                }
+            }
             loading.dismiss();
         });
-    }
-
-    async carregaFormasDePagamento() {
-
-        this.firebaseService.carregaFormasDePagamento().subscribe(data => {
-            console.log(data)
-
-            this.formaDePagamentos = data;
-        })
-
-    }
-
-    async carregaValorDoProduto() {
-        console.log(this.produto)
-        this.firebaseService.carregaValorDoProduto(this.produto).subscribe(data => {
-            console.log(data)
-
-            this.valorProdutos = data;
-            this.valorProduto = this.valorProdutos[3];
-        })
-
     }
 
     async inserirProdutoCarrinho(produtoId: any, descricao: any, categoria: any, estoque: any, valorDeVenda: any) {

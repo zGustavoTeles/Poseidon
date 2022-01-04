@@ -118,15 +118,15 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.dataVenda = new Date;
         this.desconto = 0;
         this.carregaInfoProduto();
-        this.carregaClientes();
-        this.carregaColaboradores();
+        // this.carregaClientes();
+        // this.carregaColaboradores();
         this.carregaClientesEmAberto();
 
         this.ios = this.config.get('mode') === 'ios';
     }
 
     public carregaInfoProduto() {
-        this.firebaseService.carregaInfoProduto(InserirProdutoCarrinhoPage.descricao).subscribe(data => {
+        this.firebaseService.findAllProduct(InserirProdutoCarrinhoPage.produtoId).subscribe(data => {
             // console.log(data)
             this.produtos = data;
             this.produtoUid = this.produtos.uid;

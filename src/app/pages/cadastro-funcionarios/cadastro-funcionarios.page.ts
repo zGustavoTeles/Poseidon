@@ -49,31 +49,23 @@ export class CadastroFuncionariosPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.carreagaPerfis();
-        this.carreagaSexos()
-        this.administrador = this.dadosRepositories.getLocalStorage('nome');
-        this.unidade = this.dadosRepositories.getLocalStorage('unidade');
+        this.findAllPerfis();
+        this.findAllSexos()
+        this.administrador = "Administração Online";
+        this.unidade = "Poseidon LTDA";
         this.ios = this.config.get('mode') === 'ios';
     }
 
-    carreagaPerfis() {
-
-        this.firebaseService.carregaPerfis().subscribe(data => {
-            console.log(data)
-
+    public async findAllPerfis() {
+        await this.firebaseService.findAllPerfis().subscribe(data => {
             this.perfis = data;
-        })
-
+        });
     }
 
-    carreagaSexos() {
-
-        this.firebaseService.carregaSexos().subscribe(data => {
-            console.log(data)
-
+    public async findAllSexos() {
+        await this.firebaseService.findAllSexos().subscribe(data => {
             this.sexos = data;
-        })
-
+        });
     }
 
     async cadastrarFuncionario(form: NgForm) {
@@ -142,7 +134,7 @@ export class CadastroFuncionariosPage implements OnInit {
 
                     })
 
-                    this.firebaseService.cadastrarUsuario(user);
+                    this.firebaseService.registerUser(user);
 
                     const alert = await this.alertController.create({
                         message: `<img src="assets/img/atencao.png" alt="auto"><br><br>

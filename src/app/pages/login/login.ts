@@ -128,12 +128,13 @@ export class LoginPage {
         try {
 
 
-            this.faribaseService.get(uid).subscribe(dados => {
+            this.faribaseService.findAllUser(this.email).subscribe(dados => {
 
                 this.usuario = dados;
+
                 this.dadosRepositories.setLocalStorage('email', this.email);
                 this.dadosRepositories.setLocalStorage('senha', this.senha);
-                this.dadosRepositories.setLocalStorage('uid', this.uid);
+                this.dadosRepositories.setLocalStorage('uid', this.usuario[0].uid);
                 this.dadosRepositories.setLocalStorage('imagem', this.usuario[0].imagem);
                 this.dadosRepositories.setLocalStorage('nome', this.usuario[0].nome);
                 this.dadosRepositories.setLocalStorage('perfil', this.usuario[0].perfil);
@@ -142,7 +143,6 @@ export class LoginPage {
                 this.dadosRepositories.setLocalStorage('login', 'true');
 
                 this.appComponent.getDadosUsuario();
-                this.appComponent.setDocumentoUsuario();
                 this.menu.enable(true);
                 loading.dismiss();
                 this.router.navigateByUrl('/app/tabs/home');

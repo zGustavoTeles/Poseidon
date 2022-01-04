@@ -54,8 +54,8 @@ export class CadastroUsuariosPage implements OnInit {
 
     }
     ngOnInit(): void {
-        this.carreagaSexos();
-        this.carregaUnidades();
+        this.findAllSexo();
+        this.findAllEmpresas();
     }
 
     async cadastrar(form: NgForm) {
@@ -123,7 +123,7 @@ export class CadastroUsuariosPage implements OnInit {
 
                     })
 
-                    this.firebaseService.cadastrarUsuario(user);
+                    this.firebaseService.registerUser(user);
 
                     const alert = await this.alertController.create({
                         message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -208,22 +208,16 @@ export class CadastroUsuariosPage implements OnInit {
         this.router.navigateByUrl('login');
     }
 
-    carreagaSexos() {
-
-        this.firebaseService.carregaSexos().subscribe(data => {
-            console.log(data)
-
+    public async findAllSexo() {
+        await this.firebaseService.findAllSexos().subscribe(data => {
             this.sexos = data;
-        })
-
+        });
     }
 
-    carregaUnidades() {
-        this.firebaseService.carregaUnidadesCadastro().subscribe(data => {
-            console.log(data)
+    public async findAllEmpresas() {
+        await this.firebaseService.findAllEmpresas().subscribe(data => {
             this.unidades = data;
-        })
-
+        });
     }
 
 }

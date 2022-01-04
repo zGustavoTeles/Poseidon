@@ -129,11 +129,6 @@ export class FirebaseService {
     //         .collection("CLIENTE_01_USUARIOS", (ref) => ref.where("email", "==", email)).valueChanges();
     // }
 
-    get(uid: any) {
-        return this.firestore
-            .collection("Barbearia Dos Barbudos " + "_Usuarios", (ref) => ref.where("uid", "==", uid))
-            .valueChanges();
-    }
 
     getUsuario(email: string) {
         return this.firestore
@@ -447,21 +442,155 @@ export class FirebaseService {
 
 
     /**
+     * *---------------> FIREBASE PRODUTOS <---------------------
+     */
+
+    findAllProducts(unidade: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Produtos", (ref) => ref.where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
+    findAllProduct(documento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Produtos", (ref) => ref.where("documento", "==", documento))
+            .valueChanges();
+    }
+
+    findAllCategory() {
+        return this.firestore
+            .collection("Poseidon " + "_Categorias", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    findAllFormasPagamento() {
+        return this.firestore
+            .collection("Poseidon " + "_Formas_De_Pagamento", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    async registerProduct(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Produtos").add(dados).then(async data => {
+                    let dadosProdutos =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateProducts(data.id, dadosProdutos[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async registerProductCarrinhoTemp(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Zeus " + "_Carrinho_Temp").add(dados).then(async data => {
+                    let dadosProdutos =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateProductCarrinhoTemp(data.id, dadosProdutos[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateProducts(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Produtos' + '/' + documento).update(dados);
+    }
+
+    async updateProductCarrinhoTemp(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '' + '/' + documento).update(dados);
+    }
+
+
+    /**
      * *---------------> FIREBASE USUÁRIOS <---------------------
      */
 
-    updateEmail(youEmail: any, password: any, newEmail: any) {
+    async updateEmail(youEmail: any, password: any, newEmail: any) {
         this.angularFire.signInWithEmailAndPassword(youEmail, password)
             .then(function (userCredential) {
                 userCredential.user.updateEmail(newEmail)
             })
     }
 
-    updateSenha(youEmail: any, password: any, newPassword: any) {
+    async updateSenha(youEmail: any, password: any, newPassword: any) {
         this.angularFire.signInWithEmailAndPassword(youEmail, password)
             .then(function (userCredential) {
                 userCredential.user.updatePassword(newPassword)
             })
+    }
+
+    async registerUser(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Usuários").add(dados).then(async data => {
+                    let dadosUsuarios =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateUsers(data.id, dadosUsuarios[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    public findAllUser(email: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Usuários", (ref) => ref.where("email", "==", email))
+            .valueChanges();
+    }
+
+    async updateUsers(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Usuários' + '/' + documento).update(dados);
+    }
+
+    public findAllSexos() {
+        return this.firestore
+            .collection("Poseidon " + "_Sexos", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    public findAllPerfis() {
+        return this.firestore
+            .collection("Poseidon " + "_Perfis_De_Usuários", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
+    }
+
+    public findAllEmpresas() {
+        return this.firestore
+            .collection("Poseidon " + "_Empresas", (ref) => ref.orderBy("descricao"))
+            .valueChanges();
     }
 
 }
