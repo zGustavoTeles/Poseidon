@@ -99,6 +99,16 @@ const routes: Routes = [
             },
 
             {
+                path: 'vendas',
+                children: [
+                    {
+                        path: '',
+                        loadChildren: () => import('../vendas/vendas.module').then(m => m.VendasPageModule)
+                    },
+                ]
+            },
+
+            {
                 path: 'cartao-fidelidade',
                 children: [
                     {

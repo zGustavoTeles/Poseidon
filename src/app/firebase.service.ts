@@ -684,6 +684,12 @@ export class FirebaseService {
             .valueChanges();
     }
 
+    public findWhereProductTemp(clienteId: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("clienteId", "==", clienteId))
+            .valueChanges();
+    }
+
     public findAllPaymentMethods() {
         return this.firestore
             .collection("Poseidon " + "_Formas_De_Pagamento", (ref) => ref.orderBy("descricao"))

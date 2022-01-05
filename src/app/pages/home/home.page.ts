@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.getDadosUsuario();
-        // this.carregaProdutos();
+        this.findAllProducts();
         // this.carregaNoticias();
         // this.carregaUnidades();
         // this.carregaImagens();
@@ -61,7 +61,7 @@ export class HomePage implements OnInit {
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
     }
 
-    async carregaProdutos() {
+    async findAllProducts() {
 
         const loading = await this.loadingController.create({
             message: '<ion-img src="/assets/gif/loading.gif" alt="loading..."></ion-img> <br> Carregando Home...',
@@ -70,22 +70,18 @@ export class HomePage implements OnInit {
         });
         await loading.present();
 
-        this.firebaseService.carregaProdutosIdDocumento().subscribe(data => {
-            this.produtos = [];
-            this.quantidade = 0;
-            data.forEach(row => {
-                this.produtosAux = [];
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-                this.produtosAux.push(line);
-                for (let produto of this.produtosAux) {
-                    if (produto.unidade === this.unidade) {
-                        this.produtos.push(produto);
-                        this.quantidade += 1;
-                    }
-                }
-            });
+        this.produtos = [];
+        this.quantidade = 0;
+        this.produtosAux = [];
 
+        this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
+            this.produtosAux = data;
+            for (let produto of this.produtosAux) {
+                if (produto.unidade === this.unidade) {
+                    this.produtos.push(produto);
+                    this.quantidade += 1;
+                }
+            }
             loading.dismiss();
         });
     }

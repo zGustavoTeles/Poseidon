@@ -119,28 +119,19 @@
           </ion-list-header>
 
           <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/vendas" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="bag-check-outline"></ion-icon>
-              <ion-label>
-                Vendas
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/faturamento" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="stats-chart-outline"></ion-icon>
-              <ion-label>
-                Faturamentos
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
-          <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/vale" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="wallet-outline"></ion-icon>
               <ion-label>
                 Vales
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+
+          <ion-menu-toggle autoHide="false">
+            <ion-item routerLink="/gastos-do-mes" routerLinkActive="active" routerDirection="root" detail="false">
+              <ion-icon slot="start" name="calculator-outline"></ion-icon>
+              <ion-label>
+                Gastos
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
@@ -211,15 +202,6 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/gastos-do-mes" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="calculator-outline"></ion-icon>
-              <ion-label>
-                Gastos
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
         </ion-list>
 
         <!------------------------------------------------------- Balcão ------------------------------------------------------------------------------ -->
@@ -285,14 +267,14 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <!-- <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/account" routerLinkActive="active" routerDirection="root" detail="false">
               <ion-icon slot="start" name="person-outline"></ion-icon>
               <ion-label>
                 Perfil
               </ion-label>
             </ion-item>
-          </ion-menu-toggle> -->
+          </ion-menu-toggle>
 
         </ion-list>
 

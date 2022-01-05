@@ -123,7 +123,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.desconto = 0;
         this.carregaInfoProduto();
         // this.carregaClientes();
-        this.clienteId = this.colaboradorVendedor;
+        this.clienteId = "";
         this.fidelidade = 0;
         // this.carregaColaboradores();
         this.carregaClientesEmAberto();
@@ -151,7 +151,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
             this.comissao = this.produtos[0].comissao;
             this.valorDeCusto = this.produtos[0].valorDeCusto;
             this.totalDeCusto = this.produtos[0].valorDeCusto;
-            this.imagem =  this.produtos[0].imagem;
+            this.imagem = this.produtos[0].imagem;
             this.calculaTotal();
         })
 
@@ -181,7 +181,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 if (data[0] !== undefined && data[0] !== null)
                     this.clienteValido = false;
                 this.insereDadosTemp(clienteId, fidelidade, colaborador);
-                
+
             });
         } else {
             this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
@@ -239,103 +239,11 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
 
     async insereDadosTemp(clienteId: any, fidelidade: any, colaborador: any) {
-        if (InserirProdutoCarrinhoPage.produtoInserido === false) {
-            if (this.quantidadeInserida > 0) {
-                if (this.cliente === undefined || this.cliente === null) {
-                    const alert = await this.alertController.create({
-                        message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                         <text>Selecione um Cliente!</text>`,
-                        backdropDismiss: false,
-                        header: "Atenção",
-                        cssClass: "alertaCss",
-                        buttons: [
-                            {
-                                text: "Ok",
-                                role: "Cancelar",
-                                cssClass: "secondary",
-
-                                handler: () => {
-                                },
-                            },
-                        ],
-                    });
-
-                    await alert.present();
-
-                } else {
-                    if (this.categoria === 'Serviços') {
-
-                        if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
-
-                            this.firebaseService.findAllUser(this.email).subscribe(data => {
-                                let dados: any = [];
-
-                                dados = data[0];
-
-                                this.perfilColaborador = dados.perfil;
-                                this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                                clienteId = this.venda.documento;
-                                this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                            })
-
-                        } else {
-
-                            this.perfilColaborador = this.perfil;
-                            this.colaborador = this.colaboradorVendedor;
-                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-
-                        }
-
-                    } else {
-                        if (this.estoqueFinal >= 0) {
-                            if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
-
-                                this.firebaseService.findAllUser(this.email).subscribe(data => {
-                                    let dados: any = [];
-                                    dados = data[0];
-
-                                    this.perfilColaborador = dados.perfil;
-                                    this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                                    this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                                })
-
-                            } else {
-
-                                this.perfilColaborador = this.perfil;
-                                this.colaborador = this.colaboradorVendedor;
-                                this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                                this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-
-                            }
-                        } else {
-                            const alert = await this.alertController.create({
-                                message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                                 <text>Produto sem estoque disponível!</text>`,
-                                backdropDismiss: false,
-                                header: "Atenção",
-                                cssClass: "alertaCss",
-                                buttons: [
-                                    {
-                                        text: "Ok",
-                                        role: "Cancelar",
-                                        cssClass: "secondary",
-
-                                        handler: () => {
-                                        },
-                                    },
-                                ],
-                            });
-                            await alert.present();
-                        }
-                    }
-
-                }
-            } else {
-
+        if (this.quantidadeInserida > 0) {
+            if (this.cliente === undefined || this.cliente === null) {
                 const alert = await this.alertController.create({
                     message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                     <text>Quantidade tem que ser maior que 0!</text>`,
+                         <text>Selecione um Cliente!</text>`,
                     backdropDismiss: false,
                     header: "Atenção",
                     cssClass: "alertaCss",
@@ -352,7 +260,90 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 });
 
                 await alert.present();
+
+            } else {
+                if (this.categoria === 'Serviços') {
+
+                    if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
+
+                        this.firebaseService.findAllUser(this.email).subscribe(data => {
+                            let dados: any = [];
+
+                            dados = data[0];
+
+                            this.perfilColaborador = dados.perfil;
+                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+                        })
+
+                    } else {
+                        this.perfilColaborador = this.perfil;
+                        this.colaborador = this.colaboradorVendedor;
+                        this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                        this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+                    }
+
+                } else {
+                    if (this.estoqueFinal >= 0) {
+                        if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
+
+                            this.firebaseService.findAllUser(this.email).subscribe(data => {
+                                let dados: any = [];
+                                dados = data[0];
+
+                                this.perfilColaborador = dados.perfil;
+                                this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                                this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+                            })
+
+                        } else {
+                            this.perfilColaborador = this.perfil;
+                            this.colaborador = this.colaboradorVendedor;
+                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+                        }
+                    } else {
+                        const alert = await this.alertController.create({
+                            message: `<img src="assets/img/erro.png" alt="auto"><br><br>
+                                 <text>Produto sem estoque disponível!</text>`,
+                            backdropDismiss: false,
+                            header: "Atenção",
+                            cssClass: "alertaCss",
+                            buttons: [
+                                {
+                                    text: "Ok",
+                                    role: "Cancelar",
+                                    cssClass: "secondary",
+
+                                    handler: () => {
+                                    },
+                                },
+                            ],
+                        });
+                        await alert.present();
+                    }
+                }
             }
+        } else {
+
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/erro.png" alt="auto"><br><br>
+                     <text>Quantidade tem que ser maior que 0!</text>`,
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+                buttons: [
+                    {
+                        text: "Ok",
+                        role: "Cancelar",
+                        cssClass: "secondary",
+
+                        handler: () => {
+                        },
+                    },
+                ],
+            });
+            await alert.present();
         }
     }
     async calculaTotal() {
@@ -400,93 +391,77 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
     async cadastraVendaClienteTemp(clienteId: any, fidelidade: any) {
-        if (this.clienteValido) {
-            let dadosCliente =
-                [{
-                    "dataVenda": this.dataVenda,
-                    "vendedor": this.colaborador,
-                    "unidade": this.unidade,
-                    "clienteId": clienteId,
-                    "cliente": this.cliente,
-                    "fidelidade": fidelidade
-                }];
-
-                console.log('aquiiii');
-                console.log(dadosCliente[0]);
-                
-            if (InserirProdutoCarrinhoPage.produtoInserido === false) {
-                this.firebaseService.registerSaleClientTemp(dadosCliente[0]);
-                this.firebaseService.findAWhereSaleTemp(this.unidade).subscribe(data => {
-                    this.venda = data;
-                });
-            }
-        }
+        let dadosCliente =
+            [{
+                "dataVenda": this.dataVenda,
+                "vendedor": this.colaborador,
+                "unidade": this.unidade,
+                "clienteId": clienteId,
+                "cliente": this.cliente,
+                "fidelidade": fidelidade
+            }];
+        this.firebaseService.registerSaleClientTemp(dadosCliente[0]);
+        this.firebaseService.findAWhereSaleTemp(this.unidade).subscribe(data => {
+            this.venda = data;
+            this.clienteId = this.venda.documento;
+        });
     }
 
     async cadastraVendaProdutoTemp(clienteId: any, fidelidade: any, colaboradorPerfil: any) {
         try {
-            if (InserirProdutoCarrinhoPage.produtoInserido === false) {
-                this.dataVenda = new Date().toISOString().slice(0, 10);
+            this.dataVenda = new Date().toISOString().slice(0, 10);
 
-                if (this.gorjeta === undefined || this.gorjeta === null)
-                    this.gorjeta = 0;
+            if (this.gorjeta === undefined || this.gorjeta === null)
+                this.gorjeta = 0;
 
-                let dadosProdutos =
-                    [{
-                        "dataVenda": this.dataVenda,
-                        "vendedor": this.colaborador,
-                        "colaboradorPerfil": colaboradorPerfil,
-                        "unidade": this.unidade,
-                        "clienteId": clienteId,
-                        "cliente": this.cliente,
-                        "clienteFidelidade": fidelidade,
-                        "produtoId": InserirProdutoCarrinhoPage.produtoId,
-                        "produto": InserirProdutoCarrinhoPage.descricao,
-                        "imagem": this.imagem,
-                        "categoria": InserirProdutoCarrinhoPage.categoria,
-                        "quantidadeVendida": this.quantidadeInserida,
-                        "fidelidade": this.fidelidade,
-                        "comissao": this.comissao,
-                        "gorjeta": this.gorjeta,
-                        "desconto": this.desconto,
-                        "estoque": InserirProdutoCarrinhoPage.estoque,
-                        "estoqueFinal": this.estoqueFinal,
-                        "valorDeVenda": InserirProdutoCarrinhoPage.valorDeVenda,
-                        "valorDeCusto": this.valorDeCusto,
-                        "totalComissao": this.totalComissao,
-                        "totalDeCusto": this.totalDeCusto,
-                        "totalBruto": this.totalBruto,
-                        "totalLiquido": this.totalLiquido,
-                        "totalLucro": this.totalLucro
-                    }];
+            let dadosProdutos =
+                [{
+                    "dataVenda": this.dataVenda,
+                    "vendedor": this.colaborador,
+                    "colaboradorPerfil": colaboradorPerfil,
+                    "unidade": this.unidade,
+                    "clienteId": this.clienteId,
+                    "cliente": this.cliente,
+                    "clienteFidelidade": fidelidade,
+                    "produtoId": InserirProdutoCarrinhoPage.produtoId,
+                    "produto": InserirProdutoCarrinhoPage.descricao,
+                    "imagem": this.imagem,
+                    "categoria": InserirProdutoCarrinhoPage.categoria,
+                    "quantidadeVendida": this.quantidadeInserida,
+                    "fidelidade": this.fidelidade,
+                    "comissao": this.comissao,
+                    "gorjeta": this.gorjeta,
+                    "desconto": this.desconto,
+                    "estoque": InserirProdutoCarrinhoPage.estoque,
+                    "estoqueFinal": this.estoqueFinal,
+                    "valorDeVenda": InserirProdutoCarrinhoPage.valorDeVenda,
+                    "valorDeCusto": this.valorDeCusto,
+                    "totalComissao": this.totalComissao,
+                    "totalDeCusto": this.totalDeCusto,
+                    "totalBruto": this.totalBruto,
+                    "totalLiquido": this.totalLiquido,
+                    "totalLucro": this.totalLucro
+                }];
+            this.firebaseService.registerProductTemp(dadosProdutos[0]);
+            this.modalCtrl.dismiss();
 
-                if (InserirProdutoCarrinhoPage.produtoInserido === false) {
-                    InserirProdutoCarrinhoPage.produtoInserido = true;
-                    ComandaPage.comandaNaoRegistrada = false;
-
-                    this.firebaseService.registerProductTemp(dadosProdutos[0]);
-                    this.modalCtrl.dismiss();
-                    InserirProdutoCarrinhoPage.produtoInserido = true;
-                }
-
-                const alert = await this.alertController.create({
-                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
          <text>Produto Inserido Na comanda do Cliente<br><b>${this.cliente}</b>!</text>`,
-                    backdropDismiss: false,
-                    header: "Atenção",
-                    cssClass: "alertaCss",
-                    buttons: [
-                        {
-                            text: "Ok",
-                            cssClass: "secondary",
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+                buttons: [
+                    {
+                        text: "Ok",
+                        cssClass: "secondary",
 
-                            handler: () => {
-                            },
+                        handler: () => {
                         },
-                    ],
-                });
-                await alert.present();
-            }
+                    },
+                ],
+            });
+            await alert.present();
         } catch (error) {
             console.log(error);
         }
@@ -525,6 +500,5 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 this.cliente = data.data[2];
             }
         });
-
     }
 }

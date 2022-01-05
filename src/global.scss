@@ -91,7 +91,7 @@ ion-menu.md ion-item {
 }
 
 ion-menu.md ion-item.selected {
-  --background: #1a1b1f !important;
+  --background: #2d4374 !important;
   border-radius: 10px !important;
 }
 
@@ -237,7 +237,7 @@ ion-item.selected {
 
 // Card title blue
 .cardHeader {
-  background-color: #1a1b1f;
+  background-color: #2d4374;
   height: 42px;
   padding-top: 4px;
 }
@@ -306,7 +306,7 @@ ion-alert {
 }
 
 div.alert-head {
-  background-color: #1a1b1f !important;
+  background-color: #2d4374 !important;
 
   h2 {
     color: #fff !important;
@@ -352,7 +352,7 @@ div.alert-button-group.sc-ion-alert-ios {
 
 .fontDownItem {
   font-size: 13px !important;
-  color: #1a1b1f !important;
+  color: #2d4374 !important;
 }
 
 .fontNameItem {
@@ -397,7 +397,7 @@ div.alert-button-group.sc-ion-alert-ios {
 //***** PEDIDO *****
 //******************
 .codigo_pedido {
-  color: #1a1b1f;
+  color: #2d4374;
   margin-bottom: 1vh;
   font-weight: bold;
 }
@@ -432,7 +432,7 @@ div.alert-button-group.sc-ion-alert-ios {
   }
 
   .resumo-verba-titulo {
-    color: #1a1b1f;
+    color: #2d4374;
   }
 
   .resumo-verba-valores {
@@ -455,7 +455,7 @@ div.alert-button-group.sc-ion-alert-ios {
   }
 
   .verba-positiva {
-    color: #1a1b1f;
+    color: #2d4374;
   }
 
   .verba-negativa {
@@ -533,9 +533,9 @@ div.alert-button-group.sc-ion-alert-ios {
     text-align: center;
     border-radius: 10px;
     background-color: #d9d9da47;
-    color: #1a1b1f;
+    color: #2d4374;
     border-bottom: solid 1.5px;
-    border-color: #1a1b1f;
+    border-color: #2d4374;
 
     input {
       padding-right: 10px;
@@ -722,7 +722,7 @@ list-ios {
 
   .segment-button-checked {
     border-radius: 5px !important;
-    background-color: #1a1b1f !important;
+    background-color: #2d4374 !important;
     color: white !important;
     //border: 0.2px solid white;
   }
@@ -745,7 +745,7 @@ list-ios {
 
   .produto-listagem {
     margin-top: unset !important;
-    border-bottom: 1px solid #1a1b1f;
+    border-bottom: 1px solid #2d4374;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 
@@ -1103,13 +1103,13 @@ ion-refresher {
     color: var(--ion-color-danger);
   }
   text {
-    color: #1a1b1f;
+    color: #2d4374;
   }
   b {
-    color: #1a1b1f;
+    color: #2d4374;
   }
   p {
-    color: #1a1b1f;
+    color: #2d4374;
   }
   .textRed {
     color: #f44336;
@@ -1126,8 +1126,8 @@ ion-refresher {
 
   // Azul
   .salvarEnviarButton {
-    border-color: #1a1b1f !important;
-    background-color: #1a1b1f;
+    border-color: #2d4374 !important;
+    background-color: #2d4374;
     color: var(--ion-color-light) !important;
     // background-color: #D9EDF7 !important;
     // color: #31708F !important;
@@ -1312,8 +1312,8 @@ ion-refresher {
 //*************************
 //***** PROGRESS BAR ******
 //*************************
-$primary: #1a1b1f;
-$text: #1a1b1f;
+$primary: #2d4374;
+$text: #2d4374;
 $progress-bar-background-color: #dbdbdb;
 $dummy-invert: white;
 $colors: (
@@ -1322,11 +1322,11 @@ $colors: (
     $dummy-invert,
   ),
   "link": (
-    #1a1b1f,
+    #2d4374,
     $dummy-invert,
   ),
   "info": (
-    #1a1b1f,
+    #2d4374,
     $dummy-invert,
   ),
   "success": (
@@ -1426,7 +1426,7 @@ $colors: (
     margin-bottom: 15px;
     max-width: 400px !important;
     .msg {
-      background-color: #1a1b1f;
+      background-color: #2d4374;
     }
   }
   ion-grid.cardOFF {
@@ -1578,7 +1578,7 @@ $colors: (
 // ************************** //
 .borderFooter {
   border: solid 0.1px !important;
-  border-color: #1a1b1f !important;
+  border-color: #2d4374 !important;
   border-left: none !important;
   border-right: none !important;
   border-bottom: none !important;
@@ -1590,7 +1590,7 @@ $colors: (
 .loadingCss {
   text-align: center !important;
   .loading-wrapper.sc-ion-loading-md {
-    background: #1d2024 !important;
+    background: #2d4374 !important;
     color: #ffff;
     border-radius: 10px !important;
 

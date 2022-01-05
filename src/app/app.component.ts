@@ -20,19 +20,14 @@ export class AppComponent implements OnInit {
      */
     appPagesAdministrador = [
         {
-            title: 'Colaboradores',
-            url: '/app/tabs/schedule',
-            icon: 'medal'
-        },
-        {
-            title: 'Clientes',
-            url: '/app/tabs/speakers',
-            icon: 'body'
+            title: 'Vendas',
+            url: '/app/tabs/vendas',
+            icon: 'bag-check'
         },
         {
             title: 'Produtos',
             url: '/app/tabs/map',
-            icon: 'bag-handle'
+            icon: 'basket'
         },
         {
             title: 'Relatórios',
@@ -41,9 +36,9 @@ export class AppComponent implements OnInit {
         },
 
         {
-            title: 'Comandas',
+            title: 'Carrinho',
             url: '/app/tabs/relatorios',
-            icon: 'basket'
+            icon: 'cart'
         },
     ];
 
@@ -180,7 +175,7 @@ export class AppComponent implements OnInit {
             this.verificaUsuarioLogado();
 
             // set status bar to white
-            this.statusBar.backgroundColorByHexString('#1a1b1f');
+            this.statusBar.backgroundColorByHexString('#2d4374');
             this.splashScreen.hide();
 
         });

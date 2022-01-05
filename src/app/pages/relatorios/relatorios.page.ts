@@ -127,7 +127,7 @@ export class RelatoriosPage implements OnInit {
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
     }
 
-    async excluirComanda(vendaId: any, cliente: any, permiteExclusao: boolean = false) {
+    async excluirComanda(vendaId: any, cliente: any, permiteExclusao: boolean = false, clienteId) {
 
         try {
 
@@ -153,45 +153,35 @@ export class RelatoriosPage implements OnInit {
                             text: 'Sim',
                             cssClass: 'okButton',
                             handler: async () => {
-                                this.firebaseService.deletaVendaClienteTemp(vendaId);
-                                this.firebaseService.carregaVendasProdutosTempDoc(cliente).subscribe(data => {
+                                
+                                this.firebaseService.deleteSaleClientTemp(vendaId);
 
-                                    data.forEach(async row => {
-                                        if (permiteExclusao) {
-                                            this.vendaProdutosTemp = [];
-                                            let line = Object(row.payload.doc.data());
-                                            line.doc = String(row.payload.doc.id);
+                                this.firebaseService.findWhereProductTemp(clienteId).subscribe(data => {
+                                    this.vendaProdutosTemp = data;
 
-                                            this.vendaProdutosTemp.push(line);
-
-                                            for (let produto of this.vendaProdutosTemp) {
-                                                this.firebaseService.deletaVendaProdutoTemp(produto.doc);
-                                            }
-                                        }
-                                    });
+                                    for (let produto of this.vendaProdutosTemp) {
+                                        this.firebaseService.deleteProductTemp(produto.documento);
+                                    }
                                 });
-
-                                if (permiteExclusao) {
-                                    const alert = await this.alertController.create({
-                                        message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                                const alert = await this.alertController.create({
+                                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
                                  <text>Comanda Excluída Com Sucesso!</text>`,
-                                        backdropDismiss: false,
-                                        header: "Atenção",
-                                        cssClass: "alertaCss",
-                                        buttons: [
-                                            {
-                                                text: "Ok",
-                                                role: "Cancelar",
-                                                cssClass: "secondary",
+                                    backdropDismiss: false,
+                                    header: "Atenção",
+                                    cssClass: "alertaCss",
+                                    buttons: [
+                                        {
+                                            text: "Ok",
+                                            role: "Cancelar",
+                                            cssClass: "secondary",
 
-                                                handler: () => {
-                                                },
+                                            handler: () => {
                                             },
-                                        ],
-                                    });
-                                    await alert.present();
-                                    permiteExclusao = false;
-                                }
+                                        },
+                                    ],
+                                });
+                                await alert.present();
+                                permiteExclusao = false;
                             }
                         }
                     ]
