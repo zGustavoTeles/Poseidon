@@ -107,10 +107,9 @@ export class ComandaPage implements OnInit {
 
     public findAllProductTemp() {
 
-        this.firebaseService.findAllProductTemp(ComandaPage.vendaId).subscribe(data => {
+        this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
             let quantidadeDados = 1;
             let dados = 0;
-            let total: any = 0;
             this.dataVenda = '';
             this.vendedor = '';
             this.quantidadeVendida = 0;
@@ -126,6 +125,8 @@ export class ComandaPage implements OnInit {
             this.produtos = [];
             this.produtosAuxListagem = [];
 
+            let total: any = 0;
+            dados = data.length;
 
             this.produtosAuxListagem = data;
 
@@ -167,10 +168,8 @@ export class ComandaPage implements OnInit {
                     }
                     quantidadeDados += 1;
                 }
-
                 this.totalLucro = total;
             }
-
         });
     }
 
@@ -181,9 +180,8 @@ export class ComandaPage implements OnInit {
     }
 
     async registrarVenda() {
-        ComandaPage.produtoAlterado = true;
         try {
-            if (this.formaDePagamento !== undefined && this.formaDePagamento !== null && ComandaPage.comandaNaoRegistrada) {
+            if (this.formaDePagamento !== undefined && this.formaDePagamento !== null) {
                 const alert = await this.alertController.create({
                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
                          <text>Deseja Finalizar a Comanda <b>${this.cliente}</b>
@@ -234,10 +232,7 @@ export class ComandaPage implements OnInit {
                         },
                     ],
                 });
-
                 alert.present();
-
-
             }
         } catch (error) {
             console.log(error);
@@ -275,10 +270,8 @@ export class ComandaPage implements OnInit {
                 "totalBruto": this.totalBruto,
                 "totalLucro": this.totalLucro
             }];
-        if (ComandaPage.comandaNaoRegistrada) {
-            this.firebaseService.cadastraVendasCliente(dadosVendaCliente[0]);
-            this.firebaseService.deletaVendaClienteTemp(ComandaPage.vendaId);
-        }
+        this.firebaseService.registerSaleClientVenda(dadosVendaCliente[0]);
+        this.firebaseService.deleteSaleClientTemp(ComandaPage.vendaId);
 
         const alert = await this.alertController.create({
             message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -311,19 +304,12 @@ export class ComandaPage implements OnInit {
         let produtoAnterior = '';
         this.produtosAux = [];
 
-        console.log('aquuiiii');
-        console.log(this.totalLucro);
-
-
-
-        this.firebaseService.findAllProductTemp(ComandaPage.vendaId).subscribe(async data => {
-            dados = data.length;
+        this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(async data => {
 
             this.produtosAux = data;
             this.cliente = ComandaPage.cliente;
 
             for (let produto of this.produtosAux) {
-                if (quantidadeDados <= dados && produto.produto != produtoAnterior) {
                     dadosVendaProdutos = [];
                     dadosVendaProdutos =
                         [{
@@ -352,9 +338,9 @@ export class ComandaPage implements OnInit {
                             "totalBruto": this.totalBruto,
                             "totalLucro": this.totalLucro
                         }];
-                    if (ComandaPage.comandaNaoRegistrada) {
-                        this.firebaseService.registerProductVenda(dadosVendaProdutos[0]);
-                    }
+
+                    this.firebaseService.registerProductVenda(dadosVendaProdutos[0]);
+
                     let dadosUpdateProdutos =
                         [{
                             "categoria": produto.categoria,
@@ -366,39 +352,18 @@ export class ComandaPage implements OnInit {
                             "valorDeCusto": produto.totalDeCusto,
                             "valorDeVenda": produto.valorDeVenda
                         }];
-                    if (ComandaPage.comandaNaoRegistrada) {
-                        this.firebaseService.updateProductVenda(produto.documento, dadosUpdateProdutos[0]);
-                    }
-                    quantidadeDados += 1;
-                    produtoAnterior = produto.produto;
-                }
+                    this.firebaseService.updateProducts(produto.produtoId, dadosUpdateProdutos[0]);
             }
         });
     }
 
     async deletaProdutosTemp() {
-        this.firebaseService.findAllProductTemp(ComandaPage.vendaId).subscribe(data => {
+        this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
+            this.produtosTemp = data;
 
-
-                this.produtosTemp = data;
-
-                if (ComandaPage.comandaNaoRegistrada && ComandaPage.produtoAlterado) {
-                    console.log('deletaProdutosTemp');
-
-                    for (let produto of this.produtosTemp) {
-                        this.totalFidelidadeCliente += parseInt(produto.fidelidade);
-                        this.firebaseService.deleteProductTemp(produto.documento);
-                    }
-
-                    if (this.formaDePagamento === 'Cartão Fidelidade ')
-                        this.totalFidelidadeCliente = 0;
-
-                    let fidelidadeCliente =
-                        [{
-                            "fidelidade": this.totalFidelidadeCliente
-                        }];
-                    // this.firebaseService.atualizaFidelidadeCliente(this.produtosTemp[0].clienteId, fidelidadeCliente[0]);
-                }
+            for (let produto of this.produtosTemp) {
+                this.firebaseService.deleteProductTemp(produto.documento);
+            }
         });
     }
 

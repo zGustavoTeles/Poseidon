@@ -116,7 +116,6 @@ export class RelatoriosPage implements OnInit {
     async abrirComanda(vendaId: any, cliente: any) {
         ComandaPage.vendaId = vendaId;
         ComandaPage.cliente = cliente;
-        ComandaPage.comandaNaoRegistrada = true;
         const modal = await this.modalCtrl.create({
             component: ComandaPage,
         });
@@ -127,7 +126,7 @@ export class RelatoriosPage implements OnInit {
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
     }
 
-    async excluirComanda(vendaId: any, cliente: any, permiteExclusao: boolean = false, clienteId) {
+    async excluirComanda(vendaId: any, cliente: any, permiteExclusao: boolean = false) {
 
         try {
 
@@ -156,7 +155,7 @@ export class RelatoriosPage implements OnInit {
                                 
                                 this.firebaseService.deleteSaleClientTemp(vendaId);
 
-                                this.firebaseService.findWhereProductTemp(clienteId).subscribe(data => {
+                                this.firebaseService.findWhereProductTemp(cliente).subscribe(data => {
                                     this.vendaProdutosTemp = data;
 
                                     for (let produto of this.vendaProdutosTemp) {

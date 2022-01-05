@@ -123,7 +123,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.desconto = 0;
         this.carregaInfoProduto();
         // this.carregaClientes();
-        this.clienteId = "";
+        this.clienteId = 0;
         this.fidelidade = 0;
         // this.carregaColaboradores();
         this.carregaClientesEmAberto();
@@ -222,12 +222,13 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
     async carregaClientesEmAberto() {
-        this.firebaseService.carregaVendasClienteTempSelect().subscribe(data => {
-            this.clientesTempAux = [];
-            this.clientesTemp = [];
-            this.clientesTempCount = 0;
+        this.clientesTempAux = [];
+        this.clientesTemp = [];
+        this.clientesTempCount = 0;
 
+        this.firebaseService.carregaVendasClienteTempSelect().subscribe(data => {
             this.clientesTempAux = data;
+
             for (let cliente of this.clientesTempAux) {
                 if (cliente.unidade === this.unidade) {
                     this.clientesTemp.push(cliente);
@@ -266,16 +267,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
                     if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
 
-                        this.firebaseService.findAllUser(this.email).subscribe(data => {
-                            let dados: any = [];
-
-                            dados = data[0];
-
-                            this.perfilColaborador = dados.perfil;
-                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                        })
-
+                        this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                        this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
                     } else {
                         this.perfilColaborador = this.perfil;
                         this.colaborador = this.colaboradorVendedor;
@@ -287,15 +280,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     if (this.estoqueFinal >= 0) {
                         if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
 
-                            this.firebaseService.findAllUser(this.email).subscribe(data => {
-                                let dados: any = [];
-                                dados = data[0];
-
-                                this.perfilColaborador = dados.perfil;
                                 this.cadastraVendaClienteTemp(clienteId, fidelidade);
                                 this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                            })
-
                         } else {
                             this.perfilColaborador = this.perfil;
                             this.colaborador = this.colaboradorVendedor;
@@ -401,10 +387,6 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 "fidelidade": fidelidade
             }];
         this.firebaseService.registerSaleClientTemp(dadosCliente[0]);
-        this.firebaseService.findAWhereSaleTemp(this.unidade).subscribe(data => {
-            this.venda = data;
-            this.clienteId = this.venda.documento;
-        });
     }
 
     async cadastraVendaProdutoTemp(clienteId: any, fidelidade: any, colaboradorPerfil: any) {

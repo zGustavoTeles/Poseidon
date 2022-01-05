@@ -684,9 +684,9 @@ export class FirebaseService {
             .valueChanges();
     }
 
-    public findWhereProductTemp(clienteId: any) {
+    public findWhereProductTemp(cliente: any) {
         return this.firestore
-            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("clienteId", "==", clienteId))
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))
             .valueChanges();
     }
 
