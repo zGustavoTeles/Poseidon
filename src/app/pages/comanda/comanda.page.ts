@@ -95,19 +95,17 @@ export class ComandaPage implements OnInit {
     ) { }
 
     ngOnInit() {
-        ComandaPage.produtoAlterado = true;
         this.dataVenda = new Date;
+        this.unidade = this.dadosRepositories.getLocalStorage('unidade');
 
         this.findAllProductTemp();
         this.findAllPaymentMethods();
-        this.unidade = this.dadosRepositories.getLocalStorage('unidade');
 
         this.ios = this.config.get('mode') === 'ios';
     }
 
-    public findAllProductTemp() {
-
-        this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
+    public async findAllProductTemp() {
+      await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
             let quantidadeDados = 1;
             let dados = 0;
             this.dataVenda = '';
@@ -173,8 +171,8 @@ export class ComandaPage implements OnInit {
         });
     }
 
-    async findAllPaymentMethods() {
-        this.firebaseService.findAllPaymentMethods().subscribe(data => {
+   public async findAllPaymentMethods() {
+       await this.firebaseService.findAllPaymentMethods().subscribe(data => {
             this.formaDePagamentos = data;
         })
     }
@@ -214,7 +212,6 @@ export class ComandaPage implements OnInit {
                 });
                 await alert.present();
             } else {
-
                 const alert = await this.alertController.create({
                     message: `<img src="assets/img/erro.png" alt="auto"><br><br>
                      <text>Por favor Selecione uma Forma de Pagamento!</text>`,
@@ -299,13 +296,9 @@ export class ComandaPage implements OnInit {
     private async cadastraVendaProduto() {
         this.dataVenda = new Date().toISOString().slice(0, 10);
         let dadosVendaProdutos;
-        let quantidadeDados = 1;
-        let dados = 0;
-        let produtoAnterior = '';
         this.produtosAux = [];
 
-        this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(async data => {
-
+       await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(async data => {
             this.produtosAux = data;
             this.cliente = ComandaPage.cliente;
 

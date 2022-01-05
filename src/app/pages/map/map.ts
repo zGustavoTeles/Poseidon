@@ -125,8 +125,9 @@ export class MapPage implements OnInit {
         this.quantidade = 0;
         this.produtosAux = [];
 
-        this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
+        await this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
             this.produtosAux = data;
+            
             for (let produto of this.produtosAux) {
                 if (produto.unidade === this.unidade) {
                     this.produtos.push(produto);

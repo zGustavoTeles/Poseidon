@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, Config, MenuController, ModalController, PopoverController } from '@ionic/angular';
-import { ComandaPage } from '../comanda/comanda.page';
 import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
-import { UserData } from '../../providers/user-data';
 import { MapPage } from '../map/map';
 import { ClientesTempComponentComponent } from '../../components/clientes-temp-component/clientes-temp-component.component';
 
@@ -117,14 +115,16 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
         this.email = this.dadosRepositories.getLocalStorage('email');
         this.colaboradorVendedor = this.dadosRepositories.getLocalStorage('nome');
+
         this.cliente = 'Selecione um Cliente';
         this.colaborador = 'Selecione um Colaborador(a)';
         this.dataVenda = new Date;
         this.desconto = 0;
-        this.carregaInfoProduto();
-        // this.carregaClientes();
         this.clienteId = 0;
         this.fidelidade = 0;
+
+        this.carregaInfoProduto();
+        // this.carregaClientes();
         // this.carregaColaboradores();
         this.carregaClientesEmAberto();
 
@@ -177,18 +177,18 @@ export class InserirProdutoCarrinhoPage implements OnInit {
             cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
             this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
             this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
-
-                if (data[0] !== undefined && data[0] !== null)
+                if (data[0] !== undefined && data[0] !== null) {
                     this.clienteValido = false;
-                this.insereDadosTemp(clienteId, fidelidade, colaborador);
-
+                }
             });
+            await this.insereDadosTemp(clienteId, fidelidade, colaborador);
         } else {
             this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
-                if (data[0] !== undefined && data[0] !== null)
+                if (data[0] !== undefined && data[0] !== null) {
                     this.clienteValido = false;
-                this.insereDadosTemp(clienteId, fidelidade, colaborador);
+                }
             })
+            await this.insereDadosTemp(clienteId, fidelidade, colaborador);
         }
     }
 
@@ -266,7 +266,6 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 if (this.categoria === 'Serviços') {
 
                     if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
-
                         this.cadastraVendaClienteTemp(clienteId, fidelidade);
                         this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
                     } else {
@@ -279,9 +278,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 } else {
                     if (this.estoqueFinal >= 0) {
                         if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
-
-                                this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                                this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
                         } else {
                             this.perfilColaborador = this.perfil;
                             this.colaborador = this.colaboradorVendedor;
@@ -311,7 +309,6 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 }
             }
         } else {
-
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/erro.png" alt="auto"><br><br>
                      <text>Quantidade tem que ser maior que 0!</text>`,
