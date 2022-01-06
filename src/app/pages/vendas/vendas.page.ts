@@ -243,27 +243,20 @@ export class VendasPage implements OnInit {
                             handler: async () => {
                                 this.produtos = [];
 
-                                this.firebaseService.deletaVendaCliente(vendaId);
-                                this.firebaseService.carregaVendasProdutosDoc(cliente, dataVenda, formaDePagamento).subscribe(async data => {
+                                this.firebaseService.deleteSaleClient(vendaId);
+                                this.firebaseService.findWhereSaleClientVenda(cliente, dataVenda, formaDePagamento).subscribe(async data => {
+                                    if (permiteExclusao) {
+                                        this.produtosAux = [];
+                                        this.produtosAux = data;
 
-                                    data.forEach(async row => {
-                                        if (permiteExclusao) {
-                                            this.produtosAux = [];
-
-                                            let line = Object(row.payload.doc.data());
-                                            line.doc = String(row.payload.doc.id);
-
-                                            this.produtosAux.push(line);
-
-                                            for (let produto of this.produtosAux) {
-                                                if (produto.unidade === this.unidade) {
-                                                    console.log('aquiiii');
-                                                    console.log(produto);
-                                                    this.firebaseService.deletaVendaProdutos(produto.doc);
-                                                }
+                                        for (let produto of this.produtosAux) {
+                                            if (produto.unidade === this.unidade) {
+                                                console.log('aquiiii');
+                                                console.log(produto);
+                                                this.firebaseService.deletaVendaProdutos(produto.doc);
                                             }
                                         }
-                                    });
+                                    }
                                 });
 
                                 if (permiteExclusao) {
@@ -305,33 +298,29 @@ export class VendasPage implements OnInit {
         let popover: HTMLIonPopoverElement;
         let produtosArray: any = [];
         let dados = [];
+        this.produtos = [];
+        this.produtosAux = [];
 
-        this.firebaseService.carregaVendasProdutosDoc(cliente, dataVenda, formaDePagamento).subscribe(data => {
-            this.produtos = [];
-            data.forEach(row => {
+        this.firebaseService.findAWhereProductVenda(cliente, dataVenda, formaDePagamento).subscribe(data => {
 
-                this.produtosAux = [];
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-                this.produtosAux.push(line);
+            this.produtosAux = data;
 
-                for (let produto of this.produtosAux) {
-                    if (produto.unidade === this.unidade) {
-                        dados[0] = produto.unidade;
-                        dados[1] = produto.categoria;
-                        dados[2] = produto.produto;
-                        dados[3] = produto.cliente;
-                        dados[4] = produto.totalBruto;
-                        dados[5] = produto.totalLiquido;
-                        dados[6] = produto.estoqueFinal;
-                        dados[7] = produto.totalComissao;
-                        dados[8] = produto.quantidadeVendida;
-                        dados[9] = produto.dataVenda;
-                        dados[10] = produto.totalLucro;
-                        produtosArray.push(dados);
-                    }
+            for (let produto of this.produtosAux) {
+                if (produto.unidade === this.unidade) {
+                    dados[0] = produto.unidade;
+                    dados[1] = produto.categoria;
+                    dados[2] = produto.produto;
+                    dados[3] = produto.cliente;
+                    dados[4] = produto.totalBruto;
+                    dados[5] = produto.totalLiquido;
+                    dados[6] = produto.estoqueFinal;
+                    dados[7] = produto.totalComissao;
+                    dados[8] = produto.quantidadeVendida;
+                    dados[9] = produto.dataVenda;
+                    dados[10] = produto.totalLucro;
+                    produtosArray.push(dados);
                 }
-            });
+            }
         });
 
         ClienteVendaProdutosComponentComponent.produtos = produtosArray;

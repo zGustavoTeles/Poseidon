@@ -731,12 +731,22 @@ export class FirebaseService {
         this.firestore.doc('Poseidon ' + '_Vendas_Cliente' + '/' + documento).update(dados);
     }
 
+    async deleteSaleClient(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Cliente_Temp' + '/' + documento).delete();
+    }
+
+    public findWhereSaleClientVenda(cliente: any, dataVenda: any, formaDePagamento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos", (ref) => ref.where("cliente", "==", cliente).where("dataVenda", "==", dataVenda).where("formaDePagamento", "==", formaDePagamento))
+            .valueChanges();
+    }
+
     public findAllSaleClientVenda(documento: any) {
         return this.firestore
             .collection("Poseidon " + "_Vendas_Cliente", (ref) => ref.where("documento", "==", documento))
             .valueChanges();
     }
-
+    
     async registerProductVenda(dados: any): Promise<any> {
         const promise = new Promise(async (resolve, reject) => {
             try {
@@ -767,6 +777,12 @@ export class FirebaseService {
     public findAllProductVenda(documento: any) {
         return this.firestore
             .collection("Poseidon " + "_Vendas_Produtos", (ref) => ref.where("documento", "==", documento))
+            .valueChanges();
+    }
+
+    public findAWhereProductVenda(cliente: any, dataVenda: any, formaDePagamento: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos", (ref) => ref.where("cliente", "==", cliente).where("dataVenda", "==", dataVenda).where("formaDePagamento", "==", formaDePagamento))
             .valueChanges();
     }
 
