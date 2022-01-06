@@ -318,6 +318,7 @@ export class VendasPage implements OnInit {
                     dados[8] = produto.quantidadeVendida;
                     dados[9] = produto.dataVenda;
                     dados[10] = produto.totalLucro;
+                    dados[11] = produto.imagem;
                     produtosArray.push(dados);
                 }
             }

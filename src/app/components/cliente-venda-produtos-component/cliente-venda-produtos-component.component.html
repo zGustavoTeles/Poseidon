@@ -11,7 +11,13 @@
         class="ion-activatable ripple-parent">
         <!-- ? Exibe informação de qual empresa foi selecionada no cabeçalho quando for multiempresa -->
         <div>
-          <b>{{produto[0]}}</b>
+          <ion-avatar slot="start">
+            <img *ngIf="produto[11] === '' " src="\assets\img\cliente_indefinido.png" />
+            <img *ngIf="produto[11] != '' "  src="{{produto[11]}}" />
+          </ion-avatar>
+          <ion-label>
+            <b>{{produto[0]}}</b>
+          </ion-label>
         </div>
 
         <ion-card-content class="ion-no-padding">
