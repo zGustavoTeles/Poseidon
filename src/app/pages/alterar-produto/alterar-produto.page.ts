@@ -52,7 +52,6 @@ export class AlterarProdutoPage implements OnInit {
         public dadosRepositories: DadosRepositories,) { }
 
     ngOnInit() {
-        this.carregaCategorias();
         this.administradorNovo = this.dadosRepositories.getLocalStorage('nome');
         this.produtoId = AlterarProdutoPage.produtoIdAtual;
         this.imagem = AlterarProdutoPage.imagemAtual;
@@ -107,7 +106,10 @@ export class AlterarProdutoPage implements OnInit {
                                     valorDeVenda: this.valorDeVenda
 
                                 };
-                                this.firebaseService.atualizaProduto(this.produtoId, dados);
+                                console.log(dados[0]);
+                                console.log('111111qqqqqqqqqq');
+                                
+                                await this.firebaseService.updateProductTemp(this.produtoId, dados[0]);
 
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -153,16 +155,6 @@ export class AlterarProdutoPage implements OnInit {
     }
     async sair() {
         this.modalCtrl.dismiss();
-    }
-
-    carregaCategorias() {
-
-        this.firebaseService.carregaCategorias().subscribe(data => {
-            console.log(data)
-
-            this.categorias = data;
-        })
-
     }
 
     // /**

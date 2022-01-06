@@ -5,6 +5,7 @@ import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
 import { MapPage } from '../map/map';
 import { ClientesTempComponentComponent } from '../../components/clientes-temp-component/clientes-temp-component.component';
+import { truncate } from 'fs';
 
 
 @Component({
@@ -171,24 +172,13 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         })
     }
 
-    public async validaInsercaoProduto(cliente: any, clienteId: any, fidelidade: any, colaborador: any) {
+    public async validaInsercaoProduto(cliente: any, clienteId: any, fidelidade: any) {
 
         if (cliente === undefined || cliente === null || cliente === 'Selecione um Cliente') {
-            cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
             this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
-            this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
-                if (data[0] !== undefined && data[0] !== null) {
-                    this.clienteValido = false;
-                }
-            });
-            await this.insereDadosTemp(clienteId, fidelidade, colaborador);
+            await this.insereDadosTemp(clienteId, fidelidade, true);
         } else {
-            this.firebaseService.findWhereSaleClientTemp(cliente).subscribe(data => {
-                if (data[0] !== undefined && data[0] !== null) {
-                    this.clienteValido = false;
-                }
-            })
-            await this.insereDadosTemp(clienteId, fidelidade, colaborador);
+            this.insereDadosTemp(clienteId, fidelidade, this.clienteValido);
         }
     }
 
@@ -239,12 +229,19 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
 
-    async insereDadosTemp(clienteId: any, fidelidade: any, colaborador: any) {
+    async insereDadosTemp(clienteId: any, fidelidade: any, clienteValido: boolean) {        
         if (this.quantidadeInserida > 0) {
-            if (this.cliente === undefined || this.cliente === null) {
+            if (this.estoqueFinal >= 0) {
+                this.perfilColaborador = this.perfil;
+                this.colaborador = this.colaboradorVendedor;
+                if (clienteValido) {
+                    this.cadastraVendaClienteTemp(clienteId, fidelidade);
+                }
+                this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+            } else {
                 const alert = await this.alertController.create({
                     message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                         <text>Selecione um Cliente!</text>`,
+                                 <text>Produto sem estoque disponível!</text>`,
                     backdropDismiss: false,
                     header: "Atenção",
                     cssClass: "alertaCss",
@@ -259,54 +256,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                         },
                     ],
                 });
-
                 await alert.present();
 
-            } else {
-                if (this.categoria === 'Serviços') {
-
-                    if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
-                        this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                        this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                    } else {
-                        this.perfilColaborador = this.perfil;
-                        this.colaborador = this.colaboradorVendedor;
-                        this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                        this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                    }
-
-                } else {
-                    if (this.estoqueFinal >= 0) {
-                        if (colaborador != undefined && colaborador != null && colaborador != 'Selecione um Colaborador(a)') {
-                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                        } else {
-                            this.perfilColaborador = this.perfil;
-                            this.colaborador = this.colaboradorVendedor;
-                            this.cadastraVendaClienteTemp(clienteId, fidelidade);
-                            this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
-                        }
-                    } else {
-                        const alert = await this.alertController.create({
-                            message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                                 <text>Produto sem estoque disponível!</text>`,
-                            backdropDismiss: false,
-                            header: "Atenção",
-                            cssClass: "alertaCss",
-                            buttons: [
-                                {
-                                    text: "Ok",
-                                    role: "Cancelar",
-                                    cssClass: "secondary",
-
-                                    handler: () => {
-                                    },
-                                },
-                            ],
-                        });
-                        await alert.present();
-                    }
-                }
             }
         } else {
             const alert = await this.alertController.create({
@@ -478,6 +429,12 @@ export class InserirProdutoCarrinhoPage implements OnInit {
             if (data.data !== undefined) {
                 this.cliente = data.data[2];
             }
+            this.clienteValido = true;
+            this.firebaseService.findWhereSaleClientTemp(this.cliente).subscribe(data => {
+                if (data[0] !== undefined && data[0] !== null) {
+                    this.clienteValido = false;
+                }        
+            });
         });
     }
 }

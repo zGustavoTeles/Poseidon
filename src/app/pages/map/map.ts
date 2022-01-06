@@ -121,11 +121,10 @@ export class MapPage implements OnInit {
         });
         await loading.present();
 
-        this.produtos = [];
-        this.quantidade = 0;
-        this.produtosAux = [];
-
         await this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
+            this.produtos = [];
+            this.quantidade = 0;
+            this.produtosAux = [];
             this.produtosAux = data;
             
             for (let produto of this.produtosAux) {

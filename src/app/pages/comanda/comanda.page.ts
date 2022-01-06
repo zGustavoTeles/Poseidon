@@ -97,15 +97,13 @@ export class ComandaPage implements OnInit {
     ngOnInit() {
         this.dataVenda = new Date;
         this.unidade = this.dadosRepositories.getLocalStorage('unidade');
-
         this.findAllProductTemp();
         this.findAllPaymentMethods();
-
         this.ios = this.config.get('mode') === 'ios';
     }
 
     public async findAllProductTemp() {
-      await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
+        await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
             let quantidadeDados = 1;
             let dados = 0;
             this.dataVenda = '';
@@ -171,8 +169,8 @@ export class ComandaPage implements OnInit {
         });
     }
 
-   public async findAllPaymentMethods() {
-       await this.firebaseService.findAllPaymentMethods().subscribe(data => {
+    public async findAllPaymentMethods() {
+        await this.firebaseService.findAllPaymentMethods().subscribe(data => {
             this.formaDePagamentos = data;
         })
     }
@@ -249,7 +247,7 @@ export class ComandaPage implements OnInit {
         this.quantidadeInserida = value;
     }
 
-    async cadastraVendaCliente() {
+    public async cadastraVendaCliente() {
         let dadosVendaCliente =
             [{
                 "vendaId": this.dataVenda,
@@ -267,8 +265,8 @@ export class ComandaPage implements OnInit {
                 "totalBruto": this.totalBruto,
                 "totalLucro": this.totalLucro
             }];
-        this.firebaseService.registerSaleClientVenda(dadosVendaCliente[0]);
-        this.firebaseService.deleteSaleClientTemp(ComandaPage.vendaId);
+        await this.firebaseService.registerSaleClientVenda(dadosVendaCliente[0]);
+        await this.firebaseService.deleteSaleClientTemp(ComandaPage.vendaId);
 
         const alert = await this.alertController.create({
             message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -298,62 +296,61 @@ export class ComandaPage implements OnInit {
         let dadosVendaProdutos;
         this.produtosAux = [];
 
-       await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(async data => {
+        await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(async data => {
             this.produtosAux = data;
             this.cliente = ComandaPage.cliente;
 
             for (let produto of this.produtosAux) {
-                    dadosVendaProdutos = [];
-                    dadosVendaProdutos =
-                        [{
-                            "produtoDoc": 'indefinido',
-                            "dataVenda": this.dataVenda,
-                            "vendedor": produto.vendedor,
-                            "unidade": this.unidade,
-                            "clienteId": produto.clienteId,
-                            "cliente": this.cliente,
-                            "formaDePagamento": this.formaDePagamento,
-                            "produtoId": produto.produtoId,
-                            "produto": produto.produto,
-                            "imagem": produto.imagem,
-                            "categoria": produto.categoria,
-                            "fidelidade": produto.fidelidade,
-                            "comissao": produto.comissao,
-                            "gorjeta": produto.gorjeta,
-                            "desconto": produto.desconto,
-                            "quantidadeVendida": produto.quantidadeVendida,
-                            "estoque": produto.estoque,
-                            "estoqueFinal": produto.estoqueFinal,
-                            "valorDeCusto": produto.totalDeCusto,
-                            "valorDeVenda": produto.valorDeVenda,
-                            "totalComissao": this.totalComissao,
-                            "totalLiquido": this.totalLiquido,
-                            "totalBruto": this.totalBruto,
-                            "totalLucro": this.totalLucro
-                        }];
+                dadosVendaProdutos = [];
+                dadosVendaProdutos =
+                    [{
+                        "produtoDoc": 'indefinido',
+                        "dataVenda": this.dataVenda,
+                        "vendedor": produto.vendedor,
+                        "unidade": this.unidade,
+                        "clienteId": produto.clienteId,
+                        "cliente": this.cliente,
+                        "formaDePagamento": this.formaDePagamento,
+                        "produtoId": produto.produtoId,
+                        "produto": produto.produto,
+                        "imagem": produto.imagem,
+                        "categoria": produto.categoria,
+                        "fidelidade": produto.fidelidade,
+                        "comissao": produto.comissao,
+                        "gorjeta": produto.gorjeta,
+                        "desconto": produto.desconto,
+                        "quantidadeVendida": produto.quantidadeVendida,
+                        "estoque": produto.estoque,
+                        "estoqueFinal": produto.estoqueFinal,
+                        "valorDeCusto": produto.totalDeCusto,
+                        "valorDeVenda": produto.valorDeVenda,
+                        "totalComissao": this.totalComissao,
+                        "totalLiquido": this.totalLiquido,
+                        "totalBruto": this.totalBruto,
+                        "totalLucro": this.totalLucro
+                    }];
 
-                    this.firebaseService.registerProductVenda(dadosVendaProdutos[0]);
+                await this.firebaseService.registerProductVenda(dadosVendaProdutos[0]);
 
-                    let dadosUpdateProdutos =
-                        [{
-                            "categoria": produto.categoria,
-                            "comissao": produto.comissao,
-                            "descricao": produto.produto,
-                            "fidelidade": produto.fidelidade,
-                            "quantidade": produto.estoqueFinal,
-                            "unidade": produto.unidade,
-                            "valorDeCusto": produto.totalDeCusto,
-                            "valorDeVenda": produto.valorDeVenda
-                        }];
-                    this.firebaseService.updateProducts(produto.produtoId, dadosUpdateProdutos[0]);
+                let dadosUpdateProdutos =
+                    [{
+                        "categoria": produto.categoria,
+                        "comissao": produto.comissao,
+                        "descricao": produto.produto,
+                        "fidelidade": produto.fidelidade,
+                        "quantidade": produto.estoqueFinal,
+                        "unidade": produto.unidade,
+                        "valorDeCusto": produto.totalDeCusto,
+                        "valorDeVenda": produto.valorDeVenda
+                    }];
+                await this.firebaseService.updateProducts(produto.produtoId, dadosUpdateProdutos[0]);
             }
         });
     }
 
-    async deletaProdutosTemp() {
-        this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
+    public async deletaProdutosTemp() {
+        await this.firebaseService.findWhereProductTemp(ComandaPage.cliente).subscribe(data => {
             this.produtosTemp = data;
-
             for (let produto of this.produtosTemp) {
                 this.firebaseService.deleteProductTemp(produto.documento);
             }
@@ -388,7 +385,8 @@ export class ComandaPage implements OnInit {
                         cssClass: 'okButton',
                         handler: async () => {
 
-                            this.firebaseService.deletaProdutoComanda(produtoId);
+                            this.firebaseService.deleteProductTemp(produtoId);
+                            this.quantidadeVendida = this.quantidadeVendida - 1;
 
                             const alert = await this.alertController.create({
                                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -409,12 +407,10 @@ export class ComandaPage implements OnInit {
                             });
                             await alert.present();
 
-                            this.firebaseService.findAllProductTemp(ComandaPage.vendaId).subscribe(data => {
-                                if (data[0] === undefined || data[0] === null) {
-                                    this.firebaseService.deleteSaleClientTemp(ComandaPage.vendaId);
-                                    this.modalCtrl.dismiss();
-                                }
-                            })
+                            if (this.quantidadeVendida <= 0) {
+                                this.firebaseService.deleteSaleClientTemp(ComandaPage.vendaId);
+                                this.modalCtrl.dismiss();
+                            }
                         }
                     }
                 ]
@@ -426,19 +422,19 @@ export class ComandaPage implements OnInit {
         }
     }
 
-    async atualizarProduto(produtoIdVenda: any, dataVenda: any, vendedor: any, unidade: any, clienteId: any, cliente: any, clienteFidelidade: any, produtoId: any, produto: any, imagem: any, categoria: any, quantidadeVendida: any, fidelidade: any, comissao: any, gorjeta: any, desconto: any, estoque: any, estoqueFinal, valorDeVenda: any, valorDeCusto: any, totalComissao: any, totalDeCusto: any, totalBruto: any, totalLiquido: any, totalLucro: any) {
+    async atualizarProduto(documento: any, dataVenda: any, vendedor: any, unidade: any, clienteId: any, cliente: any, clienteFidelidade: any, produtoId: any, produto: any, imagem: any, categoria: any, quantidadeVendida: any, fidelidade: any, comissao: any, gorjeta: any, desconto: any, estoque: any, estoqueFinal, valorDeVenda: any, valorDeCusto: any, totalComissao: any, totalDeCusto: any, totalBruto: any, totalLiquido: any, totalLucro: any) {
 
         try {
 
             ComandaPage.produtoAlterado = false;
-            AlterarPrudutoComandaPage.produtoIdVendaAtual = produtoIdVenda;
+            AlterarPrudutoComandaPage.produtoIdVendaAtual = documento;
             AlterarPrudutoComandaPage.dataVendaAtual = dataVenda;
             AlterarPrudutoComandaPage.vendedorAtual = vendedor;
             AlterarPrudutoComandaPage.unidadeAtual = unidade;
             AlterarPrudutoComandaPage.clienteIdAtual = clienteId;
             AlterarPrudutoComandaPage.clienteAtual = cliente;
             AlterarPrudutoComandaPage.clienteFidelidadeAtual = clienteFidelidade;
-            AlterarPrudutoComandaPage.produtoIdAtual = produtoId;
+            AlterarPrudutoComandaPage.produtoIdAtual = documento;
             AlterarPrudutoComandaPage.produtoAtual = produto;
             AlterarPrudutoComandaPage.imagemAtual = imagem;
             AlterarPrudutoComandaPage.categoriaAtual = categoria;
@@ -461,11 +457,11 @@ export class ComandaPage implements OnInit {
             });
             await modal.present();
 
-            // await modal.onDidDismiss().then(async data => {
-            //     console.log('aquiii');
-            //     this.ngOnInit();
+            await modal.onDidDismiss().then(async data => {
+                console.log('aquiii');
+                this.ngOnInit();
 
-            // });
+            });
 
         } catch (error) {
             console.log(error);

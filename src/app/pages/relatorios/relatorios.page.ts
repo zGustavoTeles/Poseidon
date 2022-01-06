@@ -105,8 +105,6 @@ export class RelatoriosPage implements OnInit {
     async carregaValorDoProduto() {
         console.log(this.produto)
         this.firebaseService.carregaValorDoProduto(this.produto).subscribe(data => {
-            console.log(data)
-
             this.valorProdutos = data;
             this.valorProduto = this.valorProdutos[3];
         })
