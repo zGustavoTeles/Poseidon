@@ -157,62 +157,48 @@ export class VendasPage implements OnInit {
             try {
 
                 if (formaDePagamento != undefined && formaDePagamento != null) {
+                    this.totalBruto = 0;
+                    this.totalLucro = 0;
+                    this.totalComissao = 0;
+                    this.vendas = [];
+                    this.vendasAux = [];
 
-                    this.firebaseService.carregaVendasClienteRelatorioDoc(this.startDate, this.endDate).subscribe(async data => {
-                        this.totalBruto = 0;
-                        this.totalLucro = 0;
-                        this.totalComissao = 0;
-                        this.vendas = [];
+                    this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
 
-                        data.forEach(row => {
+                        this.vendasAux = data;
 
-                            this.vendasAux = [];
-
-                            let line = Object(row.payload.doc.data());
-                            line.doc = String(row.payload.doc.id);
-
-                            this.vendasAux.push(line);
-
-                            for (let venda of this.vendasAux) {
-                                if (venda.unidade === this.unidade && venda.formaDePagamento.trim() === formaDePagamento.trim()) {
-                                    this.totalBruto += venda.totalBruto;
-                                    this.totalLucro += venda.totalLucro;
-                                    this.totalComissao += venda.totalComissao;
-                                    this.vendas.push(venda);
-                                }
+                        for (let venda of this.vendasAux) {
+                            if (venda.unidade === this.unidade && venda.formaDePagamento.trim() === formaDePagamento.trim()) {
+                                this.totalBruto += venda.totalBruto;
+                                this.totalLucro += venda.totalLucro;
+                                this.totalComissao += venda.totalComissao;
+                                this.vendas.push(venda);
                             }
-                        });
-                        loading.dismiss();
+                        }
                     });
-
+                    loading.dismiss();
                 } else {
 
-                    this.firebaseService.carregaVendasClienteRelatorioDoc(this.startDate, this.endDate).subscribe(async data => {
-                        this.totalBruto = 0;
-                        this.totalLucro = 0;
-                        this.totalComissao = 0;
-                        this.vendas = [];
+                    this.totalBruto = 0;
+                    this.totalLucro = 0;
+                    this.totalComissao = 0;
+                    this.vendas = [];
+                    this.vendasAux = [];
 
-                        data.forEach(row => {
+                    this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
 
-                            this.vendasAux = [];
+                        this.vendasAux = data;
 
-                            let line = Object(row.payload.doc.data());
-                            line.doc = String(row.payload.doc.id);
-
-                            this.vendasAux.push(line);
-
-                            for (let venda of this.vendasAux) {
-                                if (venda.unidade === this.unidade) {
-                                    this.totalBruto += venda.totalBruto;
-                                    this.totalLucro += venda.totalLucro;
-                                    this.totalComissao += venda.totalComissao;
-                                    this.vendas.push(venda);
-                                }
+                        for (let venda of this.vendasAux) {
+                            if (venda.unidade === this.unidade) {
+                                this.totalBruto += venda.totalBruto;
+                                this.totalLucro += venda.totalLucro;
+                                this.totalComissao += venda.totalComissao;
+                                this.vendas.push(venda);
                             }
-                        });
-                        loading.dismiss();
+                        }
                     });
+                    loading.dismiss();
                 }
             } catch (error) {
                 console.log('Não foi possivel carregar as vendas por data:', error);

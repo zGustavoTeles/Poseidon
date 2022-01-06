@@ -106,7 +106,6 @@ export class AlterarPrudutoComandaPage implements OnInit {
         private firebaseService: FirebaseService,
         public config: Config,
         private alertController: AlertController,
-        private infoLogin: UserData,
         public router: Router,
         public dadosRepositories: DadosRepositories,
         private modalCtrl: ModalController,
@@ -142,39 +141,6 @@ export class AlterarPrudutoComandaPage implements OnInit {
         this.ios = this.config.get('mode') === 'ios';
     }
 
-    carregaClientes() {
-        this.firebaseService.listaClientes().subscribe(data => {
-            this.clientes = [];
-            this.clientesAux = [];
-            if (this.clientes.length === 0) {
-                data.forEach(row => {
-                    let line = Object(row.payload.doc.data());
-                    line.doc = String(row.payload.doc.id);
-
-                    this.clientesAux.push(line);
-
-                    for (let cliente of this.clientesAux) {
-                        if (cliente.unidade === this.unidade && cliente.perfil === 'Cliente') {
-                            this.clientes.push(cliente);
-                            this.clienteId = cliente.doc;
-                            this.clienteFidelidade = cliente.fidelidade;
-                        }
-                    }
-                });
-            }
-        })
-    }
-
-    async carregaFormasDePagamento() {
-
-        this.firebaseService.carregaFormasDePagamento().subscribe(data => {
-            console.log(data)
-
-            this.formaDePagamentos = data;
-        })
-
-    }
-
     async insereDadosTemp(produto: any, clienteId: any, fidelidade: any) {
         const alert = await this.alertController.create({
             message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -196,13 +162,13 @@ export class AlterarPrudutoComandaPage implements OnInit {
                     text: 'Sim',
                     cssClass: 'okButton',
                     handler: async () => {
-
-
                         if (this.quantidadeInserida > 0) {
-                            if (this.cliente === undefined || this.cliente === null) {
+                            if (this.estoqueFinal >= 0) {
+                                this.atualizaProduto(clienteId, fidelidade);
+                            } else {
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                                         <text>Selecione um Cliente!</text>`,
+                                                 <text>Produto sem estoque disponível!</text>`,
                                     backdropDismiss: false,
                                     header: "Atenção",
                                     cssClass: "alertaCss",
@@ -218,33 +184,6 @@ export class AlterarPrudutoComandaPage implements OnInit {
                                     ],
                                 });
                                 await alert.present();
-                            } else {
-                                if (this.categoria === 'Serviços') {
-                                    this.atualizaProduto(clienteId, fidelidade);
-                                } else {
-                                    if (this.estoqueFinal >= 0) {
-                                        this.atualizaProduto(clienteId, fidelidade);
-                                    } else {
-                                        const alert = await this.alertController.create({
-                                            message: `<img src="assets/img/erro.png" alt="auto"><br><br>
-                                                 <text>Produto sem estoque disponível!</text>`,
-                                            backdropDismiss: false,
-                                            header: "Atenção",
-                                            cssClass: "alertaCss",
-                                            buttons: [
-                                                {
-                                                    text: "Ok",
-                                                    role: "Cancelar",
-                                                    cssClass: "secondary",
-
-                                                    handler: () => {
-                                                    },
-                                                },
-                                            ],
-                                        });
-                                        await alert.present();
-                                    }
-                                }
                             }
                         } else {
                             const alert = await this.alertController.create({
@@ -267,8 +206,6 @@ export class AlterarPrudutoComandaPage implements OnInit {
                             await alert.present();
                         }
                         return;
-
-
                     }
                 }
             ]
@@ -353,11 +290,7 @@ export class AlterarPrudutoComandaPage implements OnInit {
                     "totalLiquido": this.totalLiquido,
                     "totalLucro": this.totalLucro
                 }];
-
-            console.log(dadosProdutos[0]);
-
-
-            this.firebaseService.atualizaProdutoComanda(AlterarPrudutoComandaPage.produtoIdVendaAtual, dadosProdutos[0]);
+            this.firebaseService.updateProductTemp(AlterarPrudutoComandaPage.produtoIdVendaAtual, dadosProdutos[0]);
             this.modalCtrl.dismiss();
 
             const alert = await this.alertController.create({

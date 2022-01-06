@@ -173,7 +173,6 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
     public async validaInsercaoProduto(cliente: any, clienteId: any, fidelidade: any) {
-
         if (cliente === undefined || cliente === null || cliente === 'Selecione um Cliente') {
             this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
             await this.insereDadosTemp(clienteId, fidelidade, true);

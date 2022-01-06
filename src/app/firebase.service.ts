@@ -457,6 +457,10 @@ export class FirebaseService {
             .valueChanges();
     }
 
+    async deleteProduct(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Produtos' + '/' + documento).delete();
+    }
+
     findAllCategory() {
         return this.firestore
             .collection("Poseidon " + "_Categorias", (ref) => ref.orderBy("descricao"))

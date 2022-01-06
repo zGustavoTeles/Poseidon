@@ -106,10 +106,7 @@ export class AlterarProdutoPage implements OnInit {
                                     valorDeVenda: this.valorDeVenda
 
                                 };
-                                console.log(dados[0]);
-                                console.log('111111qqqqqqqqqq');
-                                
-                                await this.firebaseService.updateProductTemp(this.produtoId, dados[0]);
+                                await this.firebaseService.updateProducts(this.produtoId, dados[0]);
 
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>

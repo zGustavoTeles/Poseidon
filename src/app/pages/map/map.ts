@@ -162,7 +162,6 @@ export class MapPage implements OnInit {
     }
 
     async excluirProduto(produtoId: any, descricao: any,) {
-
         try {
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -185,7 +184,7 @@ export class MapPage implements OnInit {
                         text: 'Sim',
                         cssClass: 'okButton',
                         handler: async () => {
-                            this.firebaseService.deletaProduto(produtoId);
+                            this.firebaseService.deleteProduct(produtoId);
 
                             const alert = await this.alertController.create({
                                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -217,7 +216,6 @@ export class MapPage implements OnInit {
     }
 
     async atualizarProduto(produtoId: any, imagem: any, unidade: any, categoria: any, descricao: any, quantidade: any, fidelidade: any, comissao: any, valorDeCusto: any, valorDeVenda: any) {
-
         try {
             AlterarProdutoPage.produtoIdAtual = produtoId;
             AlterarProdutoPage.imagemAtual = imagem;
@@ -240,7 +238,7 @@ export class MapPage implements OnInit {
         }
     }
 
-    /**
+ /**
  * Escanea o codigo de barras
  */
     touchAbrirLeitorCodigoBarras() {
