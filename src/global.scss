@@ -509,13 +509,13 @@ div.alert-button-group.sc-ion-alert-ios {
 }
 
 .mensagem-tabela-preco-fixo {
-  background-color: var(--ion-color-danger);
+  background-color: var(--ion-color-warning);
   margin-bottom: 5px;
   display: flex;
   justify-content: center;
 
   ion-label {
-    color: var(--ion-color-danger-contrast);
+    color: var(--ion-color-warning-contrast);
     font-weight: bold;
   }
 }

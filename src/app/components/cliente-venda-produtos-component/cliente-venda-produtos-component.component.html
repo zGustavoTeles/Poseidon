@@ -5,26 +5,24 @@
     muito!</p>
   <!-- ? Seleciona a tabela de preco -->
   <div>
-    <ion-list lines="none" *ngFor="let produto of produtosTemp;"> 
+    <ion-list lines="none" *ngFor="let produto of produtosTemp;">
 
       <ion-card (click)="touchTabelaEscohida(produto)" style="border-radius: 10px;"
         class="ion-activatable ripple-parent">
         <!-- ? Exibe informação de qual empresa foi selecionada no cabeçalho quando for multiempresa -->
-        <div>
+        <div class="mensagem-tabela-preco-fixo">
+          <!-- <b>{{produto[0]}}</b> -->
           <ion-avatar slot="start">
             <img *ngIf="produto[11] === '' " src="\assets\img\cliente_indefinido.png" />
-            <img *ngIf="produto[11] != '' "  src="{{produto[11]}}" />
+            <img *ngIf="produto[11] != '' " src="{{produto[11]}}" />
           </ion-avatar>
-          <ion-label>
-            <b>{{produto[0]}}</b>
-          </ion-label>
         </div>
 
         <ion-card-content class="ion-no-padding">
           <ion-grid class="grid-detalhe-produto ion-no-padding" style="padding: 2%; font-size: 12px !important">
-            <ion-row class="mensagem-tabela-preco-fixo">
+            <!-- <ion-row class="mensagem-tabela-preco-fixo">
               <ion-label>{{produto[1]}}</ion-label>
-            </ion-row>
+            </ion-row> -->
             <ion-row class="ion-text-left">
               <ion-col>
                 <ion-label style="color: rgb(20, 113, 220)">

@@ -42,7 +42,7 @@ export class TabsPage implements OnInit {
     }
 
     async carregaVendas() {
-        this.firebaseService.carregaVendasTempUnidadeCarrinho(this.unidade).subscribe(data => {
+        this.firebaseService.findWhereProductTempUnidade(this.unidade).subscribe(data => {
             this.vendas = data;
             this.quantidadeCarrinho = this.vendas.length;
         })

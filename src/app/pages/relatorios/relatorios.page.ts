@@ -5,6 +5,8 @@ import { ComandaPage } from '../comanda/comanda.page';
 import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
 import { UserData } from '../../providers/user-data';
+import { AlterarPrudutoComandaPage } from '../alterar-pruduto-comanda/alterar-pruduto-comanda.page';
+import { MapPage } from '../map/map';
 
 @Component({
     selector: 'app-relatorios',
@@ -13,184 +15,490 @@ import { UserData } from '../../providers/user-data';
 })
 export class RelatoriosPage implements OnInit {
 
+    map: MapPage;
 
+    selecionFormaPagamento: any = {
+        header: 'Forma de Pagamento'
+    };
 
-    dataVenda: Date;
+    data: Date;
+    dataVenda: any;
     vendedor: any;
-    unidade: any;
     produto: any;
     categoria: any;
     quantidade: any;
+    estoque: any;
     valorDeVenda: any;
-    formaPagamento: any;
+    total: any;
+    formaDePagamento: any;
 
     ios: boolean;
     submitted = false;
     descricao: any;
 
-    vendas: any = [];
-    vendaProdutosTemp: any = [];
-    vendasAux: any = [];
-    dataAux: any = [];
+    quantidadeInserida = 1;
+    quantidadeVendida = 0;
+    estoqueFinal: any;
+    produtosAuxListagem: any = [];
+    venda: any = [];
+    produtos: any = [];
+    produtosAux: any = [];
+    produtosAtualiza: any = [];
+    uids: any = [];
+    infoProduto: any = [];
     formaDePagamentos: any = [];
     valorProdutos: any[];
+    estoques: any[];
     valorProduto: any;
 
-    perfil: any;
+    totalComissao = 0.0;
+    totalLiquido = 0.0;
+    totalBruto = 0.0;
+    totalDeCusto = 0.0;
+    totalLucro = 0.0;
+    totalGorjetas = 0.0;
+    totalDescontos = 0.0;
 
-    quantidadeCarrinho = 0;
-    dayIndex = 0;
-    queryText = '';
-    segment = 'all';
-    excludeTracks: any = [];
-    shownSessions: any = [];
-    groups: any = [];
-    confDate: string;
-    showSearchbar: boolean;
 
-    clientes: any = [];
-    itens: any = [];
-    clientsData: any = [];
+    categoriaInfo: Date;
+    descricaoInfo: any;
+    quantidadeInfo: any;
+    valorInfo: any;
+    clientes: any[];
+    cliente: any;
+    unidade: any;
+    fidelidade: any;
+    produtosInseridos: any[];
+    produtosTemp: any[];
+    totalFidelidadeCliente: any;
+    colaboradores: any = [];
+
+    documentoVenda: any;
+    clienteVenda: any;
+
+    public static descricao: any;
+    public static categoria: any;
+    public static estoque: any;
+    public static valor: any;
+    public static cliente: any;
+    public static vendaId: any;
+    public static comandaNaoRegistrada: boolean = false;
+    public static produtoAlterado: boolean = false;
 
     constructor(
         private firebaseService: FirebaseService,
         public config: Config,
+        private alertController: AlertController,
         private infoLogin: UserData,
         public router: Router,
-        public loadingController: LoadingController,
-        private dadosRepositories: DadosRepositories,
-        private alertController: AlertController,
-        private popoverController: PopoverController,
+        public dadosRepositories: DadosRepositories,
         private modalCtrl: ModalController,
     ) { }
 
     ngOnInit() {
-        this.vendedor = this.infoLogin.getUsername;
-        this.unidade = this.dadosRepositories.getLocalStorage('unidade');
         this.dataVenda = new Date;
-        this.carregaVendasTemp();
-        this.getPerfilUsuario();
+        this.unidade = this.dadosRepositories.getLocalStorage('unidade');
+        this.findAllProductTemp();
+        this.findAllPaymentMethods();
+        this.getDocumentoSale();
         this.ios = this.config.get('mode') === 'ios';
     }
 
-    // Abrindo buscas e retornando filtros
-    async touchOpcoesFiltro(ev: any) {
+    public async findAllProductTemp() {
+        await this.firebaseService.findAllProductTemp().subscribe(data => {
+            let quantidadeDados = 1;
+            let dados = 0;
+            this.dataVenda = '';
+            this.vendedor = '';
+            this.quantidadeVendida = 0;
+            this.fidelidade = 0;
+            this.totalComissao = 0;
+            this.totalLiquido = 0;
+            this.totalBruto = 0;
+            this.totalDeCusto = 0;
+            this.totalLucro = 0;
+            this.totalFidelidadeCliente = 0;
+            this.totalGorjetas = 0;
+            this.cliente = ComandaPage.cliente;
+            this.produtos = [];
+            this.produtosAuxListagem = [];
+
+            let total: any = 0;
+            dados = data.length;
+
+            this.produtosAuxListagem = data;
+
+            for (let produto of this.produtosAuxListagem) {
+                this.produtos.push(produto);
+
+                if (quantidadeDados <= dados) {
+
+                    this.dataVenda = produto.dataVenda;
+                    this.vendedor = produto.vendedor;
+                    this.quantidadeVendida += parseInt(produto.quantidadeVendida);
+                    this.fidelidade += produto.fidelidade;
+
+                    if (produto.colaboradorPerfil === 'Colaborador')
+                        this.totalComissao += produto.totalComissao;
+
+                    this.totalBruto += produto.totalBruto;
+
+                    if (produto.colaboradorPerfil === 'Colaborador')
+                        this.totalLiquido += parseFloat(produto.totalLiquido);
+                    else
+                        this.totalLiquido += parseFloat(produto.totalBruto);
+
+
+                    this.totalDeCusto += produto.totalDeCusto;
+                    this.totalDescontos += parseFloat(produto.desconto);
+                    this.totalFidelidadeCliente = parseInt(produto.clienteFidelidade);
+
+                    if (produto.colaboradorPerfil === 'Colaborador')
+                        this.totalGorjetas += parseFloat(produto.gorjeta);
+                    else
+                        this.totalLucro += parseFloat(produto.gorjeta);
+
+                    if (produto.colaboradorPerfil === 'Colaborador') {
+                        total = parseFloat(((this.totalBruto - this.totalComissao) - this.totalDeCusto).toFixed(2));
+                        total = parseFloat((total - this.totalDescontos).toFixed(2));
+                    } else {
+                        total = parseFloat(((this.totalBruto - this.totalDeCusto) - this.totalDescontos).toFixed(2));
+                    }
+                    quantidadeDados += 1;
+                }
+                this.totalLucro = total;
+            }
+        });
     }
 
-    async carregaVendasTemp() {
-        this.vendas = [];
-        const loading = await this.loadingController.create({
-            message: '<ion-img src="/assets/gif/loading.gif" alt="loading..."></ion-img> <br> Carregando Comandas...',
-            spinner: null,
-            cssClass: 'loadingCss',
-        });
-        await loading.present();
-
-        await this.firebaseService.findAWhereSaleTemp(this.unidade).subscribe(data => {
-            this.vendas = data;
-        });
-        loading.dismiss();
-    }
-
-    async carregaFormasDePagamento() {
-
-        this.firebaseService.carregaFormasDePagamento().subscribe(data => {
-            console.log(data)
-
+    public async findAllPaymentMethods() {
+        await this.firebaseService.findAllPaymentMethods().subscribe(data => {
             this.formaDePagamentos = data;
         })
-
     }
 
-    async carregaValorDoProduto() {
-        console.log(this.produto)
-        this.firebaseService.carregaValorDoProduto(this.produto).subscribe(data => {
-            this.valorProdutos = data;
-            this.valorProduto = this.valorProdutos[3];
+    public async getDocumentoSale() {
+        await this.firebaseService.findAllSaleClientTemp().subscribe(data => {
+            this.venda = data[0];
+            this.documentoVenda = this.venda.documento;
+            this.clienteVenda = this.venda.cliente;
         })
-
     }
 
-    async abrirComanda(vendaId: any, cliente: any) {
-        ComandaPage.vendaId = vendaId;
-        ComandaPage.cliente = cliente;
-        const modal = await this.modalCtrl.create({
-            component: ComandaPage,
-        });
-        await modal.present();
-    }
-
-    getPerfilUsuario() {
-        this.perfil = this.dadosRepositories.getLocalStorage('perfil');
-    }
-
-    async excluirComanda(vendaId: any, cliente: any, permiteExclusao: boolean = false) {
-
+    async registrarVenda() {
         try {
+            if (this.quantidadeVendida > 0) {
+                if (this.formaDePagamento !== undefined && this.formaDePagamento !== null) {
+                    const alert = await this.alertController.create({
+                        message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                         <text>Deseja Finalizar a Comanda <b>${this.cliente}</b>
+                         <br>Quantidade: <b>${this.quantidadeVendida}</b>
+                         <br>Total: <b>${this.totalBruto.toFixed(2)}</b></text>`,
 
-            if (permiteExclusao) {
+                        backdropDismiss: false,
+                        header: "Atenção",
+                        cssClass: "alertaCss",
+
+                        buttons: [
+                            {
+                                text: 'Não',
+                                role: 'cancel',
+                                cssClass: 'cancelcancelarButton',
+                                handler: async () => {
+                                    return;
+                                }
+                            },
+                            {
+                                text: 'Sim',
+                                cssClass: 'okButton',
+                                handler: async () => {
+                                    this.cadastraVendaProduto();
+                                    this.cadastraVendaCliente();
+                                    this.deletaProdutosTemp();
+                                }
+                            }
+                        ]
+                    });
+                    await alert.present();
+                } else {
+                    const alert = await this.alertController.create({
+                        message: `<img src="assets/img/erro.png" alt="auto"><br><br>
+                     <text>Por favor Selecione uma Forma de Pagamento!</text>`,
+                        backdropDismiss: false,
+                        header: "Atenção",
+                        cssClass: "alertaCss",
+                        buttons: [
+                            {
+                                text: "Ok",
+                                role: "Cancelar",
+                                cssClass: "secondary",
+
+                                handler: () => {
+                                },
+                            },
+                        ],
+                    });
+                    alert.present();
+                }
+            } else {
                 const alert = await this.alertController.create({
-                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                     <text>Deseja Excluir a Comanda do Cliente:<br><b>${cliente}</b></text>`,
-
+                    message: `<img src="assets/img/erro.png" alt="auto"><br><br>
+                     <text>Por favor Insira ao menos um produto<br><b>ao carrinho!</></text>`,
                     backdropDismiss: false,
                     header: "Atenção",
                     cssClass: "alertaCss",
-
                     buttons: [
                         {
-                            text: 'Não',
-                            role: 'cancel',
-                            cssClass: 'cancelcancelarButton',
-                            handler: async () => {
-                                return;
-                            }
+                            text: "Ok",
+                            role: "Cancelar",
+                            cssClass: "secondary",
+
+                            handler: () => {
+                            },
                         },
-                        {
-                            text: 'Sim',
-                            cssClass: 'okButton',
-                            handler: async () => {
-                                
-                                this.firebaseService.deleteSaleClientTemp(vendaId);
+                    ],
+                });
+                alert.present();
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    async calculaTotal() {
+    }
 
-                                this.firebaseService.findWhereProductTemp(cliente).subscribe(data => {
-                                    this.vendaProdutosTemp = data;
+    async calculaTotalEven(ev?: any) {
+        if (ev.currentTarget.id === 'inputQuantidade') {
+            this.totalBruto = this.valorProduto * this.quantidadeInserida;
+            this.estoqueFinal = this.estoque - this.quantidadeInserida;
+        }
+    }
 
-                                    for (let produto of this.vendaProdutosTemp) {
-                                        this.firebaseService.deleteProductTemp(produto.documento);
-                                    }
-                                });
-                                const alert = await this.alertController.create({
-                                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                                 <text>Comanda Excluída Com Sucesso!</text>`,
-                                    backdropDismiss: false,
-                                    header: "Atenção",
-                                    cssClass: "alertaCss",
-                                    buttons: [
-                                        {
-                                            text: "Ok",
-                                            role: "Cancelar",
-                                            cssClass: "secondary",
+    async setQuantidadeInserida(value) {
+        this.quantidadeInserida = value;
+    }
 
-                                            handler: () => {
-                                            },
+    public async cadastraVendaCliente() {
+        let dadosVendaCliente =
+            [{
+                "vendaId": this.dataVenda,
+                "dataVenda": this.dataVenda,
+                "vendedor": this.vendedor,
+                "unidade": this.unidade,
+                "cliente": this.cliente,
+                "formaDePagamento": this.formaDePagamento,
+                "quantidadeVendida": this.quantidadeInserida,
+                "totalComissao": this.totalComissao,
+                "totalGorjetas": this.totalGorjetas,
+                "totalDescontos": this.totalDescontos,
+                "totalDeCusto": this.totalDeCusto,
+                "totalLiquido": this.totalLiquido,
+                "totalBruto": this.totalBruto,
+                "totalLucro": this.totalLucro
+            }];
+        await this.firebaseService.registerSaleClientVenda(dadosVendaCliente[0]);
+        await this.firebaseService.deleteSaleClientTemp(this.documentoVenda);
+
+        const alert = await this.alertController.create({
+            message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+             <text>Venda Registrada com Sucesso!<br>Cliente: <b>${this.cliente}</b>
+             <br><br>Quantidade Total Vendida: <b>${this.quantidadeVendida}</b>
+             <br><br>Total da Venda: <b>${this.totalBruto.toFixed(2)}</b></text>`,
+            backdropDismiss: false,
+            header: "Atenção",
+            cssClass: "alertaCss",
+            buttons: [
+                {
+                    text: "Ok",
+                    role: "Cancelar",
+                    cssClass: "secondary",
+
+                    handler: () => {
+                    },
+                },
+            ],
+        });
+        this.modalCtrl.dismiss();
+        alert.present();
+    }
+
+    private async cadastraVendaProduto() {
+        this.dataVenda = new Date().toISOString().slice(0, 10);
+        let dadosVendaProdutos;
+        this.produtosAux = [];
+
+        console.log('aqqqq');
+        console.log(this.clienteVenda);
+        
+
+        await this.firebaseService.findWhereProductTemp(this.clienteVenda).subscribe(async data => {
+            this.produtosAux = data;
+            this.cliente = this.clienteVenda;
+
+            for (let produto of this.produtosAux) {
+                dadosVendaProdutos = [];
+                dadosVendaProdutos =
+                    [{
+                        "produtoDoc": 'indefinido',
+                        "dataVenda": this.dataVenda,
+                        "vendedor": produto.vendedor,
+                        "unidade": this.unidade,
+                        "clienteId": produto.clienteId,
+                        "cliente": this.cliente,
+                        "formaDePagamento": this.formaDePagamento,
+                        "produtoId": produto.produtoId,
+                        "produto": produto.produto,
+                        "imagem": produto.imagem,
+                        "categoria": produto.categoria,
+                        "fidelidade": produto.fidelidade,
+                        "comissao": produto.comissao,
+                        "gorjeta": produto.gorjeta,
+                        "desconto": produto.desconto,
+                        "quantidadeVendida": produto.quantidadeVendida,
+                        "estoque": produto.estoque,
+                        "estoqueFinal": produto.estoqueFinal,
+                        "valorDeCusto": produto.totalDeCusto,
+                        "valorDeVenda": produto.valorDeVenda,
+                        "totalComissao": this.totalComissao,
+                        "totalLiquido": this.totalLiquido,
+                        "totalBruto": this.totalBruto,
+                        "totalLucro": this.totalLucro
+                    }];
+
+                await this.firebaseService.registerProductVenda(dadosVendaProdutos[0]);
+
+                let dadosUpdateProdutos =
+                    [{
+                        "categoria": produto.categoria,
+                        "comissao": produto.comissao,
+                        "descricao": produto.produto,
+                        "fidelidade": produto.fidelidade,
+                        "quantidade": produto.estoqueFinal,
+                        "unidade": produto.unidade,
+                        "valorDeCusto": produto.totalDeCusto,
+                        "valorDeVenda": produto.valorDeVenda
+                    }];
+                await this.firebaseService.updateProducts(produto.produtoId, dadosUpdateProdutos[0]);
+            }
+        });
+    }
+
+    public async deletaProdutosTemp() {
+        await this.firebaseService.findWhereProductTemp(this.clienteVenda).subscribe(data => {
+            this.produtosTemp = data;
+            for (let produto of this.produtosTemp) {
+                this.firebaseService.deleteProductTemp(produto.documento);
+            }
+        });
+    }
+
+    async sair() {
+        this.modalCtrl.dismiss();
+    }
+
+    async excluirProduto(produtoId: any, descricao: any,) {
+        try {
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                     <text>Deseja Excluir esse Produto:<br><b>${descricao}</b></text>`,
+
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+
+                buttons: [
+                    {
+                        text: 'Não',
+                        role: 'cancel',
+                        cssClass: 'cancelcancelarButton',
+                        handler: async () => {
+                            return;
+                        }
+                    },
+                    {
+                        text: 'Sim',
+                        cssClass: 'okButton',
+                        handler: async () => {
+
+                            this.firebaseService.deleteProductTemp(produtoId);
+                            this.quantidadeVendida = this.quantidadeVendida - 1;
+
+                            const alert = await this.alertController.create({
+                                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                                 <text>Produto Excluído Com Sucesso!</text>`,
+                                backdropDismiss: false,
+                                header: "Atenção",
+                                cssClass: "alertaCss",
+                                buttons: [
+                                    {
+                                        text: "Ok",
+                                        role: "Cancelar",
+                                        cssClass: "secondary",
+
+                                        handler: () => {
                                         },
-                                    ],
-                                });
-                                await alert.present();
-                                permiteExclusao = false;
+                                    },
+                                ],
+                            });
+                            await alert.present();
+
+                            if (this.quantidadeVendida <= 0) {
+                                this.firebaseService.deleteSaleClientTemp(this.documentoVenda);
                             }
                         }
-                    ]
-                });
-                await alert.present();
-
-            }
+                    }
+                ]
+            });
+            await alert.present();
 
         } catch (error) {
             console.log(error);
         }
     }
 
-}
+    async atualizarProduto(documento: any, dataVenda: any, vendedor: any, unidade: any, clienteId: any, cliente: any, clienteFidelidade: any, produtoId: any, produto: any, imagem: any, categoria: any, quantidadeVendida: any, fidelidade: any, comissao: any, gorjeta: any, desconto: any, estoque: any, estoqueFinal, valorDeVenda: any, valorDeCusto: any, totalComissao: any, totalDeCusto: any, totalBruto: any, totalLiquido: any, totalLucro: any) {
 
+        try {
+
+            ComandaPage.produtoAlterado = false;
+            AlterarPrudutoComandaPage.produtoIdVendaAtual = documento;
+            AlterarPrudutoComandaPage.dataVendaAtual = dataVenda;
+            AlterarPrudutoComandaPage.vendedorAtual = vendedor;
+            AlterarPrudutoComandaPage.unidadeAtual = unidade;
+            AlterarPrudutoComandaPage.clienteIdAtual = clienteId;
+            AlterarPrudutoComandaPage.clienteAtual = cliente;
+            AlterarPrudutoComandaPage.clienteFidelidadeAtual = clienteFidelidade;
+            AlterarPrudutoComandaPage.produtoIdAtual = documento;
+            AlterarPrudutoComandaPage.produtoAtual = produto;
+            AlterarPrudutoComandaPage.imagemAtual = imagem;
+            AlterarPrudutoComandaPage.categoriaAtual = categoria;
+            AlterarPrudutoComandaPage.quantidadeInseridaAtual = quantidadeVendida;
+            AlterarPrudutoComandaPage.fidelidadeAtual = fidelidade;
+            AlterarPrudutoComandaPage.comissaoAtual = comissao;
+            AlterarPrudutoComandaPage.gorjetaAtual = gorjeta;
+            AlterarPrudutoComandaPage.descontoAtual = desconto;
+            AlterarPrudutoComandaPage.estoqueAtual = estoque;
+            AlterarPrudutoComandaPage.estoqueFinalAtual = estoqueFinal;
+            AlterarPrudutoComandaPage.valorDeVendaAtual = valorDeVenda;
+            AlterarPrudutoComandaPage.valorDeCustoAtual = valorDeCusto;
+            AlterarPrudutoComandaPage.totalComissaoAtual = totalComissao;
+            AlterarPrudutoComandaPage.totalDeCustoAtual = totalDeCusto;
+            AlterarPrudutoComandaPage.totalBrutoAtual = totalBruto;
+            AlterarPrudutoComandaPage.totalLiquidoAtual = totalLiquido;
+            AlterarPrudutoComandaPage.totalLucroAtual = totalLucro;
+            const modal = await this.modalCtrl.create({
+                component: AlterarPrudutoComandaPage,
+            });
+            await modal.present();
+
+            await modal.onDidDismiss().then(async data => {
+                console.log('aquiii');
+                this.ngOnInit();
+
+            });
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}

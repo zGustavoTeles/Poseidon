@@ -35,6 +35,22 @@
 
         <ion-card-content class="ion-no-padding">
 
+          <ion-footer class="fontNameItem borderFooter" color="facebook">
+            <ion-grid style="text-align: center">
+              <ion-row>
+                <ion-col>
+                  Total Bruto<br><b style="color: rgb(0, 187, 255);">{{totalBruto | currency: 'BRL'}}</b>
+                </ion-col>
+                <ion-col>
+                  Total Lucros<br><b style="color: forestgreen;">{{totalLucro | currency: 'BRL'}}</b>
+                </ion-col>
+                <ion-col>
+                  Comissões Pagas<br> <b style="color: red;">{{totalComissao | currency: 'BRL'}}</b>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-footer>
+
           <ion-item-sliding *ngFor="let venda of vendas">
 
             <ion-item>
@@ -109,7 +125,7 @@
   </ion-grid>
 </ion-content>
 
-<ion-footer class="fontNameItem borderFooter" color="facebook">
+<!-- <ion-footer class="fontNameItem borderFooter" color="facebook">
   <ion-grid style="text-align: center">
     <ion-row>
       <ion-col>
@@ -123,4 +139,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-</ion-footer>
+</ion-footer> -->

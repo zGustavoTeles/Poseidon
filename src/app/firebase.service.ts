@@ -629,9 +629,9 @@ export class FirebaseService {
         this.firestore.doc('Poseidon ' + '_Vendas_Cliente_Temp' + '/' + documento).update(dados);
     }
 
-    public findAllSaleClientTemp(documento: any) {
+    public findAllSaleClientTemp() {
         return this.firestore
-            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.where("documento", "==", documento))
+            .collection("Poseidon " + "_Vendas_Cliente_Temp", (ref) => ref.orderBy("cliente"))
             .valueChanges();
     }
 
@@ -682,9 +682,15 @@ export class FirebaseService {
         this.firestore.doc('Poseidon ' + '_Vendas_Produtos_Temp' + '/' + documento).delete();
     }
 
-    public findAllProductTemp(documento: any) {
+    public findAllProductTemp() {
         return this.firestore
-            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("documento", "==", documento))
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.orderBy("produto"))
+            .valueChanges();
+    }
+
+    public findWhereProductTempUnidade(unidade: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos_Temp",  (ref) => ref.where("unidade", "==", unidade))
             .valueChanges();
     }
 

@@ -94,6 +94,9 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
     venda: any = [];
 
+    vendaAtual;
+    vendaIdAtual;
+
     public static descricao: any;
     public static categoria: any;
     public static estoque: any;
@@ -128,6 +131,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         // this.carregaClientes();
         // this.carregaColaboradores();
         this.carregaClientesEmAberto();
+        this.findAllSaleClientTemp();
 
         this.ios = this.config.get('mode') === 'ios';
     }
@@ -173,11 +177,11 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
     public async validaInsercaoProduto(cliente: any, clienteId: any, fidelidade: any) {
-        if (cliente === undefined || cliente === null || cliente === 'Selecione um Cliente') {
-            this.cliente = 'Cliente Indefinido - ' + Math.random().toFixed(1);
-            await this.insereDadosTemp(clienteId, fidelidade, true);
-        } else {
+        if (this.clienteValido) {
             this.insereDadosTemp(clienteId, fidelidade, this.clienteValido);
+        } else {
+            this.cliente = 'Venda - ' + Math.random().toFixed(1);
+            await this.insereDadosTemp(clienteId, fidelidade, true);
         }
     }
 
@@ -210,6 +214,20 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         })
     }
 
+    public async findAllSaleClientTemp() {
+        this.clienteValido = false;
+        this.venda= [];
+
+        await this.firebaseService.findAllSaleClientTemp().subscribe(data => {
+            if (data[0] !== undefined && data[0] !== null) {
+                this.venda = data;
+                this.clienteValido = true;
+                this.vendaAtual = this.venda.cliente;
+                this.vendaIdAtual = this.venda.clienteId;
+            }
+        });
+    }
+
     async carregaClientesEmAberto() {
         this.clientesTempAux = [];
         this.clientesTemp = [];
@@ -228,12 +246,12 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
 
-    async insereDadosTemp(clienteId: any, fidelidade: any, clienteValido: boolean) {        
+    async insereDadosTemp(clienteId: any, fidelidade: any, clienteValido: boolean) {
         if (this.quantidadeInserida > 0) {
             if (this.estoqueFinal >= 0) {
                 this.perfilColaborador = this.perfil;
                 this.colaborador = this.colaboradorVendedor;
-                if (clienteValido) {
+                if (!this.clienteValido) {
                     this.cadastraVendaClienteTemp(clienteId, fidelidade);
                 }
                 this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
@@ -329,8 +347,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 "dataVenda": this.dataVenda,
                 "vendedor": this.colaborador,
                 "unidade": this.unidade,
-                "clienteId": clienteId,
-                "cliente": this.cliente,
+                "clienteId": this.vendaIdAtual,
+                "cliente": this.vendaAtual,
                 "fidelidade": fidelidade
             }];
         this.firebaseService.registerSaleClientTemp(dadosCliente[0]);
@@ -349,8 +367,8 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     "vendedor": this.colaborador,
                     "colaboradorPerfil": colaboradorPerfil,
                     "unidade": this.unidade,
-                    "clienteId": this.clienteId,
-                    "cliente": this.cliente,
+                    "clienteId": this.vendaIdAtual,
+                    "cliente": this.vendaAtual,
                     "clienteFidelidade": fidelidade,
                     "produtoId": InserirProdutoCarrinhoPage.produtoId,
                     "produto": InserirProdutoCarrinhoPage.descricao,
@@ -376,7 +394,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-         <text>Produto Inserido Na comanda do Cliente<br><b>${this.cliente}</b>!</text>`,
+         <text>Produto Inserido no Carrinho <br><b>${this.cliente}</b>!</text>`,
                 backdropDismiss: false,
                 header: "Atenção",
                 cssClass: "alertaCss",
@@ -429,10 +447,10 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 this.cliente = data.data[2];
             }
             this.clienteValido = true;
-            this.firebaseService.findWhereSaleClientTemp(this.cliente).subscribe(data => {
+            this.firebaseService.findAllSaleClientTemp().subscribe(data => {
                 if (data[0] !== undefined && data[0] !== null) {
                     this.clienteValido = false;
-                }        
+                }
             });
         });
     }
