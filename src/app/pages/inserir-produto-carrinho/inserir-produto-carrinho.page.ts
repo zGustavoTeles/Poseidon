@@ -6,6 +6,7 @@ import { DadosRepositories } from '../../providers/dados-repositories';
 import { MapPage } from '../map/map';
 import { ClientesTempComponentComponent } from '../../components/clientes-temp-component/clientes-temp-component.component';
 import { truncate } from 'fs';
+import { TabsPage } from '../tabs-page/tabs-page';
 
 
 @Component({
@@ -111,7 +112,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         public router: Router,
         public dadosRepositories: DadosRepositories,
         private modalCtrl: ModalController,
-        private popoverController: PopoverController
+        private popoverController: PopoverController,
     ) { }
 
     ngOnInit() {
@@ -126,12 +127,11 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.desconto = 0;
         this.clienteId = 0;
         this.fidelidade = 0;
-
+        this.findAllSaleClientTemp();
         this.carregaInfoProduto();
         // this.carregaClientes();
         // this.carregaColaboradores();
         this.carregaClientesEmAberto();
-        this.findAllSaleClientTemp();
 
         this.ios = this.config.get('mode') === 'ios';
     }
@@ -177,12 +177,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
     public async validaInsercaoProduto(cliente: any, clienteId: any, fidelidade: any) {
-        if (this.clienteValido) {
-            this.insereDadosTemp(clienteId, fidelidade, this.clienteValido);
-        } else {
-            this.cliente = 'Venda - ' + Math.random().toFixed(1);
-            await this.insereDadosTemp(clienteId, fidelidade, true);
-        }
+        this.insereDadosTemp(clienteId, fidelidade);
     }
 
     carregaClientes() {
@@ -215,15 +210,15 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
     public async findAllSaleClientTemp() {
-        this.clienteValido = false;
-        this.venda= [];
+        this.clienteValido = true;
+        this.venda = [];
 
         await this.firebaseService.findAllSaleClientTemp().subscribe(data => {
             if (data[0] !== undefined && data[0] !== null) {
                 this.venda = data;
-                this.clienteValido = true;
-                this.vendaAtual = this.venda.cliente;
-                this.vendaIdAtual = this.venda.clienteId;
+                this.clienteValido = false;
+                this.vendaAtual = this.venda[0].cliente;
+                this.vendaIdAtual = this.venda[0].clienteId;
             }
         });
     }
@@ -246,14 +241,19 @@ export class InserirProdutoCarrinhoPage implements OnInit {
     }
 
 
-    async insereDadosTemp(clienteId: any, fidelidade: any, clienteValido: boolean) {
+    async insereDadosTemp(clienteId: any, fidelidade: any) {
         if (this.quantidadeInserida > 0) {
             if (this.estoqueFinal >= 0) {
+
                 this.perfilColaborador = this.perfil;
                 this.colaborador = this.colaboradorVendedor;
-                if (!this.clienteValido) {
+
+                if (this.clienteValido) {
+                    this.vendaAtual = 'Carrinho N- ' + Math.random().toFixed(1);
+                    this.vendaIdAtual = this.vendaAtual;
                     this.cadastraVendaClienteTemp(clienteId, fidelidade);
                 }
+
                 this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
             } else {
                 const alert = await this.alertController.create({
@@ -394,7 +394,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-         <text>Produto Inserido no Carrinho <br><b>${this.cliente}</b>!</text>`,
+         <text>Produto Inserido no Carrinho <br><b>${this.vendaAtual}</b>!</text>`,
                 backdropDismiss: false,
                 header: "Atenção",
                 cssClass: "alertaCss",

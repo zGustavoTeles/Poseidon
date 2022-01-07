@@ -98,9 +98,9 @@ export class RelatoriosPage implements OnInit {
     ngOnInit() {
         this.dataVenda = new Date;
         this.unidade = this.dadosRepositories.getLocalStorage('unidade');
+        this.getDocumentoSale();
         this.findAllProductTemp();
         this.findAllPaymentMethods();
-        this.getDocumentoSale();
         this.ios = this.config.get('mode') === 'ios';
     }
 
@@ -301,7 +301,7 @@ export class RelatoriosPage implements OnInit {
 
         const alert = await this.alertController.create({
             message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-             <text>Venda Registrada com Sucesso!<br>Cliente: <b>${this.cliente}</b>
+             <text>Venda Registrada com Sucesso!<br>Carrinho: <b>${this.cliente}</b>
              <br><br>Quantidade Total Vendida: <b>${this.quantidadeVendida}</b>
              <br><br>Total da Venda: <b>${this.totalBruto.toFixed(2)}</b></text>`,
             backdropDismiss: false,
@@ -326,10 +326,6 @@ export class RelatoriosPage implements OnInit {
         this.dataVenda = new Date().toISOString().slice(0, 10);
         let dadosVendaProdutos;
         this.produtosAux = [];
-
-        console.log('aqqqq');
-        console.log(this.clienteVenda);
-        
 
         await this.firebaseService.findWhereProductTemp(this.clienteVenda).subscribe(async data => {
             this.produtosAux = data;
