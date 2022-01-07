@@ -119,7 +119,7 @@ export class RelatoriosPage implements OnInit {
             this.totalLucro = 0;
             this.totalFidelidadeCliente = 0;
             this.totalGorjetas = 0;
-            this.cliente = ComandaPage.cliente;
+            this.cliente = this.clienteVenda;
             this.produtos = [];
             this.produtosAuxListagem = [];
 
@@ -191,7 +191,7 @@ export class RelatoriosPage implements OnInit {
                 if (this.formaDePagamento !== undefined && this.formaDePagamento !== null) {
                     const alert = await this.alertController.create({
                         message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                         <text>Deseja Finalizar a Comanda <b>${this.cliente}</b>
+                         <text>Deseja Finalizar a Comanda <b>${this.clienteVenda}</b>
                          <br>Quantidade: <b>${this.quantidadeVendida}</b>
                          <br>Total: <b>${this.totalBruto.toFixed(2)}</b></text>`,
 
@@ -285,7 +285,7 @@ export class RelatoriosPage implements OnInit {
                 "dataVenda": this.dataVenda,
                 "vendedor": this.vendedor,
                 "unidade": this.unidade,
-                "cliente": this.cliente,
+                "cliente": this.clienteVenda, 
                 "formaDePagamento": this.formaDePagamento,
                 "quantidadeVendida": this.quantidadeInserida,
                 "totalComissao": this.totalComissao,
@@ -296,12 +296,13 @@ export class RelatoriosPage implements OnInit {
                 "totalBruto": this.totalBruto,
                 "totalLucro": this.totalLucro
             }];
+
         await this.firebaseService.registerSaleClientVenda(dadosVendaCliente[0]);
         await this.firebaseService.deleteSaleClientTemp(this.documentoVenda);
 
         const alert = await this.alertController.create({
             message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-             <text>Venda Registrada com Sucesso!<br>Carrinho: <b>${this.cliente}</b>
+             <text>Venda Registrada com Sucesso!<br>Carrinho: <b>${this.clienteVenda}</b>
              <br><br>Quantidade Total Vendida: <b>${this.quantidadeVendida}</b>
              <br><br>Total da Venda: <b>${this.totalBruto.toFixed(2)}</b></text>`,
             backdropDismiss: false,
@@ -329,7 +330,6 @@ export class RelatoriosPage implements OnInit {
 
         await this.firebaseService.findWhereProductTemp(this.clienteVenda).subscribe(async data => {
             this.produtosAux = data;
-            this.cliente = this.clienteVenda;
 
             for (let produto of this.produtosAux) {
                 dadosVendaProdutos = [];
@@ -340,7 +340,7 @@ export class RelatoriosPage implements OnInit {
                         "vendedor": produto.vendedor,
                         "unidade": this.unidade,
                         "clienteId": produto.clienteId,
-                        "cliente": this.cliente,
+                        "cliente": this.clienteVenda,
                         "formaDePagamento": this.formaDePagamento,
                         "produtoId": produto.produtoId,
                         "produto": produto.produto,
