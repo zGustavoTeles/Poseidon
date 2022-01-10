@@ -122,6 +122,7 @@ export class RelatoriosPage implements OnInit {
             this.cliente = this.clienteVenda;
             this.produtos = [];
             this.produtosAuxListagem = [];
+            
             this.produtosAuxListagem = data;
 
             for (let produto of this.produtosAuxListagem) {

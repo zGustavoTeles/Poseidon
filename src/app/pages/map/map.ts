@@ -149,6 +149,11 @@ export class MapPage implements OnInit {
             component: InserirProdutoCarrinhoPage,
         });
         await modal.present();
+
+        await modal.onDidDismiss().then(async data => {
+            console.log('aquiii');
+            this.ngOnInit();
+        });
     }
 
     getDadosUsuario() {
