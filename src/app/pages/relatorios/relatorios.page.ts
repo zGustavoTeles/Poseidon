@@ -105,9 +105,9 @@ export class RelatoriosPage implements OnInit {
     }
 
     public async findAllProductTemp() {
+
         await this.firebaseService.findAllProductTemp().subscribe(data => {
-            let quantidadeDados = 1;
-            let dados = 0;
+            let total: any = 0;
             this.dataVenda = '';
             this.vendedor = '';
             this.quantidadeVendida = 0;
@@ -122,17 +122,13 @@ export class RelatoriosPage implements OnInit {
             this.cliente = this.clienteVenda;
             this.produtos = [];
             this.produtosAuxListagem = [];
-
-            let total: any = 0;
-            dados = data.length;
-
             this.produtosAuxListagem = data;
 
             for (let produto of this.produtosAuxListagem) {
-                this.produtos.push(produto);
 
-                if (quantidadeDados <= dados) {
-
+                console.log('aqqq');
+                console.log(produto);
+                
                     this.dataVenda = produto.dataVenda;
                     this.vendedor = produto.vendedor;
                     this.quantidadeVendida += parseInt(produto.quantidadeVendida);
@@ -147,7 +143,6 @@ export class RelatoriosPage implements OnInit {
                         this.totalLiquido += parseFloat(produto.totalLiquido);
                     else
                         this.totalLiquido += parseFloat(produto.totalBruto);
-
 
                     this.totalDeCusto += produto.totalDeCusto;
                     this.totalDescontos += parseFloat(produto.desconto);
@@ -164,10 +159,10 @@ export class RelatoriosPage implements OnInit {
                     } else {
                         total = parseFloat(((this.totalBruto - this.totalDeCusto) - this.totalDescontos).toFixed(2));
                     }
-                    quantidadeDados += 1;
-                }
-                this.totalLucro = total;
+
+                    this.produtos.push(produto);
             }
+            this.totalLucro = total;
         });
     }
 
@@ -381,6 +376,7 @@ export class RelatoriosPage implements OnInit {
 
     public async deletaProdutosTemp() {
         await this.firebaseService.findWhereProductTemp(this.clienteVenda).subscribe(data => {
+            this.produtosTemp = [];
             this.produtosTemp = data;
             for (let produto of this.produtosTemp) {
                 this.firebaseService.deleteProductTemp(produto.documento);

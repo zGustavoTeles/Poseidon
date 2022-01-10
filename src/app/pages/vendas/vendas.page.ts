@@ -157,13 +157,13 @@ export class VendasPage implements OnInit {
             try {
 
                 if (formaDePagamento != undefined && formaDePagamento != null) {
-                    this.totalBruto = 0;
-                    this.totalLucro = 0;
-                    this.totalComissao = 0;
-                    this.vendas = [];
-                    this.vendasAux = [];
 
                     this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
+                        this.totalBruto = 0;
+                        this.totalLucro = 0;
+                        this.totalComissao = 0;
+                        this.vendas = [];
+                        this.vendasAux = [];
 
                         this.vendasAux = data;
 
@@ -179,13 +179,12 @@ export class VendasPage implements OnInit {
                     loading.dismiss();
                 } else {
 
-                    this.totalBruto = 0;
-                    this.totalLucro = 0;
-                    this.totalComissao = 0;
-                    this.vendas = [];
-                    this.vendasAux = [];
-
                     this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
+                        this.totalBruto = 0;
+                        this.totalLucro = 0;
+                        this.totalComissao = 0;
+                        this.vendas = [];
+                        this.vendasAux = [];
 
                         this.vendasAux = data;
 
@@ -217,77 +216,65 @@ export class VendasPage implements OnInit {
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
     }
 
-    async excluirVenda(cliente: any, dataVenda: any, formaDePagamento: any, permiteExclusao: boolean = false, vendaId) {
+    async excluirVenda(cliente: any, dataVenda: any, formaDePagamento: any, boolean, vendaId: any) {
         try {
-            if (permiteExclusao) {
-                const alert = await this.alertController.create({
-                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
                      <text>Deseja Excluir a venda do dia:<br><b>${dataVenda}</b></text>`,
 
-                    backdropDismiss: false,
-                    header: "Atenção",
-                    cssClass: "alertaCss",
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
 
-                    buttons: [
-                        {
-                            text: 'Não',
-                            role: 'cancel',
-                            cssClass: 'cancelcancelarButton',
-                            handler: async () => {
-                                return;
-                            }
-                        },
-                        {
-                            text: 'Sim',
-                            cssClass: 'okButton',
-                            handler: async () => {
-                                this.produtos = [];
-
-                                this.firebaseService.deleteSaleClient(vendaId);
-                                this.firebaseService.findWhereSaleClientVenda(cliente, dataVenda, formaDePagamento).subscribe(async data => {
-                                    if (permiteExclusao) {
-                                        this.produtosAux = [];
-                                        this.produtosAux = data;
-
-                                        for (let produto of this.produtosAux) {
-                                            if (produto.unidade === this.unidade) {
-                                                console.log('aquiiii');
-                                                console.log(produto);
-                                                this.firebaseService.deletaVendaProdutos(produto.doc);
-                                            }
-                                        }
-                                    }
-                                });
-
-                                if (permiteExclusao) {
-                                    const alert = await this.alertController.create({
-                                        message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                                 <text>Venda excluída com sucesso!</text>`,
-                                        backdropDismiss: false,
-                                        header: "Atenção",
-                                        cssClass: "alertaCss",
-                                        buttons: [
-                                            {
-                                                text: "Ok",
-                                                role: "Cancelar",
-                                                cssClass: "secondary",
-
-                                                handler: () => {
-
-                                                },
-                                            },
-                                        ],
-                                    });
-                                    await alert.present();
-                                    permiteExclusao = false;
-                                }
-                            }
+                buttons: [
+                    {
+                        text: 'Não',
+                        role: 'cancel',
+                        cssClass: 'cancelcancelarButton',
+                        handler: async () => {
+                            return;
                         }
-                    ]
-                });
-                await alert.present();
+                    },
+                    {
+                        text: 'Sim',
+                        cssClass: 'okButton',
+                        handler: async () => {
+                            this.firebaseService.deleteSaleClientVenda(vendaId);
+                            this.firebaseService.findWhereSaleClientVendaProdutos(cliente, dataVenda, formaDePagamento).subscribe(async data => {
+                                this.produtos = [];
+                                this.produtosAux = [];
+                                this.produtosAux = data;
 
-            }
+                                for (let produto of this.produtosAux) {
+                                    if (produto.unidade === this.unidade) {
+                                        this.firebaseService.deleteSaleClientVendaProduto(produto.documento);
+                                    }
+                                }
+                            });
+                            const alert = await this.alertController.create({
+                                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                                 <text>Venda excluída com sucesso!</text>`,
+                                backdropDismiss: false,
+                                header: "Atenção",
+                                cssClass: "alertaCss",
+                                buttons: [
+                                    {
+                                        text: "Ok",
+                                        role: "Cancelar",
+                                        cssClass: "secondary",
+
+                                        handler: () => {
+
+                                        },
+                                    },
+                                ],
+                            });
+                            await alert.present();
+                        }
+                    }
+                ]
+            });
+            await alert.present();
 
         } catch (error) {
             console.log(error);

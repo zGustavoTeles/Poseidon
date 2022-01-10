@@ -737,11 +737,15 @@ export class FirebaseService {
         this.firestore.doc('Poseidon ' + '_Vendas_Cliente' + '/' + documento).update(dados);
     }
 
-    async deleteSaleClient(documento: any) {
-        this.firestore.doc('Poseidon ' + '_Vendas_Cliente_Temp' + '/' + documento).delete();
+    async deleteSaleClientVenda(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Cliente' + '/' + documento).delete();
     }
 
-    public findWhereSaleClientVenda(cliente: any, dataVenda: any, formaDePagamento: any) {
+    async deleteSaleClientVendaProduto(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Vendas_Produtos' + '/' + documento).delete();
+    }
+
+    public findWhereSaleClientVendaProdutos(cliente: any, dataVenda: any, formaDePagamento: any) {
         return this.firestore
             .collection("Poseidon " + "_Vendas_Produtos", (ref) => ref.where("cliente", "==", cliente).where("dataVenda", "==", dataVenda).where("formaDePagamento", "==", formaDePagamento))
             .valueChanges();

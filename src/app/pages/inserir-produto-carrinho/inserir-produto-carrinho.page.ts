@@ -306,6 +306,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         this.totalComissao = parseFloat(((this.comissao * this.totalBruto) / 100).toFixed(2));
         this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
         this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - this.totalDeCusto).toFixed(2));
+        this.totalDeCusto = parseFloat(((this.totalDeCusto * 1).toFixed(2)));
     }
 
     async calculaTotalEven(ev?: any) {
@@ -318,6 +319,7 @@ export class InserirProdutoCarrinhoPage implements OnInit {
             this.totalComissao = parseFloat(((this.comissao * this.totalBruto) / 100).toFixed(2));
             this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
             this.totalLucro = parseFloat((((this.totalBruto - this.totalComissao) - this.totalDeCusto)).toFixed(2));
+            this.totalDeCusto = parseFloat(((this.totalDeCusto * this.quantidadeInserida).toFixed(2)));
         }
     }
 
