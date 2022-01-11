@@ -138,7 +138,6 @@ export class AlterarProdutoPage implements OnInit {
                                 this.valorDeVenda = '';
                                 await alert.present();
                                 this.modalCtrl.dismiss();
-
                             }
                         }
                     ]

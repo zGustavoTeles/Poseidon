@@ -7,14 +7,13 @@
   <div>
     <ion-list lines="none" *ngFor="let produto of produtosTemp;">
 
-      <ion-card (click)="touchTabelaEscohida(produto)" style="border-radius: 10px;"
-        class="ion-activatable ripple-parent">
+      <ion-card style="border-radius: 10px;" class="ion-activatable ripple-parent">
         <!-- ? Exibe informação de qual empresa foi selecionada no cabeçalho quando for multiempresa -->
         <div class="mensagem-tabela-preco-fixo">
           <!-- <b>{{produto[0]}}</b> -->
           <ion-avatar slot="start">
-            <img *ngIf="produto[11] === '' " src="\assets\img\cliente_indefinido.png" />
-            <img *ngIf="produto[11] != '' " src="{{produto[11]}}" />
+            <img *ngIf="produto.imagem === '' " src="\assets\img\cliente_indefinido.png" />
+            <img *ngIf="produto.imagem != '' " src="{{produto.imagem}}" />
           </ion-avatar>
         </div>
 
@@ -26,12 +25,12 @@
             <ion-row class="ion-text-left">
               <ion-col>
                 <ion-label style="color: rgb(20, 113, 220)">
-                  <b>{{produto[2]}} </b>
+                  <b>{{produto.produto}} </b>
                 </ion-label>
               </ion-col>
               <ion-col class="ion-text-right">
                 <ion-label position="fixed" color="tertiary">
-                  <b> {{produto[3]}}</b>
+                  <b> {{produto.cliente}}</b>
                 </ion-label>
               </ion-col>
             </ion-row>
@@ -39,12 +38,12 @@
               <ion-col class="ion-text-left">
                 <ion-label position="fixed">Total Bruto</ion-label>
                 <div>
-                  <ion-badge color="azulmarinho">{{produto[4] | currency:'BRL'}}
+                  <ion-badge color="azulmarinho">{{produto.totalBruto | currency:'BRL'}}
                   </ion-badge>
                 </div>
                 <ion-label position="fixed">Total Líquido</ion-label>
                 <div>
-                  <ion-badge color="azulmarinho">{{produto[5] | currency:'BRL'}}
+                  <ion-badge color="azulmarinho">{{produto.totalLiquido | currency:'BRL'}}
                   </ion-badge>
                 </div>
               </ion-col>
@@ -53,17 +52,17 @@
                 <ion-label position="fixed">Estoque
                 </ion-label>
                 <div>
-                  <ion-badge *ngIf="produto.estoqueFinal == 0" color="danger">{{produto[6]}}
+                  <ion-badge *ngIf="produto.estoqueFinal == 0" color="danger">{{produto.estoqueFinal}}
                     UN
                   </ion-badge>
-                  <ion-badge *ngIf="produto.estoqueFinal > 0" color="tertiary">{{produto[6]}}
+                  <ion-badge *ngIf="produto.estoqueFinal > 0" color="tertiary">{{produto.estoqueFinal}}
                     UN
                   </ion-badge>
                 </div>
 
                 <ion-label position="fixed">Total Comissão</ion-label>
                 <div>
-                  <ion-badge color="azulmarinho">{{produto[7] | currency:'BRL'}}
+                  <ion-badge color="azulmarinho">{{produto.totalComissao| currency:'BRL'}}
                   </ion-badge>
                 </div>
               </ion-col>
@@ -71,7 +70,7 @@
               <ion-col class="ion-text-right">
                 <ion-label position="fixed">Quantidade Vendida</ion-label>
                 <div>
-                  <ion-badge color="tertiary">{{produto[8]}}
+                  <ion-badge color="tertiary">{{produto.quantidadeVendida}}
                   </ion-badge>
                 </div>
 
@@ -85,13 +84,13 @@
                 <ion-label position="fixed">Lucro
                 </ion-label>
                 <div>
-                  <ion-badge color="tertiary">{{produto[10] |
+                  <ion-badge color="tertiary">{{produto.totalLucro |
                     currency:'BRL'}}</ion-badge>
                 </div>
               </ion-col>
             </ion-row>
             <ion-row style="display: block;text-align: center; color: #f44336;">
-              <span>Esse produto/serviço foi vendido na data: <b>{{produto[9]}}</b> </span>
+              <span>Esse produto/serviço foi vendido na data: <b>{{produto.dataVenda}}</b> </span>
             </ion-row>
           </ion-grid>
         </ion-card-content>

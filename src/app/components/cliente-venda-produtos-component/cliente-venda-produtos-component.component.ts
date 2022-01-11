@@ -29,11 +29,7 @@ export class ClienteVendaProdutosComponentComponent implements OnInit {
         try {
             this.produtosTemp = ClienteVendaProdutosComponentComponent.produtos;
 
-            console.log('aquiii');
-            console.log(this.produtosTemp);
-
         } catch (err) {
-
             this.popoverController.dismiss();
         }
     }

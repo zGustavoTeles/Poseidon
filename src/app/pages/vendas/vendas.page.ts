@@ -281,48 +281,36 @@ export class VendasPage implements OnInit {
 
     async findAllProduct(cliente: any, dataVenda: any, formaDePagamento: any) {
         let popover: HTMLIonPopoverElement;
-        let produtosArray: any = [];
-        let dados = [];
 
         this.firebaseService.findAWhereProductVenda(cliente, dataVenda, formaDePagamento).subscribe(data => {
             this.produtos = [];
+            this.produtosAux  = [];
 
             this.produtosAux = data;
 
             for (let produto of this.produtosAux) {
-                    dados[0] = produto.unidade;
-                    dados[1] = produto.categoria;
-                    dados[2] = produto.produto;
-                    dados[3] = produto.cliente;
-                    dados[4] = produto.totalBruto;
-                    dados[5] = produto.totalLiquido;
-                    dados[6] = produto.estoqueFinal;
-                    dados[7] = produto.totalComissao;
-                    dados[8] = produto.quantidadeVendida;
-                    dados[9] = produto.dataVenda;
-                    dados[10] = produto.totalLucro;
-                    dados[11] = produto.imagem;
-                    produtosArray.push(dados);
+                this.produtos.push(produto);
             }
+
         });
 
-        ClienteVendaProdutosComponentComponent.produtos = produtosArray;
+        ClienteVendaProdutosComponentComponent.produtos =  this.produtos;
         popover = await this.popoverController.create({
             component: ClienteVendaProdutosComponentComponent,
             translucent: true,
             cssClass: 'cssPopover',
             componentProps: {
-                produtos: produtosArray,
+                produtos:  this.produtos,
             }
         });
 
         await popover.present();
 
-        await popover.onDidDismiss().then(async data => {
-            if (data.data !== undefined) {
-                this.cliente = data.data[2];
-            }
-        });
+        // await popover.onDidDismiss().then(async data => {
+        //     if (data.data !== undefined) {
+        //         this.cliente = data.data[2];
+        //     }
+        // });
     }
 
     /**

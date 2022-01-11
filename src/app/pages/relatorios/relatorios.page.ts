@@ -451,8 +451,6 @@ export class RelatoriosPage implements OnInit {
     async atualizarProduto(documento: any, dataVenda: any, vendedor: any, unidade: any, clienteId: any, cliente: any, clienteFidelidade: any, produtoId: any, produto: any, imagem: any, categoria: any, quantidadeVendida: any, fidelidade: any, comissao: any, gorjeta: any, desconto: any, estoque: any, estoqueFinal, valorDeVenda: any, valorDeCusto: any, totalComissao: any, totalDeCusto: any, totalBruto: any, totalLiquido: any, totalLucro: any) {
 
         try {
-
-            ComandaPage.produtoAlterado = false;
             AlterarPrudutoComandaPage.produtoIdVendaAtual = documento;
             AlterarPrudutoComandaPage.dataVendaAtual = dataVenda;
             AlterarPrudutoComandaPage.vendedorAtual = vendedor;
@@ -484,9 +482,7 @@ export class RelatoriosPage implements OnInit {
             await modal.present();
 
             await modal.onDidDismiss().then(async data => {
-                console.log('aquiii');
-                this.ngOnInit();
-
+                this.findAllProductTemp();
             });
 
         } catch (error) {
