@@ -216,7 +216,7 @@ export class VendasPage implements OnInit {
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
     }
 
-    async excluirVenda(cliente: any, dataVenda: any, formaDePagamento: any, boolean, vendaId: any) {
+    async excluirVenda(cliente: any, dataVenda: any, formaDePagamento: any, vendaId: any) {
         try {
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -246,30 +246,28 @@ export class VendasPage implements OnInit {
                                 this.produtosAux = data;
 
                                 for (let produto of this.produtosAux) {
-                                    if (produto.unidade === this.unidade) {
-                                        this.firebaseService.deleteSaleClientVendaProduto(produto.documento);
-                                    }
+                                    this.firebaseService.deleteSaleClientVendaProduto(produto.documento);
                                 }
-                            });
-                            const alert = await this.alertController.create({
-                                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                                 <text>Venda excluída com sucesso!</text>`,
-                                backdropDismiss: false,
-                                header: "Atenção",
-                                cssClass: "alertaCss",
-                                buttons: [
-                                    {
-                                        text: "Ok",
-                                        role: "Cancelar",
-                                        cssClass: "secondary",
+                                const alert = await this.alertController.create({
+                                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                                     <text>Venda excluída com sucesso!</text>`,
+                                    backdropDismiss: false,
+                                    header: "Atenção",
+                                    cssClass: "alertaCss",
+                                    buttons: [
+                                        {
+                                            text: "Ok",
+                                            role: "Cancelar",
+                                            cssClass: "secondary",
 
-                                        handler: () => {
+                                            handler: () => {
 
+                                            },
                                         },
-                                    },
-                                ],
+                                    ],
+                                });
+                                await alert.present();
                             });
-                            await alert.present();
                         }
                     }
                 ]
@@ -285,15 +283,13 @@ export class VendasPage implements OnInit {
         let popover: HTMLIonPopoverElement;
         let produtosArray: any = [];
         let dados = [];
-        this.produtos = [];
-        this.produtosAux = [];
 
         this.firebaseService.findAWhereProductVenda(cliente, dataVenda, formaDePagamento).subscribe(data => {
+            this.produtos = [];
 
             this.produtosAux = data;
 
             for (let produto of this.produtosAux) {
-                if (produto.unidade === this.unidade) {
                     dados[0] = produto.unidade;
                     dados[1] = produto.categoria;
                     dados[2] = produto.produto;
@@ -307,7 +303,6 @@ export class VendasPage implements OnInit {
                     dados[10] = produto.totalLucro;
                     dados[11] = produto.imagem;
                     produtosArray.push(dados);
-                }
             }
         });
 

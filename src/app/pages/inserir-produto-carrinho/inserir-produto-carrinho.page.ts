@@ -253,8 +253,9 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     this.vendaIdAtual = this.vendaAtual;
                     this.cadastraVendaClienteTemp(clienteId, fidelidade);
                 }
-
                 this.cadastraVendaProdutoTemp(clienteId, fidelidade, this.perfilColaborador);
+
+                this.modalCtrl.dismiss();
             } else {
                 const alert = await this.alertController.create({
                     message: `<img src="assets/img/erro.png" alt="auto"><br><br>
@@ -305,8 +306,9 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
         this.totalComissao = parseFloat(((this.comissao * this.totalBruto) / 100).toFixed(2));
         this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
+
+        this.totalDeCusto = parseFloat(((this.valorDeCusto * this.quantidadeInserida).toFixed(2)));
         this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - this.totalDeCusto).toFixed(2));
-        this.totalDeCusto = parseFloat(((this.totalDeCusto * 1).toFixed(2)));
     }
 
     async calculaTotalEven(ev?: any) {
@@ -318,8 +320,9 @@ export class InserirProdutoCarrinhoPage implements OnInit {
 
             this.totalComissao = parseFloat(((this.comissao * this.totalBruto) / 100).toFixed(2));
             this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
-            this.totalLucro = parseFloat((((this.totalBruto - this.totalComissao) - this.totalDeCusto)).toFixed(2));
-            this.totalDeCusto = parseFloat(((this.totalDeCusto * this.quantidadeInserida).toFixed(2)));
+
+            this.totalDeCusto = parseFloat(((this.valorDeCusto * this.quantidadeInserida).toFixed(2)));
+            this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - this.totalDeCusto).toFixed(2));
         }
     }
 
@@ -392,7 +395,6 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                     "totalLucro": this.totalLucro
                 }];
             this.firebaseService.registerProductTemp(dadosProdutos[0]);
-            this.modalCtrl.dismiss();
 
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
