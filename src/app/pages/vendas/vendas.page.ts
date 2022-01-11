@@ -282,9 +282,9 @@ export class VendasPage implements OnInit {
     async findAllProduct(cliente: any, dataVenda: any, formaDePagamento: any) {
         let popover: HTMLIonPopoverElement;
 
-        this.firebaseService.findAWhereProductVenda(cliente, dataVenda, formaDePagamento).subscribe(data => {
+        this.firebaseService.findAWhereProductVenda(cliente, dataVenda, formaDePagamento).subscribe(async data => {
             this.produtos = [];
-            this.produtosAux  = [];
+            this.produtosAux = [];
 
             this.produtosAux = data;
 
@@ -292,24 +292,24 @@ export class VendasPage implements OnInit {
                 this.produtos.push(produto);
             }
 
-        });
+            ClienteVendaProdutosComponentComponent.produtos = this.produtos;
+            popover = await this.popoverController.create({
+                component: ClienteVendaProdutosComponentComponent,
+                translucent: true,
+                cssClass: 'cssPopover',
+                componentProps: {
+                    produtos: this.produtos,
+                }
+            });
 
-        ClienteVendaProdutosComponentComponent.produtos =  this.produtos;
-        popover = await this.popoverController.create({
-            component: ClienteVendaProdutosComponentComponent,
-            translucent: true,
-            cssClass: 'cssPopover',
-            componentProps: {
-                produtos:  this.produtos,
-            }
-        });
+            await popover.present();
 
-        await popover.present();
+            await popover.onDidDismiss().then(async data => {
+                if (data.data !== undefined) {
+                    this.cliente = data.data[2];
+                }
+            });
 
-        await popover.onDidDismiss().then(async data => {
-            if (data.data !== undefined) {
-                this.cliente = data.data[2];
-            }
         });
     }
 
