@@ -306,11 +306,11 @@ export class VendasPage implements OnInit {
 
         await popover.present();
 
-        // await popover.onDidDismiss().then(async data => {
-        //     if (data.data !== undefined) {
-        //         this.cliente = data.data[2];
-        //     }
-        // });
+        await popover.onDidDismiss().then(async data => {
+            if (data.data !== undefined) {
+                this.cliente = data.data[2];
+            }
+        });
     }
 
     /**
