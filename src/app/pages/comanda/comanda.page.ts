@@ -457,11 +457,11 @@ export class ComandaPage implements OnInit {
             });
             await modal.present();
 
-            await modal.onDidDismiss().then(async data => {
-                console.log('aquiii');
-                this.ngOnInit();
+            // await modal.onDidDismiss().then(async data => {
+            //     console.log('aquiii');
+            //     this.ngOnInit();
 
-            });
+            // });
 
         } catch (error) {
             console.log(error);

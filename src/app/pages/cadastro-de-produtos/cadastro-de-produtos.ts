@@ -125,9 +125,9 @@ export class SpeakerListPage implements OnInit {
             });
             await modal.present();
 
-            await modal.onDidDismiss().then(async data => {
-                this.carregaClientes();
-            });
+            // await modal.onDidDismiss().then(async data => {
+            //     this.carregaClientes();
+            // });
 
         } catch (error) {
             console.log(error);

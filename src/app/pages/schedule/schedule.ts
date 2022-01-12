@@ -264,9 +264,9 @@ export class SchedulePage implements OnInit {
             });
             await modal.present();
 
-            await modal.onDidDismiss().then(async data => {
-                this.carregaBarbeiros();
-            });
+            // await modal.onDidDismiss().then(async data => {
+            //     this.carregaBarbeiros();
+            // });
 
         } catch (error) {
             console.log(error);

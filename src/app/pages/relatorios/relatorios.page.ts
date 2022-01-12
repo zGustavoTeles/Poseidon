@@ -483,9 +483,9 @@ export class RelatoriosPage implements OnInit {
             });
             await modal.present();
 
-            await modal.onDidDismiss().then(async data => {
-                this.findAllProductTemp();
-            });
+            // await modal.onDidDismiss().then(async data => {
+            //     this.findAllProductTemp();
+            // });
 
         } catch (error) {
             console.log(error);
