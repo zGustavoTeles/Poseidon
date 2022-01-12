@@ -69,10 +69,9 @@ export class CadastroDeNoticiasPage implements OnInit {
                                     titulo: this.titulo,
                                     mensagem: this.mensagem,
                                     data: this.data
-                                    // dataInicial: this.dataInicial,
-                                    // dataFinal: this.dataFinal,
                                 };
-                                this.firebaseService.cadastrarNotificao(dados);
+
+                                this.firebaseService.registerNotification(dados);
 
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>

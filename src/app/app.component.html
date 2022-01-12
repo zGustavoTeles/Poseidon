@@ -6,65 +6,28 @@
         <ion-list lines="none">
 
           <ion-header>
-
             <ion-item lines="none" color="facebook">
-
-              <!-- <ion-thumbnail slot="start" *ngIf="unidade === 'Barbearia Olimpo Gyn'">
-                <ion-img *ngIf="imagem === '' " src="assets/img/logo_branca.png"></ion-img>
-                <ion-img *ngIf="imagem != '' " src="{{imagem}}"></ion-img>
-              </ion-thumbnail>
-
-              <ion-thumbnail slot="start" *ngIf="unidade != 'Barbearia Olimpo Gyn'">
-                <ion-img src="assets/img/logo_branca.png"></ion-img>
-              </ion-thumbnail> -->
-
               <ion-avatar slot="start">
                 <img *ngIf="imagem === '' && unidade === 'Barbearia Olimpo Gyn'"
                   src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
                 <img *ngIf="imagem != '' && unidade === 'Barbearia Olimpo Gyn'" src="{{imagem}}">
                 <img *ngIf="unidade != 'Barbearia Olimpo Gyn' " src="assets/img/logo_branca.png">
               </ion-avatar>
-
               <ion-label color="light">
                 <p class="font12">Usuário: {{nome}}</p>
                 <p class="font12">E-mail: {{email}}</p>
                 <p class="font12">Unidade: {{unidade}}</p>
                 <p class="font12">Perfil: {{perfil}}</p>
               </ion-label>
-
             </ion-item>
           </ion-header>
         </ion-list>
 
-        <!-- <ion-list lines="none">
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/home" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon name="storefront-outline"></ion-icon>
-              <ion-label>
-                Home
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list> -->
-
-        <!-- <ion-menu-toggle autoHide="false">
-          <ion-item routerLink="/app/tabs/home" routerLinkActive="active" routerDirection="root" detail="false">
-            <ion-icon slot="start" name="storefront-outline"></ion-icon>
-            <ion-label>
-              Home
-            </ion-label>
-          </ion-item>
-        </ion-menu-toggle>
-
-        <br> -->
 
         <!--------------------------------------------- ADMINISTRADOR ----------------------------------------------------------------------- -->
-        <!-- <ion-list lines="none"> -->
         <ion-list-header>
           Menu
         </ion-list-header>
-
-        <!-- </ion-list> -->
 
         <div>
           <ion-menu-toggle autoHide="false" *ngFor="let p of appPagesAdministrador; let i = index">
@@ -76,56 +39,13 @@
             </ion-item>
           </ion-menu-toggle>
         </div>
-        <!--------------------------------------------- Balcão ----------------------------------------------------------------------- -->
-        <div *ngIf="perfil  === 'Balcão'">
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPagesBalcao; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </div>
-        <!--------------------------------------------- BARBEIRO ----------------------------------------------------------------------- -->
-        <div *ngIf="perfil  === 'Colaborador'">
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPagesBarbeiro; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </div>
-        <!--------------------------------------------- CLIENTE ----------------------------------------------------------------------- -->
-        <div *ngIf="perfil  === 'Cliente'">
-          <ion-menu-toggle autoHide="false" *ngFor="let p of appPagesCliente; let i = index">
-            <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </div>
+
 
         <!--------------------------------------------- FINANÇAS DO APLICATIVO ----------------------------------------------------------------------- -->
-
-        <!------------------------------------------------------- ADMINISTRADOR ------------------------------------------------------------------------------ -->
         <ion-list lines="none">
           <ion-list-header>
             Finanças
           </ion-list-header>
-
-          <!-- <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/vale" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="wallet-outline"></ion-icon>
-              <ion-label>
-                Vales
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
 
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/gastos-do-mes" routerLinkActive="active" routerDirection="root" detail="false">
@@ -135,29 +55,9 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-
-        </ion-list>
-
-        <!------------------------------------------------------- Balcão ------------------------------------------------------------------------------ -->
-        <ion-list lines="none" *ngIf="perfil  === 'Colaborador'">
-          <ion-list-header>
-            Finanças
-          </ion-list-header>
-
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/faturamento" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="podium-outline"></ion-icon>
-              <ion-label>
-                Faturamento
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
         </ion-list>
 
         <!--------------------------------------------- CADASTROS DO APLICATIVO ----------------------------------------------------------------------- -->
-
-        <!------------------------------------------------------- ADMINISTRADOR ------------------------------------------------------------------------------ -->
         <ion-list lines="none">
           <ion-list-header>
             Cadastros
@@ -182,7 +82,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <!-- <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false" *ngIf="perfil === 'Desenvolvedor'">
             <ion-item routerLink="/cadastro-funcionarios" routerLinkActive="active" routerDirection="root"
               detail="false">
               <ion-icon slot="start" name="walk-outline"></ion-icon>
@@ -192,7 +92,7 @@
             </ion-item>
           </ion-menu-toggle>
 
-          <ion-menu-toggle autoHide="false">
+          <ion-menu-toggle autoHide="false" *ngIf="perfil === 'Desenvolvedor'">
             <ion-item routerLink="/cadastro-de-noticias" routerLinkActive="active" routerDirection="root"
               detail="false">
               <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
@@ -200,59 +100,10 @@
                 Notificações
               </ion-label>
             </ion-item>
-          </ion-menu-toggle> -->
-
-        </ion-list>
-
-        <!------------------------------------------------------- Balcão ------------------------------------------------------------------------------ -->
-        <ion-list lines="none" *ngIf="perfil  === 'Balcão'">
-          <ion-list-header>
-            Cadastros
-          </ion-list-header>
-
-          <!-- <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/cadastro-tipo-venda" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="podium-outline"></ion-icon>
-              <ion-label>
-                Categorias
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
-
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/cadastro-tipo-produto" routerLinkActive="active" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="barcode-outline"></ion-icon>
-              <ion-label>
-                Produtos
-              </ion-label>
-            </ion-item>
           </ion-menu-toggle>
-
-          <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/cadastro-funcionarios" routerLinkActive="active" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="walk-outline"></ion-icon>
-              <ion-label>
-                Usuários
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-
-          <!-- <ion-menu-toggle autoHide="false">
-            <ion-item routerLink="/cadastro-de-noticias" routerLinkActive="active" routerDirection="root"
-              detail="false">
-              <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
-              <ion-label>
-                Notificações
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
-
         </ion-list>
 
         <!--------------------------------------------- CONFIGURAÇÕES DO APLICATIVO ----------------------------------------------------------------------- -->
-
         <ion-list lines="none">
           <ion-list-header>
             Configurações
@@ -275,7 +126,6 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
-
         </ion-list>
 
         <p style="font-size: 13px;padding-left: 20px;">Versão Aplicativo 1.1.512</p>

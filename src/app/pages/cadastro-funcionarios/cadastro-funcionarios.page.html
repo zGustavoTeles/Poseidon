@@ -29,16 +29,8 @@
                 <ion-item>
                   <ion-icon name="person-add-outline" slot="start"></ion-icon>
                   <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione um Perfil"
-                  [interfaceOptions]="selecioneUmPerfil" [(ngModel)]="perfil" name="perfil" required>
+                    [interfaceOptions]="selecioneUmPerfil" [(ngModel)]="perfil" name="perfil" required>
                     <ion-select-option *ngFor="let perfil of perfis">{{perfil.descricao}}</ion-select-option>
-                  </ion-select>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon name="female-outline" slot="start"></ion-icon>
-                  <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione um Sexo"
-                  [interfaceOptions]="selecioneUmSexo" [(ngModel)]="sexo" name="sexo" required>
-                    <ion-select-option *ngFor="let sexo of sexos">{{sexo.descricao}}</ion-select-option>
                   </ion-select>
                 </ion-item>
 
@@ -46,12 +38,6 @@
                   <ion-icon name="map-outline" slot="start"></ion-icon>
                   <ion-input placeholder="Nome Completo" name="nome" id="nome" type="text" required [(ngModel)]="nome">
                   </ion-input>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
-                  <ion-input placeholder="Número de Telefone" name="numero" id="numero" type="number" required
-                    [(ngModel)]="numero"> </ion-input>
                 </ion-item>
 
                 <ion-item>
@@ -67,21 +53,52 @@
                 </ion-item>
 
                 <ion-item>
-                  <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-                  <ion-input placeholder="Confirmar Senha" name="confirmarSenha" id="confirmarSenha" type="password" required [(ngModel)]="confirmarSenha">
+                  <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Número de Telefone" name="numero" id="numero" type="number" required
+                    [(ngModel)]="numero"> </ion-input>
+                </ion-item>
+
+
+                <ion-item>
+                  <ion-icon name="storefront-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Empresa" name="empresa" id="empresa" type="text" required
+                    [(ngModel)]="empresa"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="code-working-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="CNPJ / CPF" name="cnpj" id="cnpj" type="number" required [(ngModel)]="cnpj">
                   </ion-input>
                 </ion-item>
 
                 <ion-item>
-                  <ion-icon name="logo-whatsapp" slot="start"></ion-icon>
-                  <ion-input placeholder="WhatsApp" name="whatsapp" id="whatsapp" type="number" required
-                    [(ngModel)]="whatsapp"> </ion-input>
+                  <ion-icon name="map-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Endereço" name="endereco" id="endereco" type="text" required
+                    [(ngModel)]="endereco"> </ion-input>
                 </ion-item>
+
+                <ion-item>
+                  <ion-icon name="footsteps-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="CEEP" name="cep" id="cep" type="number" required [(ngModel)]="cep">
+                  </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="call-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Telefone Fixo" name="telefoneFixo" id="telefoneFixo" type="number" required
+                    [(ngModel)]="telefoneFixo"> </ion-input>
+                </ion-item>
+
+                <ion-item>
+                  <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="Telefone Móvel" name="telefoneMovel" id="telefoneMovel" type="number" required
+                    [(ngModel)]="telefoneMovel"> </ion-input>
+                </ion-item>
+
 
               </ion-list>
             </ion-col>
           </ion-row>
-
 
           <ion-row>
             <ion-col>

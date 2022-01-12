@@ -807,7 +807,7 @@ export class FirebaseService {
      * *---------------> GASTOS CADASTRAIS <---------------------
      */
 
-     async registerSpendingMonth(dados: any): Promise<any> {
+    async registerSpendingMonth(dados: any): Promise<any> {
         const promise = new Promise(async (resolve, reject) => {
             try {
                 this.firestore.collection("Poseidon " + "_Gastos").add(dados).then(async data => {
@@ -869,6 +869,33 @@ export class FirebaseService {
 
     async updateCategory(documento: any, dados: any) {
         this.firestore.doc('Poseidon ' + '_Categorias' + '/' + documento).update(dados);
+    }
+
+    async registerNotification(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Notificacoes").add(dados).then(async data => {
+                    let dados =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateNotification(data.id, dados[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateNotification(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Notificacoes' + '/' + documento).update(dados);
     }
 
 }
