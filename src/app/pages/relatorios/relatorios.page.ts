@@ -138,28 +138,17 @@ export class RelatoriosPage implements OnInit {
                 this.quantidadeVendida += parseInt(produto.quantidadeVendida);
                 this.fidelidade += produto.fidelidade;
 
-                if (produto.colaboradorPerfil === 'Colaborador') {
-                    this.totalComissao += produto.totalComissao;
-                }
+                this.totalComissao += produto.totalComissao;
 
                 this.totalBruto += produto.totalBruto;
 
-                if (produto.colaboradorPerfil === 'Colaborador') {
-                    this.totalLiquido += parseFloat(produto.totalLiquido);
-                } else {
-                    this.totalLiquido += parseFloat(produto.totalBruto);
-                }
+                this.totalLiquido += produto.totalLiquido;
+
                 this.totalDeCusto += produto.totalDeCusto;
                 this.totalDescontos += parseFloat(produto.desconto);
                 this.totalFidelidadeCliente = parseInt(produto.clienteFidelidade);
 
-                if (produto.colaboradorPerfil === 'Colaborador') {
-                    this.totalGorjetas += parseFloat(produto.gorjeta);
-                } else {
-                    this.totalLucro += parseFloat(produto.gorjeta);
-                }
-
-                this.totalLucro += parseFloat((this.totalLucro + produto.totalLucro).toFixed(2));
+                this.totalLucro += parseFloat((produto.gorjeta + produto.totalLucro).toFixed(2));
 
                 this.produtos.push(produto);
             }
@@ -371,7 +360,7 @@ export class RelatoriosPage implements OnInit {
                     "valorDeCusto": produto.valorDeCusto,
                     "valorDeVenda": produto.valorDeVenda
                 }];
-                
+
             await this.firebaseService.updateProducts(produto.produtoId, dadosUpdateProdutos[0]);
         }
     }
