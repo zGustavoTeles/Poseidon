@@ -223,8 +223,7 @@ export class AlterarPrudutoComandaPage implements OnInit {
             this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
 
             this.totalDeCusto = parseFloat(((this.valorDeCusto * this.quantidadeInserida).toFixed(2)));
-            this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - AlterarPrudutoComandaPage.totalDeCustoAtual).toFixed(2));
-
+            this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - this.totalDeCusto).toFixed(2));
         }
     }
 
