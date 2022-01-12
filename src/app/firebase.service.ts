@@ -690,7 +690,7 @@ export class FirebaseService {
 
     public findWhereProductTempUnidade(unidade: any) {
         return this.firestore
-            .collection("Poseidon " + "_Vendas_Produtos_Temp",  (ref) => ref.where("unidade", "==", unidade))
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("unidade", "==", unidade))
             .valueChanges();
     }
 
@@ -756,7 +756,7 @@ export class FirebaseService {
             .collection("Poseidon " + "_Vendas_Cliente", (ref) => ref.where("documento", "==", documento))
             .valueChanges();
     }
-    
+
     async registerProductVenda(dados: any): Promise<any> {
         const promise = new Promise(async (resolve, reject) => {
             try {
@@ -802,15 +802,73 @@ export class FirebaseService {
             .valueChanges();
     }
 
-    
+
     /**
      * *---------------> GASTOS CADASTRAIS <---------------------
      */
 
-     findAllSpendingMonth(dataInicial: any, dataFinal: any) {
+     async registerSpendingMonth(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Gastos").add(dados).then(async data => {
+                    let dados =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateSpendingMonth(data.id, dados[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateSpendingMonth(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Gastos' + '/' + documento).update(dados);
+    }
+
+    findAllSpendingMonth(dataInicial: any, dataFinal: any) {
         return this.firestore
             .collection("Poseidon " + "_Gastos", (ref) => ref.where('dataDoGasto', '>=', dataInicial).where('dataDoGasto', '<=', dataFinal))
             .valueChanges();
+    }
+
+    /**
+    * *---------------> RECURSOS DA APLICAÇÃO <---------------------
+    */
+
+    async registerCategory(dados: any): Promise<any> {
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                this.firestore.collection("Poseidon " + "_Categorias").add(dados).then(async data => {
+                    let dados =
+                        [{
+                            "documento": data.id
+                        }];
+                    this.updateCategory(data.id, dados[0]);
+                    resolve(data.id);
+                }, err => {
+                    reject(err);
+                    console.log('Erro', err);
+                });
+            } catch (err) {
+
+            }
+        });
+        return promise.then(res => {
+            console.log('Retorno ', res);
+        });
+    }
+
+    async updateCategory(documento: any, dados: any) {
+        this.firestore.doc('Poseidon ' + '_Categorias' + '/' + documento).update(dados);
     }
 
 }

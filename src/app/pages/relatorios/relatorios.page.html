@@ -111,60 +111,58 @@
           </ion-card-content>
         </ion-card>
 
-        <ion-card style="top: 1%;">
-          <ion-list>
-            <ion-item-sliding *ngFor="let produtos of produtos">
-              <ion-item>
+        <div>
+          <ion-list lines="none" *ngFor="let produtos of produtos;">
+            <ion-item-sliding>
+              <ion-card
+                (click)="atualizarProduto(produtos.documento, produtos.dataVenda, produtos.vendedor, produtos.unidade, produtos.clienteId, produtos.cliente,produtos.clienteFidelidade,produtos.produtoId,produtos.produto,produtos.imagem,produtos.categoria,produtos.quantidadeVendida,produtos.fidelidade,produtos.comissao, produtos.gorjeta, produtos.desconto, produtos.estoque,produtos.estoqueFinal,produtos.valorDeVenda,produtos.valorDeCusto,produtos.totalComissao,produtos.totalDeCusto,produtos.totalBruto,produtos.totalLiquido,produtos.totalLucro)"
+                style="border-radius: 10px;" class="ion-activatable ripple-parent">
 
-                <ion-avatar slot="start">
-                  <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
-                  <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
-                </ion-avatar>
-
-                <ion-label>
-                  <h3>{{produtos.produto}}</h3>
-                  <h3>{{produtos.categoria}}</h3>
-
-                  <h3 style="color: #0576d0">
-                    <b>Comissão - {{produtos.comissao}}%</b>
-                  </h3>
-
-                  <h3 style="color: #d00575">
-                    <b>Estoque - {{produtos.estoque}}</b>
-                  </h3>
-
-                  <h3 style="color: #27c400">
-                    <b>Preço - {{produtos.valorDeVenda | currency: 'BRL'}} Oferta!</b>
-                  </h3>
-
-                </ion-label>
-
-                <ion-item style="margin-bottom: 15% !important ">
+                <ion-item>
                   <ion-avatar slot="start">
-                    <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
-                    </ion-img>
+                    <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
+                    <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
                   </ion-avatar>
+
+                  <!-- <ion-avatar slot="start" *ngIf="unidade != 'Barbearia Olimpo Gyn'">
+                <img src="\assets\img\cliente_indefinido.png" />
+              </ion-avatar> -->
+
+                  <ion-label>
+                    <h3>{{produtos.descricao}}</h3>
+                    <h3>{{produtos.categoria}}</h3>
+                    <h3 *ngIf="perfil != 'Cliente'" style="color: #0576d0">
+                      <b>Custos - {{produtos.valorDeCusto| currency: 'BRL'}}</b>
+                    </h3>
+                    <h3 style="color: #d00575">
+                      <b>Estoque - {{produtos.estoque}}</b>
+                    </h3>
+                    <h3 style="color: #27c400">
+                      <b>Preço - {{produtos.valorDeVenda| currency: 'BRL'}} Oferta!!</b>
+                    </h3>
+                  </ion-label>
+
+                  <ion-item style="margin-bottom: 15% !important ">
+                    <ion-avatar slot="start">
+                      <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
+                      </ion-img>
+                    </ion-avatar>
+                  </ion-item>
+
                 </ion-item>
+                <ion-ripple-effect></ion-ripple-effect>
+              </ion-card>
 
-              </ion-item>
-
-              <ion-item-options side="start" class="itemOptionsList">
-                <ion-item-option style="margin: 5px !important" color="warning"
-                  (click)="atualizarProduto(produtos.documento, produtos.dataVenda, produtos.vendedor, produtos.unidade, produtos.clienteId, produtos.cliente,produtos.clienteFidelidade,produtos.produtoId,produtos.produto,produtos.imagem,produtos.categoria,produtos.quantidadeVendida,produtos.fidelidade,produtos.comissao, produtos.gorjeta, produtos.desconto, produtos.estoque,produtos.estoqueFinal,produtos.valorDeVenda,produtos.valorDeCusto,produtos.totalComissao,produtos.totalDeCusto,produtos.totalBruto,produtos.totalLiquido,produtos.totalLucro)">
-                  <ion-icon slot="start" name="create-outline"></ion-icon>Alterar
-                </ion-item-option>
-
-              </ion-item-options>
               <ion-item-options side="end" class="itemOptionsList">
                 <ion-item-option style="margin: 5px !important" color="danger"
                   (click)="excluirProduto(produtos.documento, produtos.produto)">
                   <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
                 </ion-item-option>
               </ion-item-options>
+
             </ion-item-sliding>
           </ion-list>
-
-        </ion-card>
+        </div>
 
 
       </ion-grid>

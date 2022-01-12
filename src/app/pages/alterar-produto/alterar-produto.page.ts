@@ -52,7 +52,7 @@ export class AlterarProdutoPage implements OnInit {
         public dadosRepositories: DadosRepositories,) { }
 
     ngOnInit() {
-        this.administradorNovo = this.dadosRepositories.getLocalStorage('nome');
+        this.carregaCategorias();
         this.produtoId = AlterarProdutoPage.produtoIdAtual;
         this.imagem = AlterarProdutoPage.imagemAtual;
         this.unidade = AlterarProdutoPage.unidadeAtual;
@@ -63,8 +63,15 @@ export class AlterarProdutoPage implements OnInit {
         this.comissao = AlterarProdutoPage.comissaoAtual;
         this.valorDeCusto = AlterarProdutoPage.valorDeCustoAtual;
         this.valorDeVenda = AlterarProdutoPage.valorDeVendaAtual;
-
     }
+
+    
+    public async carregaCategorias() {
+        this.firebaseService.findAllCategory().subscribe(data => {
+            this.categorias = data;
+        });
+    }
+
     async atualizarProduto(form: NgForm) {
         this.submitted = true;
         if (form.valid) {
@@ -91,21 +98,23 @@ export class AlterarProdutoPage implements OnInit {
                             cssClass: 'okButton',
                             handler: async () => {
 
-                                let dados =
-                                {
-                                    administrador: this.administradorNovo,
-                                    unidade: this.unidade,
-                                    produtoId: this.produtoId,
-                                    imagem: this.imagem,
-                                    categoria: this.categoria,
-                                    descricao: this.descricao,
-                                    quantidade: this.quantidade,
-                                    fidelidade: this.fidelidade,
-                                    comissao: this.comissao,
-                                    valorDeCusto: this.valorDeCusto,
-                                    valorDeVenda: this.valorDeVenda
+                                this.fidelidade = 0;
+                                this.comissao = 0;
 
-                                };
+                                let dados =
+                                [{
+                                    "unidade": this.unidade,
+                                    "imagem": this.imagem,
+                                    "categoria": this.categoria,
+                                    "descricao": this.descricao,
+                                    "quantidade": this.quantidade,
+                                    "fidelidade": this.fidelidade,
+                                    "comissao": this.comissao,
+                                    "valorDeCusto": this.valorDeCusto,
+                                    "valorDeVenda": this.valorDeVenda
+        
+                                }];
+                                
                                 await this.firebaseService.updateProducts(this.produtoId, dados[0]);
 
                                 const alert = await this.alertController.create({

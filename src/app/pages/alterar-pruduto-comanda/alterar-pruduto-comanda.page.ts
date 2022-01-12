@@ -137,7 +137,6 @@ export class AlterarPrudutoComandaPage implements OnInit {
         this.totalBruto = AlterarPrudutoComandaPage.totalBrutoAtual;
         this.totalLiquido = AlterarPrudutoComandaPage.totalLiquidoAtual;
         this.totalLucro = AlterarPrudutoComandaPage.totalLucroAtual;
-        // this.calculaTotal();
         this.ios = this.config.get('mode') === 'ios';
     }
 
@@ -213,28 +212,20 @@ export class AlterarPrudutoComandaPage implements OnInit {
         await alert.present();
     }
 
-    async calculaTotal() {
-        this.totalBruto = this.valorProduto * this.quantidadeInserida;
-
-        if (this.categoria != 'Serviços')
-            this.estoqueFinal = this.estoque - this.quantidadeInserida;
-
-        this.totalComissao = parseFloat(((this.comissao * this.totalBruto) / 100).toFixed(2));
-        this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
-        this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - this.totalDeCusto).toFixed(2));
-    }
-
     async calculaTotalEven(ev?: any) {
-        this.totalBruto = parseFloat(((AlterarPrudutoComandaPage.valorDeVendaAtual * this.quantidadeInserida) - this.desconto).toFixed(2));
+        if (ev.currentTarget.id === 'inputQuantidade' || ev.currentTarget.id === 'inputDesconto') {
+            this.totalBruto = parseFloat(((AlterarPrudutoComandaPage.valorDeVendaAtual * this.quantidadeInserida) - this.desconto).toFixed(2));
 
-        if (this.categoria != 'Serviços')
-            this.estoqueFinal = AlterarPrudutoComandaPage.estoqueAtual - this.quantidadeInserida;
+            if (this.categoria != 'Serviços')
+                this.estoqueFinal = AlterarPrudutoComandaPage.estoqueAtual - this.quantidadeInserida;
 
-        this.totalComissao = parseFloat(((AlterarPrudutoComandaPage.comissaoAtual * this.totalBruto) / 100).toFixed(2));
-        console.log(this.totalComissao);
+            this.totalComissao = parseFloat(((AlterarPrudutoComandaPage.comissaoAtual * this.totalBruto) / 100).toFixed(2));
+            this.totalLiquido = parseFloat((this.totalBruto - this.totalComissao).toFixed(2));
 
-        this.totalLiquido = parseFloat(((this.totalBruto - this.totalComissao)).toFixed(2));
-        this.totalLucro = parseFloat((((this.totalBruto - this.totalComissao) - AlterarPrudutoComandaPage.totalDeCustoAtual)).toFixed(2));
+            this.totalDeCusto = parseFloat(((this.valorDeCusto * this.quantidadeInserida).toFixed(2)));
+            this.totalLucro = parseFloat(((this.totalBruto - this.totalComissao) - AlterarPrudutoComandaPage.totalDeCustoAtual).toFixed(2));
+
+        }
     }
 
     async setDescontoInserido(value) {

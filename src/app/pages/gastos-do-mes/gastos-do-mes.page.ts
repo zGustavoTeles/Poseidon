@@ -23,7 +23,9 @@ export class GastosDoMesPage implements OnInit {
     valorPago: any;
     totalPago: any;
     dataDoGasto: any;
-
+    date = new Date(); //
+    startDate = 'YYYY-MM-DD'; // new Date(this.date.getFullYear(), this.date.getMonth(), 1).toISOString().slice(0, 10); // Define o Primeiro dia do Mês
+    endDate = 'YYYY-MM-DD';
     error: any;
     submitted = false;
 
@@ -32,10 +34,11 @@ export class GastosDoMesPage implements OnInit {
         public dadosRepositories: DadosRepositories,) { }
 
     ngOnInit() {
-        this.carregaFormasDePagamento();
-        this.carregaGastos();
         this.unidade = this.dadosRepositories.getLocalStorage('unidade');
         this.administrador = this.dadosRepositories.getLocalStorage('nome');
+        this.focandoData();
+        this.findAllPaymentMethods();
+        this.findAllSpendingMonth();
     }
     async cadastrarGastoDoMes(form: NgForm) {
         this.submitted = true;
@@ -67,17 +70,19 @@ export class GastosDoMesPage implements OnInit {
                                 this.dataDoGasto = new Date().toISOString().slice(0, 10);
 
                                 let dados =
-                                {
-                                    administrador: this.administrador,
-                                    unidade: this.unidade,
-                                    formaDePagamento: this.formaDePagamento,
-                                    descricao: this.descricao,
-                                    quantidade: this.quantidade,
-                                    valorPago: this.valorPago,
-                                    totalPago: this.totalPago,
-                                    dataDoGasto: this.dataDoGasto,
-                                };
-                                this.firebaseService.cadastrarGastoDoMes(dados);
+                                    [{
+                                        "administrador": this.administrador,
+                                        "unidade": this.unidade,
+                                        "formaDePagamento": this.formaDePagamento,
+                                        "descricao": this.descricao,
+                                        "quantidade": this.quantidade,
+                                        "valorPago": this.valorPago,
+                                        "totalPago": this.totalPago,
+                                        "dataDoGasto": this.dataDoGasto
+
+                                    }];
+
+                                this.firebaseService.registerSpendingMonth(dados[0]);
 
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -104,8 +109,10 @@ export class GastosDoMesPage implements OnInit {
                                 this.valorPago = '';
                                 this.totalPago = '';
                                 this.dataDoGasto = '';
+                                
                                 await alert.present();
 
+                                this.findAllSpendingMonth();
                             }
                         }
                     ]
@@ -118,26 +125,28 @@ export class GastosDoMesPage implements OnInit {
         }
     }
 
-    async carregaFormasDePagamento() {
-        this.firebaseService.carregaFormasDePagamento().subscribe(data => {
-            console.log(data)
-
+    public async findAllPaymentMethods() {
+        await this.firebaseService.findAllPaymentMethods().subscribe(data => {
             this.formaDePagamentos = data;
         })
-
     }
 
-    async carregaGastos() {
-        this.firebaseService.carregaGastos().subscribe(data => {
-            console.log(data)
+    async findAllSpendingMonth() {
+
+        this.firebaseService.findAllSpendingMonth(this.startDate, this.endDate).subscribe(data => {
+            this.gastosAux = [];
+            this.gastos = [];
             this.gastosAux = data;
 
             for (let gasto of this.gastosAux) {
-                if (gasto.unidade === this.unidade) {
-                    this.gastos.push(gasto);
-                }
+                this.gastos.push(gasto)
             }
-        })
 
+        });
+    }
+
+    async focandoData() {
+        this.startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1).toISOString().slice(0, 10); // Define o primeiro dia do mês
+        this.endDate = new Date().toISOString().slice(0, 10); // Define o dia atual
     }
 }

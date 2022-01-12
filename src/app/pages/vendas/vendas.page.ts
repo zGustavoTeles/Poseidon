@@ -248,26 +248,26 @@ export class VendasPage implements OnInit {
                                 for (let produto of this.produtosAux) {
                                     this.firebaseService.deleteSaleClientVendaProduto(produto.documento);
                                 }
-                                const alert = await this.alertController.create({
-                                    message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                                     <text>Venda excluída com sucesso!</text>`,
-                                    backdropDismiss: false,
-                                    header: "Atenção",
-                                    cssClass: "alertaCss",
-                                    buttons: [
-                                        {
-                                            text: "Ok",
-                                            role: "Cancelar",
-                                            cssClass: "secondary",
-
-                                            handler: () => {
-
-                                            },
-                                        },
-                                    ],
-                                });
-                                await alert.present();
                             });
+                            const alert = await this.alertController.create({
+                                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                                 <text>Venda excluída com sucesso!</text>`,
+                                backdropDismiss: false,
+                                header: "Atenção",
+                                cssClass: "alertaCss",
+                                buttons: [
+                                    {
+                                        text: "Ok",
+                                        role: "Cancelar",
+                                        cssClass: "secondary",
+
+                                        handler: () => {
+
+                                        },
+                                    },
+                                ],
+                            });
+                            await alert.present();
                         }
                     }
                 ]
@@ -281,6 +281,13 @@ export class VendasPage implements OnInit {
 
     async findAllProduct(cliente: any, dataVenda: any, formaDePagamento: any) {
         let popover: HTMLIonPopoverElement;
+
+        const loading = await this.loadingController.create({
+            message: '<ion-img src="/assets/gif/loading.gif" alt="loading..."></ion-img> <br> Carregando Produto(s)...',
+            spinner: null,
+            cssClass: 'loadingCss',
+        });
+        await loading.present();
 
         this.firebaseService.findAWhereProductVenda(cliente, dataVenda, formaDePagamento).subscribe(async data => {
             this.produtos = [];
@@ -302,6 +309,7 @@ export class VendasPage implements OnInit {
                 }
             });
 
+            loading.dismiss();
             await popover.present();
 
             await popover.onDidDismiss().then(async data => {
@@ -359,7 +367,7 @@ export class VendasPage implements OnInit {
                         } else if (this.dinheiro) {
                             this.buscaVendasPorData('Dinheiro');
                         } else if (this.pix24Hr) {
-                            this.buscaVendasPorData('Pix 24Hr');
+                            this.buscaVendasPorData('Pix (24 Horas)');
                         }
                     }
                 } catch (error) {
@@ -429,9 +437,9 @@ export class VendasPage implements OnInit {
 
                 })
 
-            } else if (tipoOrdenacao.trim() === 'Pix 24Hr') {
+            } else if (tipoOrdenacao.trim() === 'Pix (24 Horas)') {
                 temp.sort((a, b) => {
-                    return a.formaDePagamento.trim() === 'Pix 24Hr' ? -1 : 1
+                    return a.formaDePagamento.trim() === 'Pix (24 Horas)' ? -1 : 1
                 })
             }
 

@@ -61,11 +61,10 @@ export class CadastroTipoProdutoPage implements OnInit {
         this.imagem = '';
     }
 
-   public async carregaCategorias() {
+    public async carregaCategorias() {
         this.firebaseService.findAllCategory().subscribe(data => {
             this.categorias = data;
         });
-
     }
 
     async cadastrarTipoVenda(form: NgForm) {
@@ -82,6 +81,9 @@ export class CadastroTipoProdutoPage implements OnInit {
 
                     if (this.imagem.length === 0)
                         this.imagem = '';
+
+                    this.fidelidade = 0;
+                    this.comissao = 0;
 
                     let dados =
                         [{

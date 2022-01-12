@@ -45,7 +45,7 @@
                     <h3>{{produtos.descricao}}</h3>
                     <h3>{{produtos.categoria}}</h3>
                     <h3 *ngIf="perfil != 'Cliente'" style="color: #0576d0">
-                      <b>Comissão - {{produtos.comissao}} %</b>
+                      <b>Custos - {{produtos.valorDeCusto| currency: 'BRL'}}</b>
                     </h3>
                     <h3 style="color: #d00575">
                       <b>Estoque - {{produtos.quantidade}}</b>

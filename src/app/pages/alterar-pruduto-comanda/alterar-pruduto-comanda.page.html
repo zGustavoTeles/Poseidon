@@ -24,23 +24,24 @@
 
         <ion-card style="top: 1%;">
           <ion-list>
-            <ion-item *ngFor="let produtos of produtos">
+            <ion-item>
 
               <ion-avatar slot="start">
-                <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
-                <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
+                <img *ngIf="imagem === '' " src="\assets\img\cliente_indefinido.png" />
+                <img *ngIf="imagem != '' " src="{{imagem}}" />
               </ion-avatar>
+
               <ion-label>
-                <h3>{{produtos.descricao}}</h3>
-                <h3>{{produtos.categoria}}</h3>
+                <h3>{{produto}}</h3>
+                <h3>{{categoria}}</h3>
                 <h3 style="color: #0576d0">
-                  <b>Preço - {{produtos.valorDeVenda | currency: 'BRL'}}</b>
+                  <b>Custos - {{valorDeCusto| currency: 'BRL'}}</b>
                 </h3>
                 <h3 style="color: #d00575">
-                  <b>Estoque - {{produtos.quantidade}}</b>
+                  <b>Estoque - {{estoque}}</b>
                 </h3>
                 <h3 style="color: #27c400">
-                  <b>Comissão - {{produtos.comissao}}% Oferta!!</b>
+                  <b>Preço - {{valorDeVenda| currency: 'BRL'}} Oferta!!</b>
                 </h3>
               </ion-label>
 
@@ -54,23 +55,7 @@
         </ion-card>
 
         <ion-card class="ion-no-padding ion-padding-bottom" style="border-radius: 10px;">
-          <ion-card-content class="ion-no-padding" *ngFor="let produto of produtos">
-
-            <!-- <ion-item>
-              <ion-icon name="medal-outline" slot="start"></ion-icon>
-              <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="{{colaborador}}"
-                [(ngModel)]="colaborador" name="colaborador" [interfaceOptions]="selecioneUmColaborador">
-                <ion-select-option *ngFor="let colaborador of colaboradores">{{colaborador.nome}}</ion-select-option>
-              </ion-select>
-            </ion-item> -->
-
-            <!-- <ion-item>
-              <ion-icon name="person-add-outline" slot="start"></ion-icon>
-              <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="{{cliente}}"
-                [(ngModel)]="cliente" name="cliente" [interfaceOptions]="selecioneUmCliente" required>
-                <ion-select-option *ngFor="let cliente of clientes">{{cliente.nome}}</ion-select-option>
-              </ion-select>
-            </ion-item> -->
+          <ion-card-content class="ion-no-padding">
 
             <br>
 
@@ -79,12 +64,12 @@
 
                 <ion-col class="inputColBorder">
                   <ion-label [style.font-size]="0.8 + 'em'">Quantidade</ion-label>
-                  <ion-input id="inputQuantidade" #inputQuantidade type="number" placeholder="1"
+                  <ion-input id="inputQuantidade" #inputQuantidade type="number" placeholder="{{quantidadeInserida}}"
                     [ngModel]=quantidadeInserida (ngModelChange)="quantidadeInserida=$event"
                     (keyup)="calculaTotalEven($event);" (input)="setQuantidadeInserida($event.target.value)">
                   </ion-input>
                   <ion-label [style.font-size]="0.8 + 'em'">Gorjeta</ion-label>
-                  <ion-input id="inputGorjeta" #inputGorjeta type="number" placeholder="0" [ngModel]=gorjeta
+                  <ion-input id="inputGorjeta" #inputGorjeta type="number" placeholder="{{gorjeta}}" [ngModel]=gorjeta
                     (ngModelChange)="gorjeta=$event" (keyup)="calculaGorjeta($event);"
                     (input)="setGorjetaInserida($event.target.value)">
                   </ion-input>
@@ -92,13 +77,13 @@
 
                 <ion-col class="inputColBorder">
                   <ion-label [style.font-size]="0.8 + 'em'">Desconto</ion-label>
-                  <ion-input id="inputDesconto" #inputDesconto type="number" placeholder="{{0 | currency: 'BRL'}}"
-                    [ngModel]=desconto (ngModelChange)="desconto=$event" (keyup)="calculaTotalEven($event);"
-                    (input)="setDescontoInserido($event.target.value)">
+                  <ion-input id="inputDesconto" #inputDesconto type="number"
+                    placeholder="{{desconto | currency: 'BRL'}}" [ngModel]=desconto (ngModelChange)="desconto=$event"
+                    (keyup)="calculaTotalEven($event);" (input)="setDescontoInserido($event.target.value)">
                   </ion-input>
                   <ion-label [style.font-size]="0.8 + 'em'">Total</ion-label>
                   <ion-input id="inputTotal" #inputTotal type="number" placeholder="{{totalBruto | currency: 'BRL'}}"
-                    [ngModel]=totalDaVenda>
+                    [ngModel]=totalBruto>
                   </ion-input>
                 </ion-col>
 
@@ -119,7 +104,7 @@
                 <ion-col>
                   <ion-label position="fixed" color="success">Estoque Produto</ion-label>
                   <ion-label>
-                    <h3><b>{{produto.quantidade}}</b></h3>
+                    <h3><b>{{estoque}}</b></h3>
                   </ion-label>
                 </ion-col>
 
@@ -156,8 +141,8 @@
               </ion-row>
             </ion-grid>
             <ion-button type="submit" class="paddingBtn" expand="block" color="primary"
-              (click)="validaInsercaoProduto(cliente, clienteId, fidelidade)">
-              <ion-icon slot="start" name="cart-outline"></ion-icon> ADICIONAR
+              (click)="insereDadosTemp(produto, clienteId, fidelidade)">
+              <ion-icon slot="start" name="cart-outline"></ion-icon> ATUALIZAR
             </ion-button>
           </ion-card-content>
         </ion-card>

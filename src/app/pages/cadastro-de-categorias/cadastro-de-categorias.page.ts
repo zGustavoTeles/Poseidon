@@ -30,11 +30,8 @@ export class CadastroTipoVendaPage {
 
                 }];
 
-            console.log(dados);
-
             try {
-
-                // this.firebaseService.add_dados('CLIENTE_01_CATEGORIAS', dados[0]);
+                this.firebaseService.registerCategory(dados[0]);
 
                 const alert = await this.alertController.create({
                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -55,7 +52,7 @@ export class CadastroTipoVendaPage {
                 });
 
                 this.descricao = '';
-                
+
                 await alert.present();
 
             } catch (error) {

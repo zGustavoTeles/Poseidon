@@ -45,7 +45,7 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.getDadosUsuario();
-        this.findAllProducts();
+        // this.findAllProducts();
         // this.carregaNoticias();
         // this.carregaUnidades();
         // this.carregaImagens();

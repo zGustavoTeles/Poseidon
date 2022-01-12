@@ -360,16 +360,17 @@ export class RelatoriosPage implements OnInit {
 
             let dadosUpdateProdutos =
                 [{
-                    "categoria": produto.categoria,
-                    "comissao": produto.comissao,
-                    "descricao": produto.produto,
-                    "fidelidade": produto.fidelidade,
-                    "quantidade": produto.estoqueFinal,
                     "unidade": produto.unidade,
-                    "valorDeCusto": produto.totalDeCusto,
+                    "imagem": produto.imagem,
+                    "categoria": produto.categoria,
+                    "descricao": produto.produto,
+                    "quantidade": produto.estoqueFinal,
+                    "fidelidade": produto.fidelidade,
+                    "comissao": produto.comissao,
+                    "valorDeCusto": produto.valorDeCusto,
                     "valorDeVenda": produto.valorDeVenda
                 }];
-
+                
             await this.firebaseService.updateProducts(produto.produtoId, dadosUpdateProdutos[0]);
         }
     }
@@ -476,6 +477,7 @@ export class RelatoriosPage implements OnInit {
             AlterarPrudutoComandaPage.totalBrutoAtual = totalBruto;
             AlterarPrudutoComandaPage.totalLiquidoAtual = totalLiquido;
             AlterarPrudutoComandaPage.totalLucroAtual = totalLucro;
+
             const modal = await this.modalCtrl.create({
                 component: AlterarPrudutoComandaPage,
             });

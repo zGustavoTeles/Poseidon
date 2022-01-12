@@ -161,24 +161,21 @@ export class RelatorioDeVendasPage implements OnInit {
                                 quantidadeDados += 1;
                                 clienteAnterior = venda.cliente;
                             }
-                        } 
+                        }
                     }
 
-                    console.log('aquuiuuuu');
-                    console.log(this.totalLucro);
-                    
-    
-                    this.firebaseService.carregaGastosNoMes(this.startDate, this.endDate).subscribe(data => {
+                    this.firebaseService.findAllSpendingMonth(this.startDate, this.endDate).subscribe(data => {
+                        this.gastosAux = [];
                         this.totalDeGastos = 0;
+
                         this.gastosAux = data;
+
                         for (let gasto of this.gastosAux) {
-                            if (gasto.unidade === this.unidade) {
-                                this.totalDeGastos += gasto.totalPago;
-                            }
+                            this.totalDeGastos += gasto.totalPago;
                         }
                         this.totalLucro = (this.totalLucro - this.totalDeGastos);
-                    });        
-    
+                    });
+
                     // this.firebaseService.carregaValesFiltroData(this.startDate, this.endDate).subscribe(data => {
                     //     this.totalVales = 0;
                     //     this.valesAux = data;
@@ -190,7 +187,7 @@ export class RelatorioDeVendasPage implements OnInit {
                     //     this.totalLucro = (this.totalLucro - this.totalVales);
                     // });
                 });
-               
+
                 loading.dismiss();
                 // });
             } catch (error) {
