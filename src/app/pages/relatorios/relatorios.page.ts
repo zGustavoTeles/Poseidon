@@ -104,19 +104,6 @@ export class RelatoriosPage implements OnInit {
     }
 
     public async findAllProductTemp() {
-        
-        this.dataVenda = '';
-        this.vendedor = '';
-        this.quantidadeVendida = 0;
-        this.fidelidade = 0;
-        this.totalComissao = 0;
-        this.totalLiquido = 0;
-        this.totalBruto = 0;
-        this.totalDeCusto = 0;
-        this.totalLucro = 0;
-        this.totalFidelidadeCliente = 0;
-        this.totalGorjetas = 0;
-        this.cliente = this.clienteVenda;
 
         const loading = await this.loadingController.create({
             message: '<ion-img src="/assets/gif/loading.gif" alt="loading..."></ion-img> <br> Carregando Carrinho...',
@@ -126,6 +113,18 @@ export class RelatoriosPage implements OnInit {
         await loading.present();
 
         await this.firebaseService.findAllProductTemp().subscribe(data => {
+            this.dataVenda = '';
+            this.vendedor = '';
+            this.quantidadeVendida = 0;
+            this.fidelidade = 0;
+            this.totalComissao = 0;
+            this.totalLiquido = 0;
+            this.totalBruto = 0;
+            this.totalDeCusto = 0;
+            this.totalLucro = 0;
+            this.totalFidelidadeCliente = 0;
+            this.totalGorjetas = 0;
+            this.cliente = this.clienteVenda;
             this.produtos = [];
             this.produtosAuxListagem = [];
 
