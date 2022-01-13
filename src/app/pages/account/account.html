@@ -30,14 +30,14 @@
               <input id="uploadPhoto" type="file" accept="image/*" style="display: none"
                 (change)="touchCapturandoImg($event)" />
               <img src="\assets\img\barbeiro_indefinido2.png" alt="avatar"
-                *ngIf="sexo === 'Prefiro Não Dizer' && imagem === ''">
+                *ngIf="imagem === ''">
               <img *ngIf="imagem != '' " src="{{imagem}}">
             </label>
             <h2>{{nome}}</h2>
 
             <ion-list inset>
-              <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
-              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item>
+              <!-- <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
+              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item> -->
               <ion-item (click)="support()" style="color: #000000">Suporte</ion-item>
               <ion-item (click)="logout()" style="color: #000000">Sair</ion-item>
             </ion-list>

@@ -75,30 +75,11 @@
           </ion-card>
         </div>
 
+        <div>
+          
+        </div>
+
         <div class="category-block">
-          <!-- <ion-slides [options]="sliderConfig">
-            <ion-slide *ngFor="let produto of produtos">
-              <div>
-                <ion-card>
-                  <ion-card-header>
-                    <ion-card-title>
-                      <b style="font-size: 70%;">{{produto.descricao}}</b>
-                      -
-                      <b style="color: #0576d0; font-size: 70%;">Preço - {{produto.valorDeVenda | currency: 'BRL'}}</b>
-                    </ion-card-title>
-
-                    <ion-card-content>
-                      <ion-img *ngIf="produto.imagem === '' " src="\assets\img\produto-sem-imagem.png"></ion-img>
-                      <ion-img *ngIf="produto.imagem != '' " src="{{produto.imagem}}"></ion-img>
-                      <ion-button expand="full" color="success">Oferta {{produto.valorDeVenda | currency: 'BRL'}}</ion-button>
-                    </ion-card-content>
-
-                  </ion-card-header>
-                </ion-card>
-              </div>
-            </ion-slide>
-          </ion-slides> -->
-
           <div id="segment-dados">
             <ion-card class="ion-no-padding segment-dados">
               <ion-card-header class="cardHeader">
@@ -107,24 +88,21 @@
                 </ion-label>
               </ion-card-header>
 
-              <ion-card-content *ngFor="let unidade of unidades">
-                <!-- Notificação Vendedor -->
+              <ion-card-content *ngFor="let usuarioEndereco of usuarioEndereco">
                 <div>
                   <div>
                     <ion-item style="padding-top: 10px !important;">
                       <ion-avatar slot="start">
-                        <!-- <ion-img src="\assets\img\unidades.gif" style="display: contents;"></ion-img> -->
                         <ion-img src="/assets/gif/unidades.gif" alt="loading..."></ion-img>
                       </ion-avatar>
                       <ion-list>
-                        <ion-label style="padding-bottom: 3px;"><b>{{unidade.nomeDaUnidade}}</b></ion-label>
-                        <ion-label style="font-size: 12px;">Proprietário(a) - {{unidade.nomeDoProprietario}}
+                        <ion-label style="padding-bottom: 3px;"><b>{{usuarioEndereco.empresa}}</b></ion-label>
+                        <ion-label style="font-size: 12px;">Proprietário(a) - {{usuarioEndereco.nome}}
                         </ion-label>
                         <p>
                           <span
-                            style="color:rgb(0, 92, 99); display: flex; font-size: 12px;">{{unidade.enderecoUnidade}}</span>
+                            style="color:rgb(0, 92, 99); display: flex; font-size: 12px;">{{usuarioEndereco.endereco}}</span>
                         </p>
-                        <!-- <ion-label style="font-size: 12px;">{{item.mensagem}}</ion-label> -->
                       </ion-list>
                       <ion-icon name="cellular-outline" slot="end" style="color:#2474A5"></ion-icon>
                     </ion-item>

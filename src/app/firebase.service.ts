@@ -898,5 +898,11 @@ export class FirebaseService {
         this.firestore.doc('Poseidon ' + '_Notificacoes' + '/' + documento).update(dados);
     }
 
+    public findAllNotification() {
+        return this.firestore
+            .collection("Poseidon " + "_Notificacoes", (ref) => ref.orderBy("titulo"))
+            .valueChanges();
+    }
+
 }
 

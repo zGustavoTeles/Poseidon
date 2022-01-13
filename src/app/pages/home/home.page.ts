@@ -16,7 +16,7 @@ export class HomePage implements OnInit {
     sexo: any;
     uid: any;
     usuario: any = [];
-    unidades: any = [];
+    usuarioEndereco: any = [];
     email: any;
     senha: any;
     nome: any;
@@ -26,7 +26,11 @@ export class HomePage implements OnInit {
     produtosAux: any = [];
     produtos: any = [];
     noticias: any = [];
-
+    date = new Date(); // Define o dia atual sem formatar
+    startDate = 'YYYY-MM-DD'; // new Date(this.date.getFullYear(), this.date.getMonth(), 1).toISOString().slice(0, 10); // Define o Primeiro dia do Mês
+    endDate = 'YYYY-MM-DD';
+    vendas: any = [];
+    vendasAux: any = [];
     cart = [];
     items = [];
 
@@ -45,10 +49,9 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.getDadosUsuario();
-        // this.findAllProducts();
-        // this.carregaNoticias();
-        // this.carregaUnidades();
-        // this.carregaImagens();
+        this.carregaNoticias();
+        this.findAllProductVendaRelatorio();
+        this.carregaUnidades();
     }
 
     getDadosUsuario() {
@@ -87,22 +90,22 @@ export class HomePage implements OnInit {
     }
 
     async carregaNoticias() {
-        this.firebaseService.carregaNoticais(this.unidade).subscribe(data => {
+        this.firebaseService.findAllNotification().subscribe(data => {
             this.noticias = [];
-            data.forEach(row => {
-                let line = Object(row.payload.doc.data());
-                line.doc = String(row.payload.doc.id);
-
-                this.noticias.push(line);
-                console.log(this.noticias);
-            });
+            this.noticias = data;
         });
     }
 
     async carregaUnidades() {
-        this.firebaseService.carregaUnidades(this.unidade).subscribe(data => {
-            this.unidades = data;
+        this.firebaseService.findAllUser(this.email).subscribe(data => {
+            this.usuarioEndereco = [];
+            this.usuarioEndereco = data;
         })
+    }
+
+    async focandoData() {
+        this.startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1).toISOString().slice(0, 10); // Define o primeiro dia do mês
+        this.endDate = new Date().toISOString().slice(0, 10); // Define o dia atual
     }
 
     async carregaImagens() {
@@ -190,6 +193,21 @@ export class HomePage implements OnInit {
             component: AlterarNotificacoesPage,
         });
         await modal.present();
+    }
+
+    async findAllProductVendaRelatorio() {
+        this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
+            this.vendas = [];
+            this.vendasAux = [];
+            this.vendasAux = data;
+
+            for (let venda of this.vendasAux) {
+                if (venda.unidade === this.unidade) {
+                    this.vendas.push(venda);
+                }
+            }
+            
+        });
     }
 
 }

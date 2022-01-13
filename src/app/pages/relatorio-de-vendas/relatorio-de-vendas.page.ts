@@ -171,7 +171,9 @@ export class RelatorioDeVendasPage implements OnInit {
                         this.gastosAux = data;
 
                         for (let gasto of this.gastosAux) {
-                            this.totalDeGastos += gasto.totalPago;
+                            if (gasto.unidade === this.unidade) {
+                                this.totalDeGastos += gasto.totalPago;
+                            }
                         }
                         this.totalLucro = (this.totalLucro - this.totalDeGastos);
                     });

@@ -109,7 +109,7 @@ export class GastosDoMesPage implements OnInit {
                                 this.valorPago = '';
                                 this.totalPago = '';
                                 this.dataDoGasto = '';
-                                
+
                                 await alert.present();
 
                                 this.findAllSpendingMonth();
@@ -139,7 +139,9 @@ export class GastosDoMesPage implements OnInit {
             this.gastosAux = data;
 
             for (let gasto of this.gastosAux) {
-                this.gastos.push(gasto)
+                if (gasto.unidade === this.unidade) {
+                    this.gastos.push(gasto)
+                }
             }
 
         });
