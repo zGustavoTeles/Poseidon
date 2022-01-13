@@ -68,6 +68,8 @@ export class RelatorioDeVendasPage implements OnInit {
     vales: any = [];
     valesAux: any;
 
+    gastosComProdutos: any;
+
     constructor(
         private firebaseService: FirebaseService,
         public router: Router,
@@ -77,6 +79,7 @@ export class RelatorioDeVendasPage implements OnInit {
 
     ngOnInit() {
         this.getDadosUsuario();
+        this.getGastosComProdutos();
         this.focandoData();
         this.buscaVendasPorData();
     }
@@ -133,6 +136,7 @@ export class RelatorioDeVendasPage implements OnInit {
                     this.totalLiquido = 0;
                     this.totalBruto = 0;
                     this.totalLucro = 0;
+                    this.gastosComProdutos = 0.0;
                     this.vendasAux = [];
                     this.vendas = [];
 
@@ -153,7 +157,7 @@ export class RelatorioDeVendasPage implements OnInit {
                                         this.totalLiquido += venda.totalLiquido;
                                         this.totalBruto += venda.totalBruto;
                                         this.totalCustos += venda.totalDeCusto;
-                                        this.totalLucro += venda.totalLucro;
+                                        // this.totalLucro += venda.totalLucro;
                                     } else {
                                         this.totalFidelidade += venda.totalBruto;
                                     }
@@ -163,6 +167,8 @@ export class RelatorioDeVendasPage implements OnInit {
                             }
                         }
                     }
+
+                    this.totalLucro = this.totalBruto - this.gastosComProdutos.toFixed(2)
 
                     this.firebaseService.findAllSpendingMonth(this.startDate, this.endDate).subscribe(data => {
                         this.gastosAux = [];
@@ -200,6 +206,12 @@ export class RelatorioDeVendasPage implements OnInit {
     }
 
     async abrirComanda(vendaId: any, cliente: any) {
+    }
+
+    async getGastosComProdutos() {
+        this.gastosComProdutos = this.dadosRepositories.getLocalStorage('gastosComProdutos');
+        console.log('aaaaaa');
+        console.log(this.gastosComProdutos);
     }
 
     public async getDadosUsuario() {

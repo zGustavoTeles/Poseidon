@@ -1,0 +1,57 @@
+<!-- Graficos -->
+<div id="segment-dados">
+
+    <ion-item id="select-unidades" style="border-radius: 10px;" *ngIf="vemDoPopover">
+        <ion-icon name="podium" slot="start"></ion-icon>
+        <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione um tipo de Grafico"
+            [interfaceOptions]="selectTipoGraficoOptions" [(ngModel)]="tipoGraficoEscolhido"
+            (ionChange)="mudandoTipoGrafico(tipoGraficoEscolhido)">
+            <ion-select-option *ngFor="let item of tiposDeGraficos">{{item}}
+            </ion-select-option>
+        </ion-select>
+    </ion-item>
+
+    <div id="dados-pedido-cliente" *ngIf="tipoGrafico !== undefined">
+        <ion-card class="ion-no-padding animated fadeInUp segment-dados" *ngIf="tipoGrafico === 'tipoLinha'">
+            <ion-card-header style="background-color:#2474A5; height: 42px; padding-top: 4px;">
+                <ion-label class="segment-dados-titulo ion-text-uppercase">
+                    <ion-icon style="color: white;" name="fitness"></ion-icon> {{nomeGrafico}}
+                </ion-label>
+
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #barCanvas></canvas>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="ion-no-padding animated fadeInUp segment-dados" *ngIf="tipoGrafico === 'tipoBarra'">
+            <ion-card-header style="background-color:#2474A5; height: 42px; padding-top: 4px;">
+                <ion-label class="segment-dados-titulo ion-text-uppercase">
+                    <ion-icon style="color: white;" name="trending-up"></ion-icon> {{nomeGrafico}}
+                </ion-label>
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #lineCanvas></canvas>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="ion-no-padding segment-dados" *ngIf="tipoGrafico === 'tipoTorta'">
+            <ion-card-header style="background-color:#2474A5; height: 42px; padding-top: 4px;">
+                <ion-label class="segment-dados-titulo ion-text-uppercase">
+                    <ion-icon style="color: white;" name="pie-chart"></ion-icon> {{nomeGrafico}}
+                </ion-label>
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #pieCanvas></canvas>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="ion-no-padding animated fadeInUp segment-dados" *ngIf="tipoGrafico === 'tipoRosca'">
+            <ion-card-header style="background-color:#2474A5; height: 42px; padding-top: 4px;">
+                <ion-label class="segment-dados-titulo ion-text-uppercase">
+                    <ion-icon style="color: white;" name="newsnewspaper"></ion-icon> {{nomeGrafico}}
+                </ion-label>
+            </ion-card-header>
+            <ion-card-content>
+                <canvas #doughnutCanvas></canvas>
+            </ion-card-content>
+        </ion-card>
+    </div>
+</div>

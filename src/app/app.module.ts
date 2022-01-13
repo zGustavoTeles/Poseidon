@@ -23,6 +23,7 @@ import { ClienteVendaProdutosComponentComponent } from './components/cliente-ven
 import { FiltroVendasComponent } from './components/filtro-vendas/filtro-vendas.component';
 import { ImagemProdutoComponentComponent } from './components/imagem-produto-component/imagem-produto-component.component';
 import { Base64ImgUtil } from './pages/util/base64img.util';
+import { CustomComponentPoseidon } from './components/components.module';
 
 const PAGES_COMPONENTES = [
     ClientesTempComponentComponent,
@@ -39,6 +40,7 @@ const PAGES_COMPONENTES = [
         AngularFireModule.initializeApp(firebaseConfig),
         AngularFirestoreModule,
         HttpClientModule,
+        CustomComponentPoseidon,
         FormsModule,
         IonicModule.forRoot(),
         IonicStorageModule.forRoot(),

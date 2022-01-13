@@ -11,6 +11,13 @@ import { AlterarNotificacoesPage } from '../alterar-notificacoes/alterar-notific
 })
 export class HomePage implements OnInit {
 
+    // Carregando grafico
+    labelGrafico = [];
+    colorGrafico = [];
+    dataGrafico = [];
+    tipoGrafico = '';
+    nomeGrafico = '';
+
     perfil: any;
     unidade: any;
     sexo: any;
@@ -34,6 +41,10 @@ export class HomePage implements OnInit {
     cart = [];
     items = [];
 
+    quantidadeVendas: any;
+    lucrosDasVendas: any;
+    gastosDoMes: any;
+
     sliderConfig = {
         slidesPerView: 1.6,
         spaceBetween: 10,
@@ -52,6 +63,7 @@ export class HomePage implements OnInit {
         this.carregaNoticias();
         this.findAllProductVendaRelatorio();
         this.carregaUnidades();
+        this.carriesGraphic();
     }
 
     getDadosUsuario() {
@@ -205,9 +217,18 @@ export class HomePage implements OnInit {
                 if (venda.unidade === this.unidade) {
                     this.vendas.push(venda);
                 }
+                this.quantidadeVendas = this.vendas.length;
             }
-            
+
         });
     }
 
+    // Carregando grafico via component
+    async carriesGraphic() {
+        this.nomeGrafico = 'GRÁFICO VENDAS';
+        this.tipoGrafico = 'tipoRosca';
+        this.labelGrafico = ['Vendas em Aberto', 'Gastos Do Mês', 'Lucros'];
+        this.colorGrafico = ['#012c7c', '#ffc107', '#2e7d32'];
+        this.dataGrafico = ['' + this.quantidadeVendas + '', '' + 0 + '', '' + 100 + ''];
+    }
 }
