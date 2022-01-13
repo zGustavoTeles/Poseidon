@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, Input, } from '@angular/core';
+import * as chartJs from 'chart.js';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
@@ -40,7 +41,7 @@ export class GraficoComponentsComponent implements OnInit {
 
     // Pegando a imagem do produto
     ngOnInit() {
-            this.carregandoGrafico();
+        this.carregandoGrafico();
     }
 
     // Criando graficos para Relaltorio
@@ -77,11 +78,11 @@ export class GraficoComponentsComponent implements OnInit {
     }
 
     getChart(context, chartType, data, options?) {
-        //   return new chartJs(context, {
-        //       data,
-        //       options,
-        //       type: chartType
-        //   });
+        return new chartJs(context, {
+            data,
+            options,
+            type: chartType
+        });
     }
 
     // Grafico de barras
