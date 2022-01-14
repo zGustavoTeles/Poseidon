@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
 
@@ -68,7 +68,7 @@ export class RelatorioDeVendasPage implements OnInit {
     vales: any = [];
     valesAux: any;
 
-    gastosComProdutos: any;
+    totalGastosComProdutos: any;
 
     constructor(
         private firebaseService: FirebaseService,
@@ -79,7 +79,6 @@ export class RelatorioDeVendasPage implements OnInit {
 
     ngOnInit() {
         this.getDadosUsuario();
-        this.getGastosComProdutos();
         this.focandoData();
         this.buscaVendasPorData();
     }
@@ -122,6 +121,7 @@ export class RelatorioDeVendasPage implements OnInit {
             });
             await loading.present();
             try {
+                this.getGastosComProdutos();
 
                 this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
                     let quantidadeDados = 1;
@@ -136,7 +136,6 @@ export class RelatorioDeVendasPage implements OnInit {
                     this.totalLiquido = 0;
                     this.totalBruto = 0;
                     this.totalLucro = 0;
-                    this.gastosComProdutos = 0.0;
                     this.vendasAux = [];
                     this.vendas = [];
 
@@ -157,7 +156,6 @@ export class RelatorioDeVendasPage implements OnInit {
                                         this.totalLiquido += venda.totalLiquido;
                                         this.totalBruto += venda.totalBruto;
                                         this.totalCustos += venda.totalDeCusto;
-                                        // this.totalLucro += venda.totalLucro;
                                     } else {
                                         this.totalFidelidade += venda.totalBruto;
                                     }
@@ -168,7 +166,9 @@ export class RelatorioDeVendasPage implements OnInit {
                         }
                     }
 
-                    this.totalLucro = this.totalBruto - this.gastosComProdutos.toFixed(2)
+                    this.registerVendasDoMes(this.totalBruto);
+
+                    this.totalLucro = parseFloat((this.totalBruto - parseFloat(this.totalGastosComProdutos)).toFixed(2));
 
                     this.firebaseService.findAllSpendingMonth(this.startDate, this.endDate).subscribe(data => {
                         this.gastosAux = [];
@@ -184,20 +184,12 @@ export class RelatorioDeVendasPage implements OnInit {
                         this.totalLucro = (this.totalLucro - this.totalDeGastos);
                     });
 
-                    // this.firebaseService.carregaValesFiltroData(this.startDate, this.endDate).subscribe(data => {
-                    //     this.totalVales = 0;
-                    //     this.valesAux = data;
-                    //     for (let vale of this.valesAux) {
-                    //         if (vale.unidade === this.unidade) {
-                    //             this.totalVales += vale.valorDoVale;
-                    //         }
-                    //     }
-                    //     this.totalLucro = (this.totalLucro - this.totalVales);
-                    // });
+                    this.registerGastoDoMes(this.totalDeGastos);
+
                 });
 
                 loading.dismiss();
-                // });
+
             } catch (error) {
                 console.log('Não foi possivel carregar as vendas por data:', error);
                 await loading.dismiss();
@@ -205,13 +197,9 @@ export class RelatorioDeVendasPage implements OnInit {
         }
     }
 
-    async abrirComanda(vendaId: any, cliente: any) {
-    }
-
     async getGastosComProdutos() {
-        this.gastosComProdutos = this.dadosRepositories.getLocalStorage('gastosComProdutos');
-        console.log('aaaaaa');
-        console.log(this.gastosComProdutos);
+        this.totalGastosComProdutos = 0.0;
+        this.totalGastosComProdutos = this.dadosRepositories.getLocalStorage('totalGastosComProdutos');
     }
 
     public async getDadosUsuario() {
@@ -222,6 +210,18 @@ export class RelatorioDeVendasPage implements OnInit {
         this.uid = this.dadosRepositories.getLocalStorage('uid');
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
+    }
+
+    async registerGastoDoMes(totalDosGastosMes: any) {
+        totalDosGastosMes = totalDosGastosMes.toFixed(2);
+        this.dadosRepositories.removeLocalStorage('totalDosGastosMes');
+        this.dadosRepositories.setLocalStorage('totalDosGastosMes', totalDosGastosMes);
+    }
+
+    async registerVendasDoMes(totalVendasDoMes: any) {
+        totalVendasDoMes = totalVendasDoMes.toFixed(2);
+        this.dadosRepositories.removeLocalStorage('totalVendasDoMes');
+        this.dadosRepositories.setLocalStorage('totalVendasDoMes', totalVendasDoMes);
     }
 
 }

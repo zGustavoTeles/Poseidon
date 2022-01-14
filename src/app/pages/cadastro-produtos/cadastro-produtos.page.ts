@@ -41,8 +41,6 @@ export class CadastroTipoProdutoPage implements OnInit {
     senha: any;
     nome: any;
 
-    gastoProduto: any;
-
     constructor(
         private firebaseService: FirebaseService,
         public config: Config,
@@ -104,7 +102,6 @@ export class CadastroTipoProdutoPage implements OnInit {
                     console.log(dados);
 
                     this.firebaseService.registerProduct(dados[0]);
-                    this.registerGastoProduto();
 
                     const alert = await this.alertController.create({
                         message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -132,7 +129,6 @@ export class CadastroTipoProdutoPage implements OnInit {
                     this.comissao = '';
                     this.valorVenda = '';
                     this.valorCusto = '';
-                    this.gastoProduto = '';
 
                     await alert.present();
                 } else {
@@ -184,12 +180,6 @@ export class CadastroTipoProdutoPage implements OnInit {
 
     updatePicture() {
         console.log('Clicked to update picture');
-    }
-
-    async registerGastoProduto() {
-        this.gastoProduto = this.dadosRepositories.getLocalStorage('gastosComProdutos');
-        this.gastoProduto = ((this.valorCusto * this.quantidade) + + this.gastoProduto).toFixed(2);
-        this.dadosRepositories.setLocalStorage('gastosComProdutos', this.gastoProduto);
     }
 
     getDadosUsuario() {

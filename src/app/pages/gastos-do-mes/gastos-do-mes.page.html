@@ -126,7 +126,7 @@
                 <ion-item>
                   <ion-icon name="wallet-outline" slot="start"></ion-icon>
                   <ion-select class="full-width" okText="OK" cancelText="Cancelar" placeholder="Selecione a Pagamento"
-                    [(ngModel)]="formaDePagamento" name="formaDePagamento" required>
+                  [interfaceOptions]="selecionFormaPagamento" [(ngModel)]="formaDePagamento" name="formaDePagamento" required>
                     <ion-select-option *ngFor="let formaDePagamento of formaDePagamentos">{{formaDePagamento.descricao}}
                     </ion-select-option>
                   </ion-select>

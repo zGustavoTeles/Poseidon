@@ -7,7 +7,6 @@ import { DadosRepositories } from '../../providers/dados-repositories';
 import { UserData } from '../../providers/user-data';
 import { AlterarProdutoPage } from '../alterar-produto/alterar-produto.page';
 import { InserirProdutoCarrinhoPage } from '../inserir-produto-carrinho/inserir-produto-carrinho.page';
-import { RelatorioUtil } from '../util/relatorio.util';
 
 @Component({
     selector: 'page-map',
@@ -87,6 +86,8 @@ export class MapPage implements OnInit {
     comFiltroSql: string;
     searchLike = true;
 
+    gastosComProdutos: any;
+
     public static produtoInserido: boolean = false;
 
     constructor(
@@ -124,15 +125,18 @@ export class MapPage implements OnInit {
         await this.firebaseService.findAllProducts(this.unidade).subscribe(data => {
             this.produtos = [];
             this.quantidade = 0;
+            this.gastosComProdutos = 0.0;
             this.produtosAux = [];
             this.produtosAux = data;
-            
+
             for (let produto of this.produtosAux) {
                 if (produto.unidade === this.unidade) {
                     this.produtos.push(produto);
                     this.quantidade += 1;
+                    this.gastosComProdutos += parseFloat((produto.valorDeCusto * produto.quantidade).toFixed(2));
                 }
             }
+            this.registerGastoProduto();
             loading.dismiss();
         });
     }
@@ -164,6 +168,12 @@ export class MapPage implements OnInit {
         this.uid = this.dadosRepositories.getLocalStorage('uid');
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
+    }
+
+    async registerGastoProduto() {
+        this.gastosComProdutos = this.gastosComProdutos.toFixed(2);
+        this.dadosRepositories.removeLocalStorage('totalGastosComProdutos');
+        this.dadosRepositories.setLocalStorage('totalGastosComProdutos', this.gastosComProdutos);
     }
 
     async excluirProduto(produtoId: any, descricao: any,) {
@@ -208,6 +218,7 @@ export class MapPage implements OnInit {
                                     },
                                 ],
                             });
+                            this.findAllProducts();
                             await alert.present();
                         }
                     }
@@ -243,9 +254,9 @@ export class MapPage implements OnInit {
         }
     }
 
- /**
- * Escanea o codigo de barras
- */
+    /**
+    * Escanea o codigo de barras
+    */
     touchAbrirLeitorCodigoBarras() {
         // this.barCodeUtil.buscandoCodigo().then(async res => {
         //     if (res.text.length > 4) {

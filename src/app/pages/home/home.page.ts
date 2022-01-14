@@ -40,10 +40,10 @@ export class HomePage implements OnInit {
     vendasAux: any = [];
     cart = [];
     items = [];
-
-    quantidadeVendas: any;
-    lucrosDasVendas: any;
-    gastosDoMes: any;
+    gastosAux: any;
+    totalVendasDoMes: any;
+    totalGastosDoMes: any;
+    totalGastosProdutos: any;
 
     sliderConfig = {
         slidesPerView: 1.6,
@@ -59,11 +59,11 @@ export class HomePage implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.focandoData();
         this.getDadosUsuario();
         this.carregaNoticias();
-        this.findAllProductVendaRelatorio();
-        this.carregaUnidades();
         this.carriesGraphic();
+        this.carregaUnidades();
     }
 
     getDadosUsuario() {
@@ -207,28 +207,25 @@ export class HomePage implements OnInit {
         await modal.present();
     }
 
-    async findAllProductVendaRelatorio() {
-        this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
-            this.vendas = [];
-            this.vendasAux = [];
-            this.vendasAux = data;
-
-            for (let venda of this.vendasAux) {
-                if (venda.unidade === this.unidade) {
-                    this.vendas.push(venda);
-                }
-                this.quantidadeVendas = this.vendas.length;
-            }
-
+    async carriesGraphic() {
+        this.getInfoGraphic().finally(() => {
+            this.nomeGrafico = 'GRÁFICO DE CAIXA';
+            this.tipoGrafico = 'tipoRosca';
+            this.labelGrafico = ['Total Vendas', 'Gastos Do Mês', 'Gastos Com Produtos'];
+            this.colorGrafico = ['#012c7c', '#ffc107', '#2e7d32'];
+            this.dataGrafico = ['' + this.totalVendasDoMes + '', '' + this.totalGastosDoMes + '', '' + this.totalGastosProdutos + ''];
         });
     }
 
-    // Carregando grafico via component
-    async carriesGraphic() {
-        this.nomeGrafico = 'GRÁFICO VENDAS';
-        this.tipoGrafico = 'tipoRosca';
-        this.labelGrafico = ['Vendas em Aberto', 'Gastos Do Mês', 'Lucros'];
-        this.colorGrafico = ['#012c7c', '#ffc107', '#2e7d32'];
-        this.dataGrafico = ['' + this.quantidadeVendas + '', '' + 0 + '', '' + 100 + ''];
+    async getInfoGraphic() {
+
+        this.totalVendasDoMes = 0;
+        this.totalVendasDoMes = this.dadosRepositories.getLocalStorage('totalVendasDoMes');
+
+        this.totalGastosDoMes = 0;
+        this.totalGastosDoMes = this.dadosRepositories.getLocalStorage('totalDosGastosMes');
+
+        this.totalGastosProdutos = 0;
+        this.totalGastosProdutos = this.dadosRepositories.getLocalStorage('totalGastosComProdutos');
     }
 }

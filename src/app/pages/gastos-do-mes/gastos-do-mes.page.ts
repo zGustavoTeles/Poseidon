@@ -11,6 +11,10 @@ import { DadosRepositories } from '../../providers/dados-repositories';
 })
 export class GastosDoMesPage implements OnInit {
 
+    selecionFormaPagamento: any = {
+        header: 'Forma de Pagamento'
+    };
+
     formaDePagamentos: any = [];
     gastos: any = [];
     gastosAux: any = [];
@@ -83,6 +87,7 @@ export class GastosDoMesPage implements OnInit {
                                     }];
 
                                 this.firebaseService.registerSpendingMonth(dados[0]);
+                                
 
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -110,9 +115,9 @@ export class GastosDoMesPage implements OnInit {
                                 this.totalPago = '';
                                 this.dataDoGasto = '';
 
-                                await alert.present();
+                                await this.findAllSpendingMonth();
 
-                                this.findAllSpendingMonth();
+                                await alert.present();
                             }
                         }
                     ]
