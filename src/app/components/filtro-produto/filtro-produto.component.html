@@ -24,30 +24,88 @@
 <ion-content forceOverscroll="false" [scrollEvents]="true" id="filtro" *ngIf="exibeFiltro">
 
     <ion-list>
-
         <ion-row>
             <ion-col style="height: 45px; padding-top: 0px;">
                 <ion-item style="font-size: 14px;">
-                    <ion-label><b>Apenas Produtos:</b></ion-label>
-                    <ion-toggle [(ngModel)]="somenteProdutos"></ion-toggle>
+                    <ion-label><b>Alimentação</b></ion-label>
+                    <ion-toggle [(ngModel)]="alimentacao"></ion-toggle>
                 </ion-item>
             </ion-col>
-            <!-- <ion-col style="height: 45px;">
-                <ion-item style="font-size: 14px;" disabled>
-                    <ion-label><b>Apenas com Imagem:</b></ion-label>
-                    <ion-toggle [(ngModel)]="comImagem"></ion-toggle>
-                </ion-item>
-
-            </ion-col> -->
             <ion-col style="height: 45px;">
                 <ion-item style="font-size: 14px;">
-                    <ion-label><b>Apenas Serviços</b></ion-label>
-                    <ion-toggle [(ngModel)]="somenteServicos"></ion-toggle>
+                    <ion-label><b>Bebidas</b></ion-label>
+                    <ion-toggle [(ngModel)]="bebidas"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Roupas</b></ion-label>
+                    <ion-toggle [(ngModel)]="roupas"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Padaria</b></ion-label>
+                    <ion-toggle [(ngModel)]="padaria"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Higiene</b></ion-label>
+                    <ion-toggle [(ngModel)]="higiene"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Tabacaria</b></ion-label>
+                    <ion-toggle [(ngModel)]="tabacaria"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Hortifrute</b></ion-label>
+                    <ion-toggle [(ngModel)]="hortifruti"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Papelaria</b></ion-label>
+                    <ion-toggle [(ngModel)]="papelaria"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Serviços</b></ion-label>
+                    <ion-toggle [(ngModel)]="servicos"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Calçados</b></ion-label>
+                    <ion-toggle [(ngModel)]="calcados"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Diversos</b></ion-label>
+                    <ion-toggle [(ngModel)]="diversos"></ion-toggle>
+                </ion-item>
+            </ion-col>
+                        <ion-col style="height: 45px; padding-top: 0px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Produtos de Beleza</b></ion-label>
+                    <ion-toggle [(ngModel)]="produtosDeBeleza"></ion-toggle>
+                </ion-item>
+            </ion-col>
+            <ion-col style="height: 45px;">
+                <ion-item style="font-size: 14px;">
+                    <ion-label><b>Produtos de Limpeza</b></ion-label>
+                    <ion-toggle [(ngModel)]="produtosDeLimpeza"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
 
-        <ion-item (click)="exibeFaixaOrdem = exibeFaixaOrdem === false" class="font1em">
+        <!-- <ion-item (click)="exibeFaixaOrdem = exibeFaixaOrdem === false" class="font1em">
             <span class="justify">
                 <ion-label>Tipo Ordenação: <b>{{tipoOrdemSelecionada}}</b></ion-label>
             </span>
@@ -57,9 +115,9 @@
             <ion-icon *ngIf="exibeFaixaOrdem" slot="end" color="danger" name="arrow-up-circle-outline"
                 style="font-size: 1.2em;">
             </ion-icon>
-        </ion-item>
+        </ion-item> -->
 
-        <div *ngIf="exibeFaixaOrdem" class="animated fadeInUp margin10">
+        <!-- <div *ngIf="exibeFaixaOrdem" class="animated fadeInUp margin10">
             <ion-list>
                 <ion-radio-group>
                     <ion-item *ngFor="let item of tipoOrdenacao">
@@ -68,9 +126,9 @@
                     </ion-item>
                 </ion-radio-group>
             </ion-list>
-        </div>
+        </div> -->
 
-        <ion-item (click)="exibeFaixaClassificacao = exibeFaixaClassificacao === false" class="font1em">
+        <!-- <ion-item (click)="exibeFaixaClassificacao = exibeFaixaClassificacao === false" class="font1em">
             <span class="justify">
                 <ion-label>Tipo Classificação: <b>{{tipoClassificacaoSelecionada}}</b></ion-label>
             </span>
@@ -81,8 +139,8 @@
                 style="font-size: 1.2em;">
             </ion-icon>
 
-        </ion-item>
-        <div *ngIf="exibeFaixaClassificacao" class="animated fadeInUp margin10">
+        </ion-item> -->
+        <!-- <div *ngIf="exibeFaixaClassificacao" class="animated fadeInUp margin10">
             <ion-list>
                 <ion-radio-group>
                     <ion-item *ngFor="let item of tipoClassificacao" class="font1em">
@@ -91,20 +149,20 @@
                     </ion-item>
                 </ion-radio-group>
             </ion-list>
-        </div>
+        </div> -->
     </ion-list>
 
     <!-- Essas opções de filtros não devem aparecer para quando o  -->
     <!-- <div *ngIf="!validaFlagsUtil.usaFiltroProdutosDivimed"> -->
-        <!-- Lista de promocoes SAP -->
-        <!-- <ion-item (click)="touchExibirListaPromocoesSap()" class="font1em"
+    <!-- Lista de promocoes SAP -->
+    <!-- <ion-item (click)="touchExibirListaPromocoesSap()" class="font1em"
             *ngIf="cargaInicialUtil.dadosGerais.emTipoIntegracao === 'SAP'">
             Lista de promoções
             <ion-icon name="bonfire-outline" slot="end" style="color: red;"></ion-icon>
         </ion-item> -->
 
-        <!-- Lista de fornecedores -->
-        <!-- <ion-item (click)="touchExibirListaFornecedores()" class="font1em">
+    <!-- Lista de fornecedores -->
+    <!-- <ion-item (click)="touchExibirListaFornecedores()" class="font1em">
             Lista de fornecedores
             <ion-icon name="storefront-outline" slot="end" style="color: cornflowerblue;"></ion-icon>
         </ion-item>
@@ -125,27 +183,27 @@
             <ion-icon name="flask-outline" slot="end" style="color: tomato;"></ion-icon>
         </ion-item> -->
 
-        <!-- Descrição do filtro desejado -->
-        <!-- <ion-list>
+    <!-- Descrição do filtro desejado -->
+    <!-- <ion-list>
             <ion-list-header class="font1em"><b>Digite o que deseja filtrar:</b></ion-list-header>
             <ion-item>
                 <ion-input placeholder="Nome" style="text-transform:uppercase" [(ngModel)]="tipoDescricao"
                     (ionBlur)="mostrarFooter = true" (ionFocus)="mostrarFooter = false"
                     (keyup.enter)="touchAddDescricaoFiltro(tipoDescricao,$event)">
                 </ion-input> -->
-                <!-- <span [ngStyle]="{'color': codigo ? 'red' : '#2e7d32'}" style="padding-right: 17px !important;"> -->
-                <!-- <ion-icon [ngStyle]="{'color': !tipoDescricao ? 'red' : '#2e7d32'}" slot="end" name="add-circle-outline"
+    <!-- <span [ngStyle]="{'color': codigo ? 'red' : '#2e7d32'}" style="padding-right: 17px !important;"> -->
+    <!-- <ion-icon [ngStyle]="{'color': !tipoDescricao ? 'red' : '#2e7d32'}" slot="end" name="add-circle-outline"
                     style="width: 24px !important;
               height: 37px; padding-right: 20px;" (click)="touchAddDescricaoFiltro(tipoDescricao,$event)">
                 </ion-icon> -->
-                <!-- </span> -->
-                <!-- <span *ngIf="codBarras" [ngStyle]="{'color': !codigo ? '#244381' : '#2e7d32'}" -->
-                <!-- <span style="padding-right: 17px !important;"> -->
-                <!-- <ion-icon slot="end" color="tertiary" name="barcode-outline" style="width: 24px !important;
+    <!-- </span> -->
+    <!-- <span *ngIf="codBarras" [ngStyle]="{'color': !codigo ? '#244381' : '#2e7d32'}" -->
+    <!-- <span style="padding-right: 17px !important;"> -->
+    <!-- <ion-icon slot="end" color="tertiary" name="barcode-outline" style="width: 24px !important;
               height: 37px;" (click)="touchAbrirLeitorDeCodigo()">
                 </ion-icon> -->
-                <!-- </span> -->
-            <!-- </ion-item>
+    <!-- </span> -->
+    <!-- </ion-item>
         </ion-list>
     </div> -->
 
@@ -165,12 +223,14 @@
     <!-- Botoes para filtro -->
     <div class="cssPopoverFiltro">
         <ion-button expand="block" class="paddingBtnPopover" color="facebook" (click)="touchAplicarFiltro()"
-            [disabled]="filtroDefinido.length === 0 && !somenteServicos && !somenteProdutos && tipoOrdemSelecionada === '' && tipoClassificacaoSelecionada === ''">
+            [disabled]="filtroDefinido.length === 0 && !produtosDeLimpeza && !produtosDeBeleza && !roupas && !padaria && !bebidas && !alimentacao
+            && !higiene && !tabacaria && !diversos && !hortifruti && !papelaria && !calcados && ipoOrdemSelecionada === '' && tipoClassificacaoSelecionada === ''">
             <ion-icon slot="start" name="add-circle-outline"></ion-icon> Aplicar
         </ion-button>
 
         <ion-button
-            [disabled]="filtroDefinido.length === 0 && !somenteServicos && !somenteProdutos && tipoOrdemSelecionada === '' && tipoClassificacaoSelecionada === ''"
+            [disabled]="filtroDefinido.length === 0 && !produtosDeLimpeza && !produtosDeBeleza && !roupas && !padaria && !bebidas && !alimentacao
+            && !higiene && !tabacaria && !diversos && !hortifruti && !papelaria && !calcados && tipoOrdemSelecionada === '' && tipoClassificacaoSelecionada === ''"
             expand="block" class="paddingBtnPopover" color="facebook" fill="outline" (click)="touchLimparFiltro()">
             <ion-icon slot="start" name="refresh-circle"></ion-icon> Limpar
         </ion-button>

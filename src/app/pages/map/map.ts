@@ -75,8 +75,21 @@ export class MapPage implements OnInit {
     existeDescricao = false; // Retorno filtro com descricao adicionada
     existeOrdenacao = false; // Retorno filtro com tipo ordenação
     existeTabelaPreco = false;
-    somenteProdutos = false;
-    somenteServicos = false;
+
+
+    produtosDeBeleza = false;
+    roupas = false;
+    produtosDeLimpeza = false;
+    padaria = false;
+    bebidas = false;
+    alimentacao = false;
+    higiene = false;
+    tabacaria = false;
+    diversos = false;
+    hortifruti = false;
+    servicos = false;
+    papelaria = false;
+    calcados = false;
 
 
     ordemEscolhida = '';
@@ -299,14 +312,47 @@ export class MapPage implements OnInit {
 
                     this.existeOrdenacao = data.data.ordernar !== '' ? true : false;
                     this.tipoOrdenacao = data.data.ordernar;
-                    this.somenteProdutos = data.data.somenteProdutos;
-                    this.somenteServicos = data.data.somenteServicos;
 
-                    if (this.somenteProdutos || this.somenteServicos) {
-                        if (this.somenteProdutos)
-                            this.produtos = await this.ordernarRelatorio(this.produtos, 'Somente Produtos');
-                        else if (this.somenteServicos)
-                            this.produtos = await this.ordernarRelatorio(this.produtos, 'Somente Serviços');
+                    this.roupas = data.data.roupas;
+                    this.padaria = data.data.padaria;
+                    this.bebidas = data.data.bebidas;
+                    this.alimentacao = data.data.alimentacao;
+                    this.higiene = data.data.higiene;
+                    this.tabacaria = data.data.tabacaria;
+                    this.diversos = data.data.diversos;
+                    this.hortifruti = data.data.hortifruti;
+                    this.servicos = data.data.servicos;
+                    this.papelaria = data.data.papelaria;
+                    this.calcados = data.data.calcados;
+                    this.produtosDeBeleza = data.data.produtosDeBeleza;
+                    this.produtosDeLimpeza = data.data.produtosDeLimpeza;
+
+                    if (this.produtosDeBeleza) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Produtos de Beleza');
+                    } else if (this.roupas) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Roupas');
+                    } else if (this.produtosDeLimpeza) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Produtos de Limpeza');
+                    } else if (this.padaria) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Padaria');
+                    } else if (this.bebidas) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Bebidas');
+                    } else if (this.alimentacao) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Alimentação');
+                    } else if (this.higiene) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Higiene');
+                    } else if (this.tabacaria) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Tabacaria');
+                    } else if (this.diversos) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Diversos');
+                    } else if (this.hortifruti) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Hortifruti');
+                    } else if (this.servicos) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Serviços');
+                    } else if (this.papelaria) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Papelaria');
+                    } else if (this.calcados) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Calçados');
                     }
 
                 } catch (error) {
@@ -325,6 +371,10 @@ export class MapPage implements OnInit {
     * @returns 
     */
     async ordernarRelatorio(listaParaOrdenar: any, tipoOrdenacao: string): Promise<any> {
+
+        console.log('aaaaaaaa');
+        console.log(tipoOrdenacao);
+        
 
         try {
             const temp = [...listaParaOrdenar];
@@ -350,15 +400,92 @@ export class MapPage implements OnInit {
 
                 })
 
-            } else if (tipoOrdenacao === 'Somente Produtos') {
+            } else if (tipoOrdenacao === 'Produtos de Beleza') {
                 temp.sort((a, b) => {
-                    return a.categoria != 'Serviços' ? -1 : 1
+                    return a.categoria != 'Produtos de Beleza' ? -1 : 1
 
                 })
 
-            } else if (tipoOrdenacao === 'Somente Serviços') {
+            } else if (tipoOrdenacao === 'Roupas') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Roupas' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Produtos de Limpeza') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Produtos de Limpeza' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Padaria') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Padaria' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Bebidas') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Bebidas' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Alimentação') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Alimentação' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Higiene') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Higiene' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Tabacaria') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Tabacaria' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Diversos') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Diversos' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Hortifrúti') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Hortifrúti' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Serviços') {
                 temp.sort((a, b) => {
                     return a.categoria === 'Serviços' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Papelaria') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Papelaria' ? -1 : 1
+
+                })
+            }
+
+            else if (tipoOrdenacao === 'Calçados') {
+                temp.sort((a, b) => {
+                    return a.categoria === 'Calçados' ? -1 : 1
 
                 })
             }

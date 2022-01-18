@@ -42,8 +42,21 @@ export class FiltroProdutoComponent {
     exibeListaPrincipioAtivo = false;
     exibeResumoProdutos = false;
 
-    somenteProdutos = false;
-    somenteServicos = false;
+
+    produtosDeBeleza = false;
+    roupas = false;
+    produtosDeLimpeza = false;
+    padaria = false;
+    bebidas = false;
+    alimentacao = false;
+    higiene = false;
+    tabacaria = false;
+    diversos = false;
+    hortifruti = false;
+    servicos = false;
+    papelaria = false;
+    calcados = false;
+
     public promocoesSapSelecionadas: string[] = [];
     public fornecedoresSelecionados: string[] = [];
     public fornecedorSelecionado = false;
@@ -82,11 +95,23 @@ export class FiltroProdutoComponent {
         const filtros = JSON.parse(localStorage.getItem('filtroProduto'));
 
         if (filtros !== null || undefined) {
-            this.somenteProdutos = filtros.somenteProdutos;
             this.tipoOrdemSelecionada = filtros.ordernar;
             this.tipoClassificacaoSelecionada = filtros.classificacao;
             this.filtroDefinido = filtros.filtros !== undefined ? filtros.filtros : [];
-            this.somenteServicos = filtros.somenteServicos;
+
+            this.produtosDeBeleza = filtros.produtosDeBeleza;
+            this.roupas = filtros.roupas;
+            this.produtosDeLimpeza = filtros.produtosDeLimpeza;
+            this.padaria = filtros.padaria;
+            this.bebidas = filtros.bebidas;
+            this.alimentacao = filtros.alimentacao;
+            this.higiene = filtros.higiene;
+            this.tabacaria = filtros.tabacaria;
+            this.diversos = filtros.diversos;
+            this.hortifruti = filtros.hortifruti;
+            this.servicos = filtros.servicos;
+            this.papelaria = filtros.papelaria;
+            this.calcados = filtros.calcados;
         }
     }
 
@@ -114,9 +139,21 @@ export class FiltroProdutoComponent {
                 ordernar: this.tipoOrdemSelecionada,
                 classificacao: this.tipoClassificacaoSelecionada,
                 filtros: this.filtroDefinido,
-                somenteProdutos: this.somenteProdutos,
                 tabelasPrecoSelecionadas: this.tabelasPrecoSelecionadas,
-                somenteServicos: this.somenteServicos,
+
+                produtosDeBeleza: this.produtosDeBeleza,
+                roupas: this.roupas,
+                produtosDeLimpeza: this.produtosDeLimpeza,
+                padaria: this.padaria,
+                bebidas: this.bebidas,
+                alimentacao: this.alimentacao,
+                higiene: this.higiene,
+                tabacaria: this.tabacaria,
+                diversos: this.diversos,
+                hortifruti: this.hortifruti,
+                servicos: this.servicos,
+                papelaria: this.papelaria,
+                calcados: this.calcados
             });
 
             localStorage.setItem('filtroProduto', JSON.stringify(configFiltro));
@@ -133,9 +170,21 @@ export class FiltroProdutoComponent {
             ordernar: this.tipoOrdemSelecionada,
             classificacao: this.tipoClassificacaoSelecionada,
             filtros: this.filtroDefinido,
-            somenteServicos: this.somenteServicos,
             tabelasPrecoSelecionadas: this.tabelasPrecoSelecionadas,
-            somenteProdutos: false,
+
+            produtosDeBeleza: this.produtosDeBeleza,
+            roupas: this.roupas,
+            produtosDeLimpeza: this.produtosDeLimpeza,
+            padaria: this.padaria,
+            bebidas: this.bebidas,
+            alimentacao: this.alimentacao,
+            higiene: this.higiene,
+            tabacaria: this.tabacaria,
+            diversos: this.diversos,
+            hortifruti: this.hortifruti,
+            servicos: this.servicos,
+            papelaria: this.papelaria,
+            calcados: this.calcados
         });
 
         localStorage.setItem('filtroProduto', JSON.stringify(configFiltro));
@@ -219,14 +268,27 @@ export class FiltroProdutoComponent {
         localStorage.removeItem('filtroProduto');
         this.filtroPor = '';
         this.tipoOrdemSelecionada = '';
-        this.somenteServicos = false;
         this.filtroDefinido = [];
         this.fornecedoresSelecionados = [];
         this.tipoClassificacaoSelecionada = '';
-        this.somenteProdutos = false;
         this.tabelasPrecoSelecionadas = [];
         this.marcaProdutoSelecionados = [];
         this.principioAtivoSelecionado = [];
+
+        this.produtosDeBeleza = false;
+        this.roupas = false;
+        this.produtosDeLimpeza = false;
+        this.padaria = false;
+        this.bebidas = false;
+        this.alimentacao = false;
+        this.higiene = false;
+        this.tabacaria = false;
+        this.diversos = false;
+        this.hortifruti = false;
+        this.servicos = false;
+        this.papelaria = false;
+        this.calcados = false;
+
     }
 
     // Escanea o codigo de barras
