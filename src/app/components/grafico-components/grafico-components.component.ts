@@ -58,11 +58,6 @@ export class GraficoComponentsComponent implements OnInit {
 
     // Criando graficos para home
     public carregandoGrafico() {
-
-        console.log('aaaaaa');
-        console.log(this.tipoGrafico);
-        
-
         setTimeout(() => {
             if (this.tipoGrafico === 'tipoBarras') {
                 this.barChart = this.getBarChart(this.labelGrafico, this.dataGrafico, this.colorGrafico);
