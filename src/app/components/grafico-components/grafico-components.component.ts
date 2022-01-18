@@ -59,6 +59,10 @@ export class GraficoComponentsComponent implements OnInit {
     // Criando graficos para home
     public carregandoGrafico() {
 
+        console.log('aaaaaa');
+        console.log(this.tipoGrafico);
+        
+
         setTimeout(() => {
             if (this.tipoGrafico === 'tipoBarras') {
                 this.barChart = this.getBarChart(this.labelGrafico, this.dataGrafico, this.colorGrafico);
@@ -66,7 +70,7 @@ export class GraficoComponentsComponent implements OnInit {
             if (this.tipoGrafico === 'tipoLinha') {
                 this.lineChart = this.getLineChart(this.labelGrafico, this.dataGrafico, this.colorGrafico);
             }
-        }, 150);
+        }, 250);
         setTimeout(() => {
             if (this.tipoGrafico === 'tipoTorta') {
                 this.pieChart = this.getPieChart(this.labelGrafico, this.dataGrafico, this.colorGrafico);

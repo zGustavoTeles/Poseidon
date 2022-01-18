@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
 import { AlterarNotificacoesPage } from '../alterar-notificacoes/alterar-notificacoes.page';
+import { AlertController, LoadingController, ModalController } from '@ionic/angular';
 
 @Component({
     selector: 'app-home',
@@ -51,11 +51,12 @@ export class HomePage implements OnInit {
         centeredSlides: true
     };
 
-    constructor(private dadosRepositories: DadosRepositories,
+    constructor(
         private firebaseService: FirebaseService,
-        private loadingController: LoadingController,
-        private alertController: AlertController,
+        public loadingController: LoadingController,
+        private dadosRepositories: DadosRepositories,
         private modalCtrl: ModalController,
+        private alertController: AlertController,
     ) { }
 
     ngOnInit() {

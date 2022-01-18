@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { GraficoComponentsComponent } from '../../components/grafico-components/grafico-components.component';
 
 import { HomePage } from './home.page';
 
@@ -9,7 +10,7 @@ describe('HomePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [ HomePage, GraficoComponentsComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
