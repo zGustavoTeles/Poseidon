@@ -87,7 +87,7 @@ export class GastosDoMesPage implements OnInit {
                                     }];
 
                                 this.firebaseService.registerSpendingMonth(dados[0]);
-                                
+
 
                                 const alert = await this.alertController.create({
                                     message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
@@ -155,5 +155,70 @@ export class GastosDoMesPage implements OnInit {
     async focandoData() {
         this.startDate = new Date(this.date.getFullYear(), this.date.getMonth(), 1).toISOString().slice(0, 10); // Define o primeiro dia do mês
         this.endDate = new Date().toISOString().slice(0, 10); // Define o dia atual
+    }
+
+    async deleteGasto(data, documento) {
+        try {
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                 <text>Deseja Excluir o Gasto do dia:<br><b>${data}<b>?</b></text>`,
+
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+
+                buttons: [
+                    {
+                        text: 'Não',
+                        role: 'cancel',
+                        cssClass: 'cancelcancelarButton',
+                        handler: async () => {
+                            return;
+                        }
+                    },
+                    {
+                        text: 'Sim',
+                        cssClass: 'okButton',
+                        handler: async () => {
+
+                            this.firebaseService.deleteSpendingMontha(documento);
+
+                            const alert = await this.alertController.create({
+                                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                             <text>Gasto Excluído Com Sucesso!</text>`,
+                                backdropDismiss: false,
+                                header: "Atenção",
+                                cssClass: "alertaCss",
+                                buttons: [
+                                    {
+                                        text: "Ok",
+                                        role: "Cancelar",
+                                        cssClass: "secondary",
+
+                                        handler: () => {
+                                        },
+                                    },
+                                ],
+                            });
+                            this.administrador = '';
+                            this.unidade = '';
+                            this.formaDePagamento = '';
+                            this.descricao = '';
+                            this.quantidade = '';
+                            this.valorPago = '';
+                            this.totalPago = '';
+                            this.dataDoGasto = '';
+
+                            await this.findAllSpendingMonth();
+                            await alert.present();
+                        }
+                    }
+                ]
+            });
+            await alert.present();
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

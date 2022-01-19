@@ -116,7 +116,7 @@
             <ion-item-sliding>
               <ion-card
                 (click)="atualizarProduto(produtos.documento, produtos.dataVenda, produtos.vendedor, produtos.unidade, produtos.clienteId, produtos.cliente,produtos.clienteFidelidade,produtos.produtoId,produtos.produto,produtos.imagem,produtos.categoria,produtos.quantidadeVendida,produtos.fidelidade,produtos.comissao, produtos.gorjeta, produtos.desconto, produtos.estoque,produtos.estoqueFinal,produtos.valorDeVenda,produtos.valorDeCusto,produtos.totalComissao,produtos.totalDeCusto,produtos.totalBruto,produtos.totalLiquido,produtos.totalLucro)"
-                style="border-radius: 10px;" class="ion-activatable ripple-parent">
+                style="border-radius: 10px;" lines="none" class="ion-activatable ripple-parent">
 
                 <ion-item>
                   <ion-avatar slot="start">
@@ -148,9 +148,8 @@
                       </ion-img>
                     </ion-avatar>
                   </ion-item>
-
+                  <ion-ripple-effect></ion-ripple-effect>
                 </ion-item>
-                <ion-ripple-effect></ion-ripple-effect>
               </ion-card>
 
               <ion-item-options side="end" class="itemOptionsList">

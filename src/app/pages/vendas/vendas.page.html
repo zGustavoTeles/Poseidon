@@ -45,7 +45,7 @@
                   Total Lucros<br><b style="color: forestgreen;">{{totalLucro | currency: 'BRL'}}</b>
                 </ion-col>
                 <ion-col>
-                  Comissões Pagas<br> <b style="color: red;">{{totalComissao | currency: 'BRL'}}</b>
+                  Total Custos<br> <b style="color: red;">{{totalCustos | currency: 'BRL'}}</b>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -56,9 +56,9 @@
             <ion-item-sliding>
 
               <ion-card (click)="findAllProduct(venda.cliente,venda.dataVenda,venda.formaDePagamento)"
-                style="border-radius: 10px;" class="ion-activatable ripple-parent">
+                style="border-radius: 10px;">
 
-                <ion-item>
+                <ion-item lines="none" class="ion-activatable ripple-parent">
 
                   <ion-grid class="grid-detalhe-produto ion-no-padding" style="padding: 2%;">
                     <ion-row class="mensagem-tabela-preco-fixo">
@@ -106,11 +106,8 @@
                     </ion-row>
 
                   </ion-grid>
-
+                  <ion-ripple-effect></ion-ripple-effect>
                 </ion-item>
-
-                <ion-ripple-effect></ion-ripple-effect>
-
               </ion-card>
 
               <ion-item-options side="end" class="itemOptionsList">

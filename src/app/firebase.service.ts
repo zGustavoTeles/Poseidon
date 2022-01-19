@@ -834,6 +834,10 @@ export class FirebaseService {
         this.firestore.doc('Poseidon ' + '_Gastos' + '/' + documento).update(dados);
     }
 
+    async deleteSpendingMontha(documento: any) {
+        this.firestore.doc('Poseidon ' + '_Gastos' + '/' + documento).delete();
+    }
+
     findAllSpendingMonth(dataInicial: any, dataFinal: any) {
         return this.firestore
             .collection("Poseidon " + "_Gastos", (ref) => ref.where('dataDoGasto', '>=', dataInicial).where('dataDoGasto', '<=', dataFinal))

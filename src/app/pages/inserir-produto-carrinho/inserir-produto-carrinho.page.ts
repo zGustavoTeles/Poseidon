@@ -396,23 +396,23 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 }];
             this.firebaseService.registerProductTemp(dadosProdutos[0]);
 
-            //     const alert = await this.alertController.create({
-            //         message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-            //  <text>Produto Inserido no Carrinho <br><b>${this.vendaAtual}</b>!</text>`,
-            //         backdropDismiss: false,
-            //         header: "Atenção",
-            //         cssClass: "alertaCss",
-            //         buttons: [
-            //             {
-            //                 text: "Ok",
-            //                 cssClass: "secondary",
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+             <text>Produto Inserido no Carrinho <br><b>${this.vendaAtual}</b>!</text>`,
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+                buttons: [
+                    {
+                        text: "Ok",
+                        cssClass: "secondary",
 
-            //                 handler: () => {
-            //                 },
-            //             },
-            //         ],
-            //     });
-            //     await alert.present();
+                        handler: () => {
+                        },
+                    },
+                ],
+            });
+            await alert.present();
         } catch (error) {
             console.log(error);
         }

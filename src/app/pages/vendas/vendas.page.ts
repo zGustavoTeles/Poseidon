@@ -161,6 +161,7 @@ export class VendasPage implements OnInit {
                     this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
                         this.totalBruto = 0;
                         this.totalLucro = 0;
+                        this.totalCustos = 0;
                         this.totalComissao = 0;
                         this.vendas = [];
                         this.vendasAux = [];
@@ -171,6 +172,7 @@ export class VendasPage implements OnInit {
                             if (venda.unidade === this.unidade && venda.formaDePagamento.trim() === formaDePagamento.trim()) {
                                 this.totalBruto += venda.totalBruto;
                                 this.totalLucro += venda.totalLucro;
+                                this.totalCustos += venda.totalDeCusto;
                                 this.totalComissao += venda.totalComissao;
                                 this.vendas.push(venda);
                             }
@@ -182,6 +184,7 @@ export class VendasPage implements OnInit {
                     this.firebaseService.findAllProductVendaRelatorio(this.startDate, this.endDate).subscribe(data => {
                         this.totalBruto = 0;
                         this.totalLucro = 0;
+                        this.totalCustos = 0;
                         this.totalComissao = 0;
                         this.vendas = [];
                         this.vendasAux = [];
@@ -192,6 +195,7 @@ export class VendasPage implements OnInit {
                             if (venda.unidade === this.unidade) {
                                 this.totalBruto += venda.totalBruto;
                                 this.totalLucro += venda.totalLucro;
+                                this.totalCustos += venda.totalDeCusto;
                                 this.totalComissao += venda.totalComissao;
                                 this.vendas.push(venda);
                             }

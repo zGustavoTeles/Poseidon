@@ -294,8 +294,6 @@ export class MapPage implements OnInit {
             translucent: true,
             cssClass: 'cssPopover',
             componentProps: {
-                // pedidoTemp: this.pedidoTemp,
-                // pedidosTempMultiEmpresa: this.pedidosTempMultiEmpresa
             }
         });
         await popover.present();
@@ -327,12 +325,8 @@ export class MapPage implements OnInit {
                     this.produtosDeBeleza = data.data.produtosDeBeleza;
                     this.produtosDeLimpeza = data.data.produtosDeLimpeza;
 
-                    if (this.produtosDeBeleza) {
-                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Produtos de Beleza');
-                    } else if (this.roupas) {
+                    if (this.roupas) {
                         this.produtos = await this.ordernarRelatorio(this.produtos, 'Roupas');
-                    } else if (this.produtosDeLimpeza) {
-                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Produtos de Limpeza');
                     } else if (this.padaria) {
                         this.produtos = await this.ordernarRelatorio(this.produtos, 'Padaria');
                     } else if (this.bebidas) {
@@ -353,6 +347,10 @@ export class MapPage implements OnInit {
                         this.produtos = await this.ordernarRelatorio(this.produtos, 'Papelaria');
                     } else if (this.calcados) {
                         this.produtos = await this.ordernarRelatorio(this.produtos, 'Calçados');
+                    } else if (this.produtosDeBeleza) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Produtos de Beleza');
+                    } else if (this.produtosDeLimpeza) {
+                        this.produtos = await this.ordernarRelatorio(this.produtos, 'Produtos de Limpeza');
                     }
 
                 } catch (error) {
@@ -374,7 +372,7 @@ export class MapPage implements OnInit {
 
         console.log('aaaaaaaa');
         console.log(tipoOrdenacao);
-        
+
 
         try {
             const temp = [...listaParaOrdenar];
@@ -402,10 +400,9 @@ export class MapPage implements OnInit {
 
             } else if (tipoOrdenacao === 'Produtos de Beleza') {
                 temp.sort((a, b) => {
-                    return a.categoria != 'Produtos de Beleza' ? -1 : 1
+                    return a.categoria === 'Produtos de Beleza' ? -1 : 1
 
                 })
-
             } else if (tipoOrdenacao === 'Roupas') {
                 temp.sort((a, b) => {
                     return a.categoria === 'Roupas' ? -1 : 1
