@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, Config, LoadingController, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, Config, LoadingController, ModalController, PopoverController, ToastController } from '@ionic/angular';
 import { FiltroProdutoComponent } from '../../components/filtro-produto/filtro-produto.component';
 import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
@@ -115,6 +115,7 @@ export class MapPage implements OnInit {
         public loadingController: LoadingController,
         private dadosRepositories: DadosRepositories,
         private popoverController: PopoverController,
+        private toastController: ToastController,
         private modalCtrl: ModalController,
         private alertController: AlertController,
     ) { }
@@ -500,24 +501,90 @@ export class MapPage implements OnInit {
 
     }
 
-    /**
-    * Esse filtro e necessario quando o usuario querer realizar uma pesquisa mais detalhada dentro do retorno do popover de buscas
-    * @param ev
-    */
     async filtrarProdutos(ev: any): Promise<any> {
+        this.textoPesquisa = '';
+        if (ev.target !== undefined) {
+            this.textoDoFiltro = ev.target.value;
+        } else {
+            this.textoDoFiltro = ev;
+        }
+        const toast = await this.toastController.create({
+            message: 'Filtrando...',
+            duration: 3000,
+            cssClass: 'toastCss',
+        });
+        await toast.present();
+
+        if (this.textoDoFiltro.length >= 1) {
+            try {
+                if (this.produtos.length > 0) {
+                    let listaProd = this.produtos;
+                    this.produtos = [];
+                    return listaProd.filter(async (item) => {
+                        if (String(item.descricao).toLowerCase().includes(this.textoDoFiltro.toLowerCase()) || String(item.categoria).toLowerCase().includes(this.textoDoFiltro.toLowerCase())) {
+                            this.produtos.push(item);
+                            return true;
+                        }
+                    });
+                } else {
+                    await toast.dismiss();
+                }
+            } catch (err) {
+                console.log('Erro ao filtrar itens:', err);
+                await toast.dismiss();
+            }
+            await toast.dismiss();
+        } else {
+            this.findAllProducts();
+        }
+
+        await toast.dismiss();
     }
 
-    // Tira o foco da pesquisa
+
     async tirarFoco(event: any) {
         event.target.blur();
     }
 
-    /**
- * Filtrando diretamente no sql
- * @param ev
- */
-    async filtrarItens(ev: any) {
 
+    async filtrarItens(ev: any) {
+        this.textoPesquisa = '';
+        if (ev.target !== undefined) {
+            this.textoDoFiltro = ev.target.value;
+        } else {
+            this.textoDoFiltro = ev;
+        }
+        const toast = await this.toastController.create({
+            message: 'Filtrando...',
+            duration: 3000,
+            cssClass: 'toastCss',
+        });
+        await toast.present();
+
+        if (this.textoDoFiltro.length >= 1) {
+            try {
+                if (this.produtos.length > 0) {
+                    let listaProd = this.produtos;
+                    this.produtos = [];
+                    return listaProd.filter(async (item) => {
+                        if (String(item.descricao).toLowerCase().includes(this.textoDoFiltro.toLowerCase()) || String(item.categoria).toLowerCase().includes(this.textoDoFiltro.toLowerCase())) {
+                            this.produtos.push(item);
+                            return true;
+                        }
+                    });
+                } else {
+                    await toast.dismiss();
+                }
+            } catch (err) {
+                console.log('Erro ao filtrar itens:', err);
+                await toast.dismiss();
+            }
+            await toast.dismiss();
+        } else {
+            this.findAllProducts();
+        }
+
+        await toast.dismiss();
     }
 }
 
