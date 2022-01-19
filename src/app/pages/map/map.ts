@@ -24,6 +24,10 @@ export class MapPage implements OnInit {
     valorDeVenda: any;
     formaPagamento: any;
 
+    searchBarVisible = false;
+    textoPesquisa = '';
+    textoDoFiltro = ''; //
+
     ios: boolean;
     submitted = false;
     descricao: any;
@@ -493,6 +497,26 @@ export class MapPage implements OnInit {
             console.log('Erro na ordenação!:', error);
             return listaParaOrdenar;
         }
+
+    }
+
+    /**
+    * Esse filtro e necessario quando o usuario querer realizar uma pesquisa mais detalhada dentro do retorno do popover de buscas
+    * @param ev
+    */
+    async filtrarProdutos(ev: any): Promise<any> {
+    }
+
+    // Tira o foco da pesquisa
+    async tirarFoco(event: any) {
+        event.target.blur();
+    }
+
+    /**
+ * Filtrando diretamente no sql
+ * @param ev
+ */
+    async filtrarItens(ev: any) {
 
     }
 }
