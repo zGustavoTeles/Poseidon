@@ -22,13 +22,18 @@ export class AppComponent implements OnInit {
         {
             title: 'Vendas',
             url: '/app/tabs/vendas',
-            icon: 'bag-check'
+            icon: 'cash'
         },
         {
             title: 'Produtos',
             url: '/app/tabs/map',
-            icon: 'basket'
+            icon: 'barcode'
         },
+        // {
+        //     title: 'Home',
+        //     url: '/app/tabs/home',
+        //     icon: 'storefront'
+        // },
         {
             title: 'Relatórios',
             url: '/app/tabs/relatorio-de-vendas',

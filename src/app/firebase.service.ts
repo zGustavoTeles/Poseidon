@@ -694,6 +694,12 @@ export class FirebaseService {
             .valueChanges();
     }
 
+    public findWhereProductTempDocumentUnity(produto: any, unidade: any) {
+        return this.firestore
+            .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("produto", "==", produto).where("unidade", "==", unidade))
+            .valueChanges();
+    }
+
     public findWhereProductTemp(cliente: any) {
         return this.firestore
             .collection("Poseidon " + "_Vendas_Produtos_Temp", (ref) => ref.where("cliente", "==", cliente))

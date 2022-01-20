@@ -29,23 +29,25 @@
               <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
               <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
             </ion-avatar>
+
             <ion-label>
               <h3>{{produtos.descricao}}</h3>
               <h3>{{produtos.categoria}}</h3>
-              <h3 style="color: #0576d0">
-                <b>Preço - {{produtos.valorDeVenda | currency: 'BRL'}}</b>
+              <h3 *ngIf="perfil != 'Cliente'" style="color: #0576d0">
+                <b>Custos - {{produtos.valorDeCusto| currency: 'BRL'}}</b>
               </h3>
               <h3 style="color: #d00575">
                 <b>Estoque - {{produtos.quantidade}}</b>
               </h3>
               <h3 style="color: #27c400">
-                <b>Comissão - {{produtos.comissao}}% Oferta!!</b>
+                <b>Preço - {{produtos.valorDeVenda| currency: 'BRL'}} Oferta!!</b>
               </h3>
             </ion-label>
 
             <ion-item style="margin-bottom: 15% !important ">
               <ion-avatar slot="start">
-                <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading..."></ion-img>
+                <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
+                </ion-img>
               </ion-avatar>
             </ion-item>
           </ion-item>

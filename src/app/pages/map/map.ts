@@ -160,22 +160,39 @@ export class MapPage implements OnInit {
     }
 
     async inserirProdutoCarrinho(produtoId: any, descricao: any, categoria: any, estoque: any, valorDeVenda: any) {
-        InserirProdutoCarrinhoPage.produtoId = produtoId;
-        InserirProdutoCarrinhoPage.descricao = descricao;
-        InserirProdutoCarrinhoPage.categoria = categoria;
-        InserirProdutoCarrinhoPage.estoque = estoque;
-        InserirProdutoCarrinhoPage.valorDeVenda = valorDeVenda;
-        InserirProdutoCarrinhoPage.produtoInserido = false;
 
-        const modal = await this.modalCtrl.create({
-            component: InserirProdutoCarrinhoPage,
-        });
-        await modal.present();
+        if (!this.getProductCard(descricao, this.unidade)) {
+            InserirProdutoCarrinhoPage.produtoId = produtoId;
+            InserirProdutoCarrinhoPage.descricao = descricao;
+            InserirProdutoCarrinhoPage.categoria = categoria;
+            InserirProdutoCarrinhoPage.estoque = estoque;
+            InserirProdutoCarrinhoPage.valorDeVenda = valorDeVenda;
+            InserirProdutoCarrinhoPage.produtoInserido = false;
 
-        // await modal.onDidDismiss().then(async data => {
-        //     console.log('aquiii');
-        //     this.ngOnInit();
-        // });
+            const modal = await this.modalCtrl.create({
+                component: InserirProdutoCarrinhoPage,
+            });
+            await modal.present();
+        } else {
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
+                 <text>O produto <b>${descricao}</b><br>Se encontra no carrinho. Por favor altere<br>Ou finalize a venda!</text>`,
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+                buttons: [
+                    {
+                        text: "Ok",
+                        role: "Cancelar",
+                        cssClass: "secondary",
+
+                        handler: () => {
+                        },
+                    },
+                ],
+            });
+            await alert.present();
+        }
     }
 
     getDadosUsuario() {
@@ -374,11 +391,6 @@ export class MapPage implements OnInit {
     * @returns 
     */
     async ordernarRelatorio(listaParaOrdenar: any, tipoOrdenacao: string): Promise<any> {
-
-        console.log('aaaaaaaa');
-        console.log(tipoOrdenacao);
-
-
         try {
             const temp = [...listaParaOrdenar];
 
@@ -594,6 +606,16 @@ export class MapPage implements OnInit {
             }
         }
         await toast.dismiss();
+    }
+
+    public async getProductCard(produto: any, unidade: any) {
+        await this.firebaseService.findWhereProductTempDocumentUnity(produto, unidade).subscribe(data => {
+            if (data[0] !== undefined && data[0] !== null) {
+                return true;
+            } else {
+                return false;
+            }
+        });
     }
 }
 

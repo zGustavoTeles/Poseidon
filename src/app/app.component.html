@@ -22,8 +22,19 @@
             </ion-item>
           </ion-header>
         </ion-list>
+        
+        <br>
 
+        <ion-menu-toggle autoHide="false">
+          <ion-item routerLink="/app/tabs/home" routerLinkActive="active" routerDirection="root" detail="false">
+            <ion-icon slot="start" name="storefront"></ion-icon>
+            <ion-label>
+              Home
+            </ion-label>
+          </ion-item>
+        </ion-menu-toggle>
 
+        <br>
         <!--------------------------------------------- ADMINISTRADOR ----------------------------------------------------------------------- -->
         <ion-list-header>
           Menu
@@ -32,7 +43,7 @@
         <div>
           <ion-menu-toggle autoHide="false" *ngFor="let p of appPagesAdministrador; let i = index">
             <ion-item [routerLink]="p.url" routerLinkActive="selected" routerDirection="root" detail="false">
-              <ion-icon slot="start" [name]="p.icon + '-outline'"></ion-icon>
+              <ion-icon slot="start" [name]="p.icon + ''"></ion-icon>
               <ion-label>
                 {{p.title}}
               </ion-label>
@@ -49,7 +60,7 @@
 
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/gastos-do-mes" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="calculator-outline"></ion-icon>
+              <ion-icon slot="start" name="calculator"></ion-icon>
               <ion-label>
                 Gastos
               </ion-label>
@@ -65,7 +76,7 @@
 
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/cadastro-tipo-venda" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="podium-outline"></ion-icon>
+              <ion-icon slot="start" name="podium"></ion-icon>
               <ion-label>
                 Categorias
               </ion-label>
@@ -75,7 +86,7 @@
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/cadastro-tipo-produto" routerLinkActive="active" routerDirection="root"
               detail="false">
-              <ion-icon slot="start" name="barcode-outline"></ion-icon>
+              <ion-icon slot="start" name="barcode"></ion-icon>
               <ion-label>
                 Produtos
               </ion-label>
@@ -85,7 +96,7 @@
           <ion-menu-toggle autoHide="false" *ngIf="perfil === 'Desenvolvedor'">
             <ion-item routerLink="/cadastro-funcionarios" routerLinkActive="active" routerDirection="root"
               detail="false">
-              <ion-icon slot="start" name="walk-outline"></ion-icon>
+              <ion-icon slot="start" name="walk"></ion-icon>
               <ion-label>
                 Usuários
               </ion-label>
@@ -95,7 +106,7 @@
           <ion-menu-toggle autoHide="false" *ngIf="perfil === 'Desenvolvedor'">
             <ion-item routerLink="/cadastro-de-noticias" routerLinkActive="active" routerDirection="root"
               detail="false">
-              <ion-icon slot="start" name="chatbubble-ellipses-outline"></ion-icon>
+              <ion-icon slot="start" name="chatbubble-ellipses"></ion-icon>
               <ion-label>
                 Notificações
               </ion-label>
@@ -111,7 +122,7 @@
 
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="support" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="construct-outline"></ion-icon>
+              <ion-icon slot="start" name="construct"></ion-icon>
               <ion-label>
                 Suporte
               </ion-label>
@@ -120,7 +131,7 @@
 
           <ion-menu-toggle autoHide="false">
             <ion-item routerLink="/account" routerLinkActive="active" routerDirection="root" detail="false">
-              <ion-icon slot="start" name="person-outline"></ion-icon>
+              <ion-icon slot="start" name="person"></ion-icon>
               <ion-label>
                 Perfil
               </ion-label>

@@ -24,32 +24,31 @@
 
         <ion-card style="top: 1%;">
           <ion-item>
-
             <ion-avatar slot="start">
               <img *ngIf="imagem === '' " src="\assets\img\cliente_indefinido.png" />
-              <img *ngIf="imagem != '' " src="{{imagem}}" />
+              <img *ngIf="imagem != '' " src="{{produtos.imagem}}" />
             </ion-avatar>
 
             <ion-label>
-              <h3>{{produto}}</h3>
-              <h3>{{categoria}}</h3>
+              <h3>{{produtos.descricao}}</h3>
+              <h3>{{produtos.categoria}}</h3>
               <h3 style="color: #0576d0">
-                <b>Custos - {{valorDeCusto| currency: 'BRL'}}</b>
+                <b>Custos - {{valorDeCusto | currency: 'BRL'}}</b>
               </h3>
               <h3 style="color: #d00575">
                 <b>Estoque - {{estoque}}</b>
               </h3>
               <h3 style="color: #27c400">
-                <b>Preço - {{valorDeVenda| currency: 'BRL'}} Oferta!!</b>
+                <b>Preço - {{valorDeVenda | currency: 'BRL'}} Oferta!!</b>
               </h3>
             </ion-label>
 
             <ion-item style="margin-bottom: 15% !important ">
               <ion-avatar slot="start">
-                <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading..."></ion-img>
+                <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
+                </ion-img>
               </ion-avatar>
             </ion-item>
-
           </ion-item>
         </ion-card>
 
