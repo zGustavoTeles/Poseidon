@@ -176,7 +176,7 @@ export class MapPage implements OnInit {
         } else {
             const alert = await this.alertController.create({
                 message: `<img src="assets/img/atencao.png" alt="auto"><br><br>
-                 <text>O produto <b>${descricao}</b><br>Se encontra no carrinho. Por favor altere<br>Ou finalize a venda!</text>`,
+                 <text>O produto <b>${descricao}</b><br>se encontra no carrinho. Por favor<br>tente alterá-lo ou finalize<br>a venda!</text>`,
                 backdropDismiss: false,
                 header: "Atenção",
                 cssClass: "alertaCss",
