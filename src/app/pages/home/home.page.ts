@@ -213,7 +213,7 @@ export class HomePage implements OnInit {
             this.nomeGrafico = 'GRÁFICO DE CAIXA';
             this.tipoGrafico = 'tipoRosca';
             this.labelGrafico = ['Total Vendas', 'Gastos Do Mês', 'Gastos Com Produtos'];
-            this.colorGrafico = ['#012c7c', '#ffc107', '#2e7d32'];
+            this.colorGrafico = ['#2d4374', '#2d4374', '#2d4374'];
             this.dataGrafico = ['' + this.totalVendasDoMes + '', '' + this.totalGastosDoMes + '', '' + this.totalGastosProdutos + ''];
         });
     }

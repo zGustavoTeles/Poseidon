@@ -33,90 +33,84 @@
     <ion-row justify-content-center align-items-center style="height: 80%">
       <ion-grid class="login-container">
 
-        <div>
+        <ion-footer class="fontNameItem borderFooter" color="facebook">
+          <ion-grid style="text-align: center">
+            <ion-row>
+              <ion-col>
+                Total Bruto<br><b style="color: rgb(0, 187, 255);">{{totalBruto | currency: 'BRL'}}</b>
+              </ion-col>
+              <ion-col>
+                Total Lucros<br><b style="color: forestgreen;">{{totalLucro | currency: 'BRL'}}</b>
+              </ion-col>
+              <ion-col>
+                Total Custos<br> <b style="color: red;">{{totalCustos | currency: 'BRL'}}</b>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-footer>
 
-          <ion-footer class="fontNameItem borderFooter" color="facebook">
-            <ion-grid style="text-align: center">
-              <ion-row>
+        <ion-item-sliding *ngFor="let venda of vendas;">
+
+          <ion-item class="ion-activatable ripple-parent"
+            (click)="findAllProduct(venda.cliente,venda.dataVenda,venda.formaDePagamento)" style="border-radius: 10px;">
+
+            <ion-grid class="grid-detalhe-produto ion-no-padding" style="padding: 2%;">
+              <ion-row class="mensagem-tabela-preco-fixo">
+                <ion-avatar slot="start">
+                  <img src="\assets\img\cliente_indefinido.png" />
+                </ion-avatar>
+                <ion-label>{{venda.produto}}</ion-label>
+              </ion-row>
+              <ion-row class="ion-text-left">
                 <ion-col>
-                  Total Bruto<br><b style="color: rgb(0, 187, 255);">{{totalBruto | currency: 'BRL'}}</b>
+                  <ion-label style="color: rgb(20, 113, 220)">
+                    <b>Forma de Pagamento - {{venda.formaDePagamento}} </b>
+                  </ion-label>
                 </ion-col>
-                <ion-col>
-                  Total Lucros<br><b style="color: forestgreen;">{{totalLucro | currency: 'BRL'}}</b>
-                </ion-col>
-                <ion-col>
-                  Total Custos<br> <b style="color: red;">{{totalCustos | currency: 'BRL'}}</b>
+                <ion-col class="ion-text-right">
+                  <ion-label position="fixed" color="tertiary">
+                    <b>{{venda.unidade}}</b>
+                  </ion-label>
                 </ion-col>
               </ion-row>
+              <ion-row>
+                <ion-col class="ion-text-left">
+                  <ion-label position="fixed">Total Bruto - {{venda.totalBruto | currency:'BRL'}}</ion-label>
+                  <div>
+                    <ion-badge color="azulmarinho">{{venda.totalBruto | currency:'BRL'}}</ion-badge>
+                  </div>
+                  <ion-label position="fixed">Total Líquido - {{venda.totalLiquido | currency:'BRL'}}</ion-label>
+                  <div>
+                    <ion-badge color="azulmarinho">{{venda.totalLiquido | currency:'BRL'}}</ion-badge>
+                  </div>
+                  <ion-label position="fixed">Total Lucros - {{venda.totalLucro | currency:'BRL'}}</ion-label>
+                  <div>
+                    <ion-badge color="azulmarinho">{{venda.totalLucro | currency:'BRL'}}</ion-badge>
+                  </div>
+                </ion-col>
+                <ion-col class="ion-text-right">
+                  <div>
+                    <ion-badge color="success">{{venda.totalLucro | currency:'BRL'}}</ion-badge>
+                  </div>
+                </ion-col>
+
+              </ion-row>
+              <ion-row style="display: block;text-align: center; color: #f44336;">
+                <span><b>Venda realizada no dia {{venda.dataVenda}} na aplicação!</b> </span>
+              </ion-row>
+
             </ion-grid>
-          </ion-footer>
+            <ion-ripple-effect></ion-ripple-effect>
+          </ion-item>
 
-          <ion-list lines="none" *ngFor="let venda of vendas;">
-            <ion-item-sliding>
-              <ion-item lines="none" class="ion-activatable ripple-parent"
-                (click)="findAllProduct(venda.cliente,venda.dataVenda,venda.formaDePagamento)"
-                style="border-radius: 10px;">
+          <ion-item-options side="end" class="itemOptionsList">
+            <ion-item-option style="margin: 5px !important" color="danger"
+              (click)="excluirVenda(venda.cliente,venda.dataVenda,venda.formaDePagamento, venda.documento)">
+              <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
+            </ion-item-option>
+          </ion-item-options>
 
-                <ion-grid class="grid-detalhe-produto ion-no-padding" style="padding: 2%;">
-                  <ion-row class="mensagem-tabela-preco-fixo">
-                    <ion-avatar slot="start">
-                      <img src="\assets\img\cliente_indefinido.png" />
-                    </ion-avatar>
-                    <ion-label>{{venda.produto}}</ion-label>
-                  </ion-row>
-                  <ion-row class="ion-text-left">
-                    <ion-col>
-                      <ion-label style="color: rgb(20, 113, 220)">
-                        <b>Forma de Pagamento - {{venda.formaDePagamento}} </b>
-                      </ion-label>
-                    </ion-col>
-                    <ion-col class="ion-text-right">
-                      <ion-label position="fixed" color="tertiary">
-                        <b>{{venda.unidade}}</b>
-                      </ion-label>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col class="ion-text-left">
-                      <ion-label position="fixed">Total Bruto - {{venda.totalBruto | currency:'BRL'}}</ion-label>
-                      <div>
-                        <ion-badge color="azulmarinho">{{venda.totalBruto | currency:'BRL'}}</ion-badge>
-                      </div>
-                      <ion-label position="fixed">Total Líquido - {{venda.totalLiquido | currency:'BRL'}}</ion-label>
-                      <div>
-                        <ion-badge color="azulmarinho">{{venda.totalLiquido | currency:'BRL'}}</ion-badge>
-                      </div>
-                      <ion-label position="fixed">Total Lucros - {{venda.totalLucro | currency:'BRL'}}</ion-label>
-                      <div>
-                        <ion-badge color="azulmarinho">{{venda.totalLucro | currency:'BRL'}}</ion-badge>
-                      </div>
-                    </ion-col>
-                    <ion-col class="ion-text-right">
-                      <div>
-                        <ion-badge color="success">{{venda.totalLucro | currency:'BRL'}}</ion-badge>
-                      </div>
-                    </ion-col>
-
-                  </ion-row>
-                  <ion-row style="display: block;text-align: center; color: #f44336;">
-                    <span><b>Venda realizada no dia {{venda.dataVenda}} na aplicação!</b> </span>
-                  </ion-row>
-
-                </ion-grid>
-                <ion-ripple-effect></ion-ripple-effect>
-              </ion-item>
-
-              <ion-item-options side="end" class="itemOptionsList">
-                <ion-item-option style="margin: 5px !important" color="danger"
-                  (click)="excluirVenda(venda.cliente,venda.dataVenda,venda.formaDePagamento, venda.documento)">
-                  <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
-                </ion-item-option>
-              </ion-item-options>
-
-            </ion-item-sliding>
-
-          </ion-list>
-        </div>
+        </ion-item-sliding>
 
       </ion-grid>
     </ion-row>

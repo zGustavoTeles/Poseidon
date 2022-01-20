@@ -581,9 +581,18 @@ export class MapPage implements OnInit {
             }
             await toast.dismiss();
         } else {
-            this.findAllProducts();
-        }
+            this.produtos = [];
+            this.quantidade = 0;
+            this.gastosComProdutos = 0;
 
+            for (let produto of this.produtosAux) {
+                if (produto.unidade === this.unidade) {
+                    this.produtos.push(produto);
+                    this.quantidade += 1;
+                    this.gastosComProdutos += parseFloat((produto.valorDeCusto * produto.quantidade).toFixed(2));
+                }
+            }
+        }
         await toast.dismiss();
     }
 }

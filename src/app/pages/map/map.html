@@ -39,53 +39,54 @@
           </div>
         </ion-footer>
 
-        <ion-list lines="none" *ngFor="let produtos of produtos;">
-          <ion-item-sliding>
-            <ion-item lines="none" class="ion-activatable ripple-parent"
-              (click)="inserirProdutoCarrinho(produtos.documento, produtos.descricao, produtos.categoria, produtos.quantidade, produtos.valorDeVenda)"
-              style="border-radius: 10px;">
+        <ion-item-sliding *ngFor="let produtos of produtos;">
+          <ion-item class="ion-activatable ripple-parent"
+            (click)="inserirProdutoCarrinho(produtos.documento, produtos.descricao, produtos.categoria, produtos.quantidade, produtos.valorDeVenda)"
+            style="border-radius: 10px;">
+
+            <ion-avatar slot="start">
+              <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
+              <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
+            </ion-avatar>
+
+            <ion-label>
+              <h3>{{produtos.descricao}}</h3>
+              <h3>{{produtos.categoria}}</h3>
+              <h3 *ngIf="perfil != 'Cliente'" style="color: #0576d0">
+                <b>Custos - {{produtos.valorDeCusto| currency: 'BRL'}}</b>
+              </h3>
+              <h3 style="color: #d00575">
+                <b>Estoque - {{produtos.quantidade}}</b>
+              </h3>
+              <h3 style="color: #27c400">
+                <b>Preço - {{produtos.valorDeVenda| currency: 'BRL'}} Oferta!!</b>
+              </h3>
+            </ion-label>
+
+            <ion-item style="margin-bottom: 15% !important ">
               <ion-avatar slot="start">
-                <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
-                <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
+                <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
+                </ion-img>
               </ion-avatar>
-
-              <ion-label>
-                <h3>{{produtos.descricao}}</h3>
-                <h3>{{produtos.categoria}}</h3>
-                <h3 *ngIf="perfil != 'Cliente'" style="color: #0576d0">
-                  <b>Custos - {{produtos.valorDeCusto| currency: 'BRL'}}</b>
-                </h3>
-                <h3 style="color: #d00575">
-                  <b>Estoque - {{produtos.quantidade}}</b>
-                </h3>
-                <h3 style="color: #27c400">
-                  <b>Preço - {{produtos.valorDeVenda| currency: 'BRL'}} Oferta!!</b>
-                </h3>
-              </ion-label>
-
-              <ion-item style="margin-bottom: 15% !important ">
-                <ion-avatar slot="start">
-                  <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
-                  </ion-img>
-                </ion-avatar>
-              </ion-item>
-              <ion-ripple-effect></ion-ripple-effect>
-
             </ion-item>
+            <ion-ripple-effect></ion-ripple-effect>
 
-            <ion-item-options side="end" class="itemOptionsList"
-              *ngIf="perfil === 'Administrador' || perfil === 'Balcão'">
-              <ion-item-option style="margin: 5px !important" color="warning"
-                (click)="atualizarProduto(produtos.documento, produtos.imagem, produtos.unidade,produtos.categoria,produtos.descricao,produtos.quantidade,produtos.fidelidade,produtos.comissao,produtos.valorDeCusto,produtos.valorDeVenda )">
-                <ion-icon slot="start" name="create-outline"></ion-icon>Alterar
-              </ion-item-option>
-              <ion-item-option style="margin: 5px !important" color="danger"
-                (click)="excluirProduto(produtos.documento, produtos.descricao)">
-                <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
-              </ion-item-option>
-            </ion-item-options>
-          </ion-item-sliding>
-        </ion-list>
+          </ion-item>
+
+          <ion-item-options side="end" class="itemOptionsList"
+            *ngIf="perfil === 'Administrador' || perfil === 'Balcão'">
+            <ion-item-option style="margin: 5px !important" color="warning"
+              (click)="atualizarProduto(produtos.documento, produtos.imagem, produtos.unidade,produtos.categoria,produtos.descricao,produtos.quantidade,produtos.fidelidade,produtos.comissao,produtos.valorDeCusto,produtos.valorDeVenda )">
+              <ion-icon slot="start" name="create-outline"></ion-icon>Alterar
+            </ion-item-option>
+            <ion-item-option style="margin: 5px !important" color="danger"
+              (click)="excluirProduto(produtos.documento, produtos.descricao)">
+              <ion-icon slot="start" name="trash-outline"></ion-icon>Excluir
+            </ion-item-option>
+          </ion-item-options>
+
+        </ion-item-sliding>
+
       </ion-grid>
     </ion-row>
   </ion-grid>
