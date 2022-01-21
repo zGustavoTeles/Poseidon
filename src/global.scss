@@ -99,6 +99,12 @@ ion-menu.md ion-item.selected ion-icon {
   color: white !important;
 }
 
+ion-menu.md ion-item ion-icon {
+  font-size: 24px;
+  background-color: #2d4374 !important;
+  color: white !important;
+}
+
 ion-menu.md ion-item ion-label {
   font-weight: 500;
 }
@@ -119,12 +125,14 @@ ion-menu.ios ion-item {
 }
 
 ion-menu.ios ion-item.selected ion-icon {
-  color: white !important;
+  --background: #2d4374 !important;
+  border-radius: 10px !important;
 }
 
 ion-menu.ios ion-item ion-icon {
   font-size: 24px;
-  color: white;
+  background-color: #2d4374 !important;
+  color: white !important;
 }
 
 ion-menu.ios ion-list#labels-list ion-list-header {
@@ -244,7 +252,7 @@ ion-item.selected {
 
 // Card title blue
 .cardHeader2 {
-  background-color:  #2f4cc0;
+  background-color: #2f4cc0;
   height: 42px;
   padding-top: 4px;
 }
@@ -330,8 +338,8 @@ div.alert-button-group.sc-ion-alert-ios {
 
   // Botao ok Select
   .alert-button:last-child {
-    border-color: var(--ion-color-primary) !important;
-    background-color: var(--ion-color-primary) !important;
+    border-color: var(--ion-color-facebook) !important;
+    background-color: var(--ion-color-facebook) !important;
     color: var(--ion-color-light) !important;
   }
 }
@@ -485,6 +493,7 @@ div.alert-button-group.sc-ion-alert-ios {
   ion-item.ios {
     border: none;
     font-size: 0.9em;
+    text-transform: uppercase;
   }
 
   ion-list {
@@ -836,7 +845,7 @@ list-ios {
 .grid-detalhe-produto,
 .grid-detalhe-produto.ios {
   //font-size: 0.9em;
-  font-size: 0.7em;
+  // font-size: 0.7em;
   margin: 1px;
   padding-top: 2em;
 
@@ -1211,19 +1220,19 @@ ion-refresher {
 // //********************************
 // //***** Sombra tab selected ******
 // //********************************
-// .tab-selected,
-// .segment-button-checked {
-//   border-radius: 5px;
-//   background-color: rgb(50 50 50 / 77%); //#39558d;
-//   color: white;
-//   //border: 0.2px solid white;
-// }
+.tab-selected,
+.segment-button-checked {
+  border-radius: 5px;
+  background-color: rgb(50 50 50 / 77%); //#39558d;
+  color: white;
+  //border: 0.2px solid white;
+}
 
-//.segment-button-checked {
-// border-radius: 10px !important;
-//  background-color: #3c66a7;
-//  border: 0.2px solid white;
-//}
+.segment-button-checked {
+  border-radius: 10px !important;
+  background-color: #3c66a7;
+  border: 0.2px solid white;
+}
 
 //************************************************
 //***** Barra de Rolagem e Borda nos botoes ******
