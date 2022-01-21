@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -163,6 +163,7 @@ export class AppComponent implements OnInit {
         private storage: Storage,
         public faribaseService: FirebaseService,
         private dadosRepositories: DadosRepositories,
+        private ref: ChangeDetectorRef
     ) {
         this.initializeApp();
     }
@@ -234,7 +235,7 @@ export class AppComponent implements OnInit {
         this.perfil = this.dadosRepositories.getLocalStorage('perfil');
         this.sexo = this.dadosRepositories.getLocalStorage('sexo');
     }
-    
+
     public async verificaUsuarioLogado() {
 
         if (this.dadosRepositories.getLocalStorage('login') === "true") {
