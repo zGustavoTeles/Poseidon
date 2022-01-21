@@ -109,24 +109,24 @@
                     <ion-icon name="backspace-outline" style="color: #0300a5"></ion-icon>
                   </ion-col> -->
 
-                  <ion-col size="10" style="text-align: start; padding-left: 10px;">
+                  <!-- <ion-col size="10" style="text-align: start; padding-left: 10px;">
                     <b style="color: #80006e">Total Bruto: {{totalBruto | currency: 'BRL'}}</b>
                   </ion-col>
 
                   <ion-col size="1" style="text-align: start;">
                     <ion-icon name="checkmark-done-outline" style="color: #80006e"></ion-icon>
-                  </ion-col>
+                  </ion-col> -->
 
                   <ion-col size="10" style="text-align: start; padding-left: 10px;">
-                    <b style="color: #947900">Total Líquido: {{totalLiquido | currency: 'BRL'}}</b>
+                    <b style="color: #80006e">Total de Vendas: {{totalBruto | currency: 'BRL'}}</b>
                   </ion-col>
 
                   <ion-col size="1" style="text-align: start;">
-                    <ion-icon name="cash-outline" style="color: #947900"></ion-icon>
+                    <ion-icon name="cash-outline" style="color: #80006e"></ion-icon>
                   </ion-col>
 
                   <ion-col size="10" style="text-align: start; padding-left: 10px;" *ngIf="totalLucro > 0">
-                    <b style="color: #14a101">Total Lucros: {{totalLucro | currency: 'BRL'}}</b>
+                    <b style="color: #14a101">Total de Lucros: {{totalLucro | currency: 'BRL'}}</b>
                   </ion-col>
 
                   <ion-col size="1" style="text-align: start;" *ngIf="totalLucro > 0">
@@ -134,7 +134,7 @@
                   </ion-col>
 
                   <ion-col size="10" style="text-align: start; padding-left: 10px;" *ngIf="totalLucro <= 0">
-                    <b style="color: #d00505;">Total Lucros: {{totalLucro | currency: 'BRL'}}</b>
+                    <b style="color: #d00505;">Total de Lucros: {{totalLucro | currency: 'BRL'}}</b>
                   </ion-col>
 
                   <ion-col size="1" style="text-align: start;" *ngIf="totalLucro <= 0">
@@ -148,126 +148,126 @@
           </div>
         </div>
 
-          <ion-card>
-            <ion-card-content>
-              <ion-slides pager="true">
+        <ion-card>
+          <ion-card-content>
+            <ion-slides pager="true">
 
 
-                <!-- SITUAÇÃO FINANCEIRA -->
-                <ion-slide id="situacao-financeira" *ngFor="let venda of vendas">
-                  <div>
-                    <ion-item lines="none" slot="start" style="border: none !important;">
-                      <ion-icon name="card-outline"></ion-icon>
-                      <ion-label>Venda Realizada</ion-label>
+              <!-- SITUAÇÃO FINANCEIRA -->
+              <ion-slide id="situacao-financeira" *ngFor="let venda of vendas">
+                <div>
+                  <ion-item lines="none" slot="start" style="border: none !important;">
+                    <ion-icon name="card-outline"></ion-icon>
+                    <ion-label>Venda Realizada</ion-label>
 
-                      <ion-item lines="none" slot="end" style="border: none !important;">
-                        <ion-img style="width: 80px; height: 50px;" src="/assets/gif/relatorio.gif" alt="loading...">
-                        </ion-img>
-                      </ion-item>
+                    <ion-item lines="none" slot="end" style="border: none !important;">
+                      <ion-img style="width: 80px; height: 50px;" src="/assets/gif/relatorio.gif" alt="loading...">
+                      </ion-img>
                     </ion-item>
-                    <ion-grid [style.font-size]="tamanhoDaFonte + 'em'">
-                      <div>
-                        <ion-row>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Total Bruto</ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Total Comissão</ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Total Líquido</ion-label>
-                          </ion-col>
-                        </ion-row>
-                        <ion-row>
-                          <ion-col>
-                            <ion-label style="color: #0576d0">
-                              <b>{{venda.totalBruto | currency:'BRL'}}</b>
-                            </ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label style="color: #35bd00">
-                              <b>{{venda.totalComissao | currency:'BRL'}}</b>
-                            </ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label style="color: #e98c00">
-                              <b>{{venda.totalLiquido | currency:'BRL'}}</b>
-                            </ion-label>
-                          </ion-col>
-                        </ion-row>
-                      </div>
+                  </ion-item>
+                  <ion-grid [style.font-size]="tamanhoDaFonte + 'em'">
+                    <div>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Total Bruto</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Total Comissão</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Total Líquido</ion-label>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label style="color: #0576d0">
+                            <b>{{venda.totalBruto | currency:'BRL'}}</b>
+                          </ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label style="color: #35bd00">
+                            <b>{{venda.totalComissao | currency:'BRL'}}</b>
+                          </ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label style="color: #e98c00">
+                            <b>{{venda.totalLiquido | currency:'BRL'}}</b>
+                          </ion-label>
+                        </ion-col>
+                      </ion-row>
+                    </div>
 
-                      <div>
-                        <ion-row>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Quantidade</ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Pagamento</ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Cliente</ion-label>
-                          </ion-col>
-                        </ion-row>
-                        <ion-row>
-                          <ion-col>
-                            <b>
-                              <ion-label>
-                                {{venda.quantidadeVendida}} Quantidade Vendida</ion-label>
-                            </b>
-                          </ion-col>
-                          <ion-col>
-                            <b>
-                              <ion-label>
-                                {{venda.formaDePagamento}}</ion-label>
-                            </b>
-                          </ion-col>
-                          <ion-col>
-                            <b>
-                              <ion-label>
-                                {{venda.cliente}}
-                              </ion-label>
-                            </b>
-                          </ion-col>
-                        </ion-row>
-                      </div>
-                      <div>
-                        <ion-row>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Unidade</ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Data Venda</ion-label>
-                          </ion-col>
-                          <ion-col>
-                            <ion-label class="fontDownItem">Vendedor</ion-label>
-                          </ion-col>
-                        </ion-row>
-                        <ion-row>
-                          <ion-col>
-                            <b>
-                              <ion-label>{{venda.unidade}}</ion-label>
-                            </b>
-                          </ion-col>
-                          <ion-col>
-                            <b>
-                              <ion-label>{{venda.dataVenda}}</ion-label>
-                            </b>
-                          </ion-col>
-                          <ion-col>
-                            <b>
-                              <ion-label>{{venda.vendedor}}</ion-label>
-                            </b>
-                          </ion-col>
-                        </ion-row>
-                      </div>
-                    </ion-grid>
-                  </div>
-                </ion-slide>
+                    <div>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Quantidade</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Pagamento</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Cliente</ion-label>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <b>
+                            <ion-label>
+                              {{venda.quantidadeVendida}} Quantidade Vendida</ion-label>
+                          </b>
+                        </ion-col>
+                        <ion-col>
+                          <b>
+                            <ion-label>
+                              {{venda.formaDePagamento}}</ion-label>
+                          </b>
+                        </ion-col>
+                        <ion-col>
+                          <b>
+                            <ion-label>
+                              {{venda.cliente}}
+                            </ion-label>
+                          </b>
+                        </ion-col>
+                      </ion-row>
+                    </div>
+                    <div>
+                      <ion-row>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Unidade</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Data Venda</ion-label>
+                        </ion-col>
+                        <ion-col>
+                          <ion-label class="fontDownItem">Vendedor</ion-label>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <b>
+                            <ion-label>{{venda.unidade}}</ion-label>
+                          </b>
+                        </ion-col>
+                        <ion-col>
+                          <b>
+                            <ion-label>{{venda.dataVenda}}</ion-label>
+                          </b>
+                        </ion-col>
+                        <ion-col>
+                          <b>
+                            <ion-label>{{venda.vendedor}}</ion-label>
+                          </b>
+                        </ion-col>
+                      </ion-row>
+                    </div>
+                  </ion-grid>
+                </div>
+              </ion-slide>
 
-              </ion-slides>
-            </ion-card-content>
-          </ion-card>
+            </ion-slides>
+          </ion-card-content>
+        </ion-card>
 
       </ion-grid>
     </ion-row>

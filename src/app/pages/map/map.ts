@@ -105,6 +105,8 @@ export class MapPage implements OnInit {
 
     gastosComProdutos: any;
 
+    productCard: boolean = false;
+
     public static produtoInserido: boolean = false;
 
     constructor(
@@ -160,8 +162,10 @@ export class MapPage implements OnInit {
     }
 
     async inserirProdutoCarrinho(produtoId: any, descricao: any, categoria: any, estoque: any, valorDeVenda: any) {
+        this.productCard = false;
+        this.getProductCard(descricao, this.unidade);
 
-        if (!this.getProductCard(descricao, this.unidade)) {
+        if (!this.productCard) {
             InserirProdutoCarrinhoPage.produtoId = produtoId;
             InserirProdutoCarrinhoPage.descricao = descricao;
             InserirProdutoCarrinhoPage.categoria = categoria;
@@ -608,14 +612,15 @@ export class MapPage implements OnInit {
         await toast.dismiss();
     }
 
-    public async getProductCard(produto: any, unidade: any) {
-        await this.firebaseService.findWhereProductTempDocumentUnity(produto, unidade).subscribe(data => {
-            if (data[0] !== undefined && data[0] !== null) {
+    public async getProductCard(produto: any, unidade: any): Promise<boolean> {
+        await this.firebaseService.findWhereProductTempDocumentUnity(produto, unidade).subscribe(async data => {
+            if (data.length > 0) {
                 return true;
             } else {
                 return false;
             }
         });
+        return false;
     }
 }
 
