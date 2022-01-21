@@ -22,6 +22,7 @@ export class CadastroTipoProdutoPage implements OnInit {
 
     ios: boolean;
     categoria: any;
+    codigoDeBarras: any;
     descricao: any;
     quantidade: any;
     fidelidade: any;
@@ -79,6 +80,7 @@ export class CadastroTipoProdutoPage implements OnInit {
 
     ngOnInit() {
         this.imagem = '';
+        this.codigoDeBarras = '';
         this.getDadosUsuario();
         this.carregaCategorias();
         this.unidade = this.dadosRepositories.getLocalStorage('unidade');
@@ -110,6 +112,9 @@ export class CadastroTipoProdutoPage implements OnInit {
                     if (this.imagem.length === 0)
                         this.imagem = '';
 
+                    if (this.codigoDeBarras.length === 0)
+                        this.codigoDeBarras = '';
+
                     this.fidelidade = 0;
                     this.comissao = 0;
 
@@ -118,6 +123,7 @@ export class CadastroTipoProdutoPage implements OnInit {
                             "unidade": this.unidade,
                             "imagem": this.imagem,
                             "categoria": this.categoria,
+                            "codigoDeBarras": this.codigoDeBarras,
                             "descricao": this.descricao,
                             "quantidade": this.quantidade,
                             "fidelidade": this.fidelidade,
@@ -152,6 +158,7 @@ export class CadastroTipoProdutoPage implements OnInit {
                     this.imagem = '';
                     this.categoria = '';
                     this.descricao = '';
+                    this.codigoDeBarras = '';
                     this.quantidade = '';
                     this.fidelidade = '';
                     this.comissao = '';
@@ -273,6 +280,7 @@ export class CadastroTipoProdutoPage implements OnInit {
         if (this.barcode !== code) {
             this.barcode = 'Code-barres EAN : ' + code;
             this.barcodeResult = result.codeResult;
+            this.codigoDeBarras = this.barcodeResult;
             this.ref.detectChanges();
             console.log(this.barcode);
             console.log(this.barcodeResult);

@@ -17,7 +17,7 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- <ion-content padding class="loginPage" scroll="false">
+<ion-content padding class="loginPage" scroll="false">
   <ion-grid style="height: 100%">
     <ion-row justify-content-center align-items-center style="height: 80%">
       <ion-grid class="login-container">
@@ -50,6 +50,18 @@
                 </ion-item>
 
                 <ion-item>
+                  <ion-icon name="barcode-outline" slot="start"></ion-icon>
+                  <ion-input placeholder="{{codigoDeBarras === '' ? 'Código de Barras': codigoDeBarras }}"
+                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras"
+                    (click)="startScanner()"> </ion-input>
+                  <div class="input-group">
+                    <div id="inputBarcode" style="position: static">
+                      <div id="interactive" class="viewport"></div>
+                    </div>
+                  </div>
+                </ion-item>
+
+                <ion-item>
                   <ion-icon name="trail-sign-outline" slot="start"></ion-icon>
                   <ion-input placeholder="Quantidade do Produto" name="quantidade" id="quantidade" type="number"
                     [(ngModel)]="quantidade"> </ion-input>
@@ -66,6 +78,28 @@
                   <ion-input placeholder="Valor de Venda" name="valorVenda" id="valorVenda" type="number"
                     [(ngModel)]="valorVenda" required> </ion-input>
                 </ion-item>
+
+
+                <!-- <div>
+                  <ngb-alert type="info" [dismissible]="false">
+                    <strong>Je scanne</strong> le code-barres pour voir les ODR.
+                  </ngb-alert>
+                </div>
+                <div *ngIf="barcode">
+                  <ngb-alert type="success" [dismissible]="false">
+                    {{ barcode }}
+                  </ngb-alert>
+                </div>
+
+                <button type="button" class="btn btn-warning" (click)="startScanner()">
+                  Démarrer le scan du code-barres
+                </button>
+
+                <div class="input-group">
+                  <div id="inputBarcode" style="position: static">
+                    <div id="interactive" class="viewport"></div>
+                  </div>
+                </div> -->
 
               </ion-list>
             </ion-col>
@@ -86,28 +120,4 @@
       </ion-grid>
     </ion-row>
   </ion-grid>
-</ion-content> -->
-
-<ion-content>
-  <div>
-    <ngb-alert type="info" [dismissible]="false">
-      <strong>Je scanne</strong> le code-barres pour voir les ODR.
-    </ngb-alert>
-  </div>
-  <div *ngIf="barcode">
-    <ngb-alert type="success" [dismissible]="false">
-      {{ barcode }}
-    </ngb-alert>
-  </div>
-
-  <button type="button" class="btn btn-warning" (click)="startScanner()">
-    Démarrer le scan du code-barres
-  </button>
-
-  <div class="input-group">
-
-    <div id="inputBarcode" style="position: static">
-      <div id="interactive" class="viewport"></div>
-    </div>
-  </div>
 </ion-content>
