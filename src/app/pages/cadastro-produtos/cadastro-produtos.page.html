@@ -50,10 +50,15 @@
                 </ion-item>
 
                 <ion-item>
-                  <ion-icon name="barcode-outline" slot="start"></ion-icon>
+                  <ion-icon name="barcode-outline" slot="start" color="success" (click)="startScanner()"></ion-icon>
                   <ion-input placeholder="{{codigoDeBarras === '' ? 'Código de Barras': codigoDeBarras }}"
-                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras"
-                    (click)="getBarCode()"> </ion-input>
+                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras"> 
+                  </ion-input>
+                  <div class="input-group">
+                    <div id="inputBarcode" style="position: static">
+                      <div id="interactive" class="viewport"></div>
+                    </div>
+                  </div>
                 </ion-item>
 
                 <ion-item>
