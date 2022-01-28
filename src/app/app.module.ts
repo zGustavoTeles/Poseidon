@@ -31,7 +31,6 @@ const PAGES_COMPONENTES = [
     ClienteVendaProdutosComponentComponent,
     FiltroVendasComponent,
     ImagemProdutoComponentComponent
-    // DetalheProdutoPage
 ]
 @NgModule({
     imports: [

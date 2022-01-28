@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, Config } from '@ionic/angular';
 import { FirebaseService } from '../../firebase.service';
 import { DadosRepositories } from '../../providers/dados-repositories';
-import { BarCodeUtil } from '../util/barCode.util';
 import { Base64ImgUtil } from '../util/base64img.util';
 
 @Component({
@@ -49,8 +48,6 @@ export class CadastroTipoProdutoPage implements OnInit {
         private alertController: AlertController,
         private dadosRepositories: DadosRepositories,
         private base64ImgUtil: Base64ImgUtil,
-        private ref: ChangeDetectorRef,
-        private barCodeUtil: BarCodeUtil,
     ) { }
 
     ngOnInit() {
@@ -206,12 +203,6 @@ export class CadastroTipoProdutoPage implements OnInit {
     * Pegando o código de barras
     */
     async getBarCode() {
-        await this.barCodeUtil.searchingBarcode().then(async res => {
-            if (res.text.length === 13) {
-                this.codigoDeBarras = res.text;
-            } else {
-            }
-        }).catch(async (err) => {
-        });
+
     }
 }
