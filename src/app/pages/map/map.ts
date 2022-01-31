@@ -626,6 +626,8 @@ export class MapPage implements OnInit {
             }
         }
         await toast.dismiss();
+
+        this.codigoDeBarras = '';
     }
 
     public async getProductsCard() {
