@@ -26,7 +26,7 @@
             <ion-col>
               <ion-list inset>
 
-                <div class="personal-image" style="text-align: center;">
+                <!-- <div class="personal-image" style="text-align: center;">
                   <label class="label">
                     <input id="uploadPhoto" type="file" accept="image/*" style="display: none"
                       (change)="touchCapturandoImg($event)" />
@@ -88,7 +88,7 @@
                   <ion-icon name="cash-outline" slot="start"></ion-icon>
                   <ion-input placeholder="Valor de Venda" name="valorVenda" id="valorVenda" type="number"
                     [(ngModel)]="valorVenda" required> </ion-input>
-                </ion-item>
+                </ion-item> -->
 
 
                 <!-- <div>
@@ -111,6 +111,10 @@
                     <div id="interactive" class="viewport"></div>
                   </div>
                 </div> -->
+
+                <div id="interactive" class="viewport">
+                  <!-- QuaggaJS will populate this element -->
+                </div>
 
               </ion-list>
             </ion-col>
