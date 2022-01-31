@@ -26,7 +26,7 @@
             <ion-col>
               <ion-list inset>
 
-                <!-- <div class="personal-image" style="text-align: center;">
+                <div class="personal-image" style="text-align: center;">
                   <label class="label">
                     <input id="uploadPhoto" type="file" accept="image/*" style="display: none"
                       (change)="touchCapturandoImg($event)" />
@@ -49,27 +49,17 @@
                     [(ngModel)]="descricao"> </ion-input>
                 </ion-item>
 
-                <ion-item>
-                  <ion-button style="text-align: center;" (click)="startScanner()">
-                    <ion-icon name="barcode-outline"></ion-icon>
-                  </ion-button>
-                  <div class="input-group">
-                    <div id="inputBarcode" style="position: static">
-                      <div id="interactive" class="viewport"></div>
-                    </div>
+                <ion-item *ngIf="codigoDeBarras === ''">
+                  <div id="interactive" class="viewport">
+                    <!-- QuaggaJS will populate this element -->
                   </div>
                 </ion-item>
 
                 <ion-item>
-                  <ion-icon name="barcode-outline" slot="start"></ion-icon>
+                  <ion-icon name="barcode-outline" slot="start" color="success" (click)="getBarCode()"></ion-icon>
                   <ion-input placeholder="{{codigoDeBarras === '' ? 'Código de Barras': codigoDeBarras }}"
-                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras">
+                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras"> 
                   </ion-input>
-                  <div class="input-group">
-                    <div id="inputBarcode" style="position: static">
-                      <div id="interactive" class="viewport"></div>
-                    </div>
-                  </div>
                 </ion-item>
 
                 <ion-item>
@@ -88,7 +78,7 @@
                   <ion-icon name="cash-outline" slot="start"></ion-icon>
                   <ion-input placeholder="Valor de Venda" name="valorVenda" id="valorVenda" type="number"
                     [(ngModel)]="valorVenda" required> </ion-input>
-                </ion-item> -->
+                </ion-item>
 
 
                 <!-- <div>
@@ -111,10 +101,6 @@
                     <div id="interactive" class="viewport"></div>
                   </div>
                 </div> -->
-
-                <div id="interactive" class="viewport">
-                  <!-- QuaggaJS will populate this element -->
-                </div>
 
               </ion-list>
             </ion-col>
