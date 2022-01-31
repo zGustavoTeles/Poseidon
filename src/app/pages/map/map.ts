@@ -576,6 +576,9 @@ export class MapPage implements OnInit {
 
 
     async filtrarItens(ev: any) {
+        if (this.codigoDeBarras === '') {
+            this.codigoDeBarras = 0;
+        }
         this.textoPesquisa = '';
         if (ev.target !== undefined) {
             this.textoDoFiltro = ev.target.value;
