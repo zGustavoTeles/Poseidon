@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AlertController, Config } from '@ionic/angular';
 import { FirebaseService } from '../../firebase.service';
@@ -49,7 +49,6 @@ export class CadastroTipoProdutoPage implements OnInit {
         private alertController: AlertController,
         private dadosRepositories: DadosRepositories,
         private base64ImgUtil: Base64ImgUtil,
-        private ref: ChangeDetectorRef
     ) { }
 
     ngOnInit() {
@@ -77,7 +76,6 @@ export class CadastroTipoProdutoPage implements OnInit {
         if (form.valid) {
 
             try {
-
                 if (this.quantidade > 0 || this.categoria === 'Serviços') {
 
                     if (this.categoria === 'Serviços')
@@ -166,6 +164,27 @@ export class CadastroTipoProdutoPage implements OnInit {
             } catch (error) {
                 console.log(error);
             }
+
+        } else {
+            const alert = await this.alertController.create({
+                message: `<img src="assets/img/erro.png" alt="auto"><br><br>
+                 <text>Por favor preencha todos os campos!</text>`,
+                backdropDismiss: false,
+                header: "Atenção",
+                cssClass: "alertaCss",
+                buttons: [
+                    {
+                        text: "Ok",
+                        role: "Cancelar",
+                        cssClass: "secondary",
+
+                        handler: () => {
+                        },
+                    },
+                ],
+            });
+
+            await alert.present();
         }
     }
 
@@ -220,11 +239,10 @@ export class CadastroTipoProdutoPage implements OnInit {
         },
             (err) => {
                 if (err) {
-                    //   this.errorMessage = `QuaggaJS could not be initialized, err: ${err}`;
+                    window.alert(`Código de Barras Inválido: ${err}`);
                 } else {
                     Quagga.start();
                     Quagga.onDetected((res) => {
-                        window.alert(`code: ${res.codeResult.code}`);
                         this.codigoDeBarras = res.codeResult.code;
                     })
                 }

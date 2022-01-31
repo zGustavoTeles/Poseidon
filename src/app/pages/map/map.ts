@@ -8,6 +8,7 @@ import { DadosRepositories } from '../../providers/dados-repositories';
 import { UserData } from '../../providers/user-data';
 import { AlterarProdutoPage } from '../alterar-produto/alterar-produto.page';
 import { InserirProdutoCarrinhoPage } from '../inserir-produto-carrinho/inserir-produto-carrinho.page';
+import Quagga from 'quagga';
 
 @Component({
     selector: 'page-map',
@@ -109,6 +110,8 @@ export class MapPage implements OnInit {
     productsCard: any = [];
     productExistCard: boolean = false;
 
+    codigoDeBarras: any;
+
     public static produtoInserido: boolean = false;
 
     constructor(
@@ -125,6 +128,7 @@ export class MapPage implements OnInit {
     ) { }
 
     ngOnInit() {
+        this.codigoDeBarras = '';
         this.vendedor = this.infoLogin.getUsername;
         this.dataVenda = new Date;
         this.getDadosUsuario();
@@ -591,7 +595,8 @@ export class MapPage implements OnInit {
                     let listaProd = this.produtos;
                     this.produtos = [];
                     return listaProd.filter(async (item) => {
-                        if (String(item.descricao).toLowerCase().includes(this.textoDoFiltro.toLowerCase()) || String(item.categoria).toLowerCase().includes(this.textoDoFiltro.toLowerCase())) {
+                        if (String(item.descricao).toLowerCase().includes(this.textoDoFiltro.toLowerCase()) || String(item.categoria).toLowerCase().includes(this.textoDoFiltro.toLowerCase())
+                            || String(item.codigoDeBarras).toLowerCase().includes(this.textoDoFiltro.toLowerCase())) {
                             this.produtos.push(item);
                             return true;
                         }
@@ -629,6 +634,36 @@ export class MapPage implements OnInit {
                 }
             }
         })
+    }
+
+    public async getBarCode() {
+        Quagga.init({
+            inputStream: {
+                constraints: {
+                    facingMode: 'environment' // restrict camera type
+                },
+                area: { // defines rectangle of the detection
+                    top: '40%',    // top offset
+                    right: '0%',  // right offset
+                    left: '0%',   // left offset
+                    bottom: '40%'  // bottom offset
+                },
+            },
+            decoder: {
+                readers: ['ean_reader'] // restrict code types
+            },
+        },
+            (err) => {
+                if (err) {
+                    window.alert(`Código de Barras Inválido: ${err}`);
+                } else {
+                    Quagga.start();
+                    Quagga.onDetected((res) => {
+                        this.codigoDeBarras = res.codeResult.code;
+                        this.filtrarItens(this.codigoDeBarras);
+                    })
+                }
+            });
     }
 }
 

@@ -48,18 +48,15 @@
                   <ion-input placeholder="Descrição do Produto" name="descricao" id="descricao" type="text" required
                     [(ngModel)]="descricao"> </ion-input>
                 </ion-item>
-
-                <ion-item *ngIf="codigoDeBarras === ''">
-                  <div id="interactive" class="viewport">
+                <ion-item>
+                  <div *ngIf="codigoDeBarras === ''" id="interactive" class="viewport">
                     <!-- QuaggaJS will populate this element -->
                   </div>
-                </ion-item>
-
-                <ion-item>
-                  <ion-icon name="barcode-outline" slot="start" color="success" (click)="getBarCode()"></ion-icon>
+                  <ion-icon name="barcode-outline" slot="start"></ion-icon>
                   <ion-input placeholder="{{codigoDeBarras === '' ? 'Código de Barras': codigoDeBarras }}"
-                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras"> 
+                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras">
                   </ion-input>
+                  <ion-icon name="barcode" slot="end" (click)="getBarCode()"></ion-icon>
                 </ion-item>
 
                 <ion-item>
@@ -79,29 +76,6 @@
                   <ion-input placeholder="Valor de Venda" name="valorVenda" id="valorVenda" type="number"
                     [(ngModel)]="valorVenda" required> </ion-input>
                 </ion-item>
-
-
-                <!-- <div>
-                  <ngb-alert type="info" [dismissible]="false">
-                    <strong>Je scanne</strong> le code-barres pour voir les ODR.
-                  </ngb-alert>
-                </div>
-                <div *ngIf="barcode">
-                  <ngb-alert type="success" [dismissible]="false">
-                    {{ barcode }}
-                  </ngb-alert>
-                </div>
-
-                <button type="button" class="btn btn-warning" (click)="startScanner()">
-                  Démarrer le scan du code-barres
-                </button>
-
-                <div class="input-group">
-                  <div id="inputBarcode" style="position: static">
-                    <div id="interactive" class="viewport"></div>
-                  </div>
-                </div> -->
-
               </ion-list>
             </ion-col>
           </ion-row>
@@ -110,10 +84,8 @@
           <ion-row>
             <ion-col>
               <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-
               <ion-button class="submit-btn" fulltype="submit" (click)="cadastrarTipoVenda(loginForm)">Cadastrar
               </ion-button>
-
             </ion-col>
           </ion-row>
 

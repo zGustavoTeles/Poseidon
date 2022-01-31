@@ -35,10 +35,14 @@
               <ion-icon slot="end"
                 (click)="existeDescricao ? filtrarProdutos(textoPesquisa) && tirarFoco($event) : filtrarItens(textoPesquisa) && tirarFoco($event)"
                 name="search-outline"></ion-icon>
-                <ion-icon slot="end" name="barcode-outline"></ion-icon>
+              <ion-icon slot="end" name="barcode-outline" (click)="getBarCode()"></ion-icon>
             </ion-item>
           </div>
         </ion-footer>
+
+        <div *ngIf="codigoDeBarras === ''" id="interactive" class="viewport">
+          <!-- QuaggaJS will populate this element -->
+        </div>
 
         <ion-item-sliding *ngFor="let produtos of produtos;">
           <ion-item class="ion-activatable ripple-parent"
