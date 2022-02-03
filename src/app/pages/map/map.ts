@@ -665,7 +665,7 @@ export class MapPage implements OnInit {
                     Quagga.start();
                     Quagga.onDetected((res) => {
                         this.codigoDeBarras = res.codeResult.code;
-                        this.filtrarItens(this.codigoDeBarras);
+                        this.textoPesquisa = this.codigoDeBarras;
                     })
                 }
             });

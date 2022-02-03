@@ -49,17 +49,19 @@
                     [(ngModel)]="descricao"> </ion-input>
                 </ion-item>
 
-                <ion-item *ngIf="codigoDeBarras === ''">
-                  <div id="interactive" class="viewport">
-                    <!-- QuaggaJS will populate this element -->
-                  </div>
-                </ion-item>
 
                 <ion-item>
-                  <ion-icon name="barcode-outline" slot="start" color="success" (click)="getBarCode()"></ion-icon>
+                  <div *ngIf="codigoDeBarras === ''" id="interactive" class="viewport">
+                    <!-- QuaggaJS will populate this element -->
+                  </div>
+
+                  <ion-icon name="barcode-outline" slot="start"></ion-icon>
                   <ion-input placeholder="{{codigoDeBarras === '' ? 'Código de Barras': codigoDeBarras }}"
-                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras"> 
+                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras">
                   </ion-input>
+
+                  <ion-icon name="camera" slot="end" (click)="getBarCode()"></ion-icon>
+
                 </ion-item>
 
                 <ion-item>
