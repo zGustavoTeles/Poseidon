@@ -576,9 +576,6 @@ export class MapPage implements OnInit {
 
 
     async filtrarItens(ev: any) {
-        if (this.codigoDeBarras === '') {
-            this.codigoDeBarras = 0;
-        }
         this.textoPesquisa = '';
         if (ev.target !== undefined) {
             this.textoDoFiltro = ev.target.value;
@@ -626,8 +623,6 @@ export class MapPage implements OnInit {
             }
         }
         await toast.dismiss();
-
-        this.codigoDeBarras = '';
     }
 
     public async getProductsCard() {
@@ -642,6 +637,8 @@ export class MapPage implements OnInit {
     }
 
     public async getBarCode() {
+        this.codigoDeBarras = '';
+
         Quagga.init({
             inputStream: {
                 constraints: {
@@ -665,8 +662,11 @@ export class MapPage implements OnInit {
                     Quagga.start();
                     Quagga.onDetected((res) => {
                         this.codigoDeBarras = res.codeResult.code;
-                        this.textoPesquisa = this.codigoDeBarras;
                     })
+
+                    if(this.codigoDeBarras != ''){
+                        this.textoPesquisa = this.codigoDeBarras;
+                    }
                 }
             });
     }
