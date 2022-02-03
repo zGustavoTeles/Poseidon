@@ -57,7 +57,7 @@
                 <ion-item>
                   <ion-icon name="barcode-outline" slot="start"></ion-icon>
                   <ion-input placeholder="{{codigoDeBarras === '' ? 'Código de Barras': codigoDeBarras }}"
-                    name="codigoDeBarras" id="codigoDeBarras" type="text" required [(ngModel)]="codigoDeBarras">
+                    name="codigoDeBarras" id="codigoDeBarras" type="text" [(ngModel)]="codigoDeBarras">
                   </ion-input>
                   <ion-icon name="camera" slot="end" (click)="getBarCode()"></ion-icon>
                 </ion-item>

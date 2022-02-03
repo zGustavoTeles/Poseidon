@@ -85,7 +85,7 @@ export class CadastroTipoProdutoPage implements OnInit {
                         this.imagem = '';
 
                     if (this.codigoDeBarras.length === 0)
-                        this.codigoDeBarras = '';
+                        this.codigoDeBarras = '0000000000000';
 
                     this.fidelidade = 0;
                     this.comissao = 0;
