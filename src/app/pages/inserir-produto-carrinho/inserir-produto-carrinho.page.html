@@ -22,45 +22,19 @@
     <ion-row justify-content-center align-items-center style="height: 80%">
       <ion-grid class="login-container">
 
-        <ion-card style="top: 1%;">
-
-          <ion-item *ngFor="let produtos of produtos">
-            <ion-avatar slot="start">
-              <img *ngIf="produtos.imagem === '' " src="\assets\img\cliente_indefinido.png" />
-              <img *ngIf="produtos.imagem != '' " src="{{produtos.imagem}}" />
-            </ion-avatar>
-
-            <ion-label>
-              <h3>{{produtos.descricao}}</h3>
-              <h3>{{produtos.categoria}}</h3>
-              <h3 *ngIf="perfil != 'Cliente'" style="color: #0576d0">
-                <b>Custos - {{produtos.valorDeCusto| currency: 'BRL'}}</b>
-              </h3>
-              <h3 style="color: #d00575">
-                <b>Estoque - {{produtos.quantidade}}</b>
-              </h3>
-              <h3 style="color: #27c400">
-                <b>Preço - {{produtos.valorDeVenda| currency: 'BRL'}} Oferta!!</b>
-              </h3>
-            </ion-label>
-
-            <ion-item style="margin-bottom: 15% !important ">
-              <ion-avatar slot="start">
-                <ion-img style="width: 50px; height: 50x;" src="/assets/gif/promocao.gif" alt="loading...">
-                </ion-img>
-              </ion-avatar>
-            </ion-item>
-          </ion-item>
-
-        </ion-card>
-
         <ion-card class="ion-no-padding ion-padding-bottom" style="border-radius: 10px;">
           <ion-card-content class="ion-no-padding" *ngFor="let produto of produtos">
 
-            <br>
+            <div class="close-fake animated fadeIn">
+              <ion-slides pager="true" [options]="sliderOpts" style="height: 90% !important;">
+                <ion-slide id="imagens">
+                  <img *ngIf="produto.imagem === '' " src="\assets\img\cliente_indefinido.png" />
+                  <img *ngIf="produto.imagem != '' " src="{{produto.imagem}}" />
+                </ion-slide>
+              </ion-slides>
+            </div>
 
             <ion-grid [style.font-size]="0.9 + 'em'" color="danger">
-
               <ion-row>
                 <ion-col class="inputColBorder">
                   <ion-label [style.font-size]="0.8 + 'em'">Total</ion-label>

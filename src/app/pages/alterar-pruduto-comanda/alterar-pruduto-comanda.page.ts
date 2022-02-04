@@ -19,6 +19,12 @@ export class AlterarPrudutoComandaPage implements OnInit {
         header: 'Selecione um Cliente'
     };
 
+    sliderOpts = {
+        zoom: true,
+        // slidesPerView: 1.5,
+        // centeredSlides: true
+    };
+
     data: Date;
     dataVenda: any;
     vendedor: any;

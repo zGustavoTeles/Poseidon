@@ -75,9 +75,9 @@
               </ion-row>
               <ion-row>
                 <ion-col class="ion-text-left">
-                  <ion-label position="fixed" color="azulmarinho">Total Bruto - {{venda.totalBruto | currency:'BRL'}}</ion-label>
-                  <ion-label position="fixed" color="azulmarinho">Total Líquido - {{venda.totalLiquido | currency:'BRL'}}</ion-label>
-                  <ion-label position="fixed" color="azulmarinho">Total Lucros - {{venda.totalLucro | currency:'BRL'}}</ion-label>
+                  <ion-label position="fixed" color="azulmarinho"> <h3>Total Bruto - {{venda.totalBruto | currency:'BRL'}}</h3></ion-label>
+                  <ion-label position="fixed" color="azulmarinho"><h3>Total Líquido - {{venda.totalLiquido | currency:'BRL'}}</h3></ion-label>
+                  <ion-label position="fixed" color="azulmarinho"><h3>Total Lucros - {{venda.totalLucro | currency:'BRL'}}</h3></ion-label>
                 </ion-col>
                 <ion-col class="ion-text-right">
                   <div>
@@ -87,7 +87,9 @@
 
               </ion-row>
               <ion-row style="display: block;text-align: center; color: #f44336;">
-                <span><b>Venda realizada no dia {{venda.dataVenda}} na aplicação!</b> </span>
+                <ion-col>
+                  <b>Venda realizada no dia {{venda.dataVenda}} na aplicação!</b>
+                </ion-col>
               </ion-row>
 
             </ion-grid>

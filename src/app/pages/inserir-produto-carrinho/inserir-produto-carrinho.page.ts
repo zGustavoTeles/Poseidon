@@ -26,6 +26,12 @@ export class InserirProdutoCarrinhoPage implements OnInit {
         header: 'Lista de Colaboradores'
     };
 
+    sliderOpts = {
+        zoom: true,
+        // slidesPerView: 1.5,
+        // centeredSlides: true
+    };
+
     data: Date;
     dataVenda: any;
     perfilColaborador: any;
@@ -457,5 +463,17 @@ export class InserirProdutoCarrinhoPage implements OnInit {
                 }
             });
         });
+    }
+
+    close() {
+
+    }
+
+    async touchNextImagem() {
+
+    }
+
+    async touchBackImagem() {
+
     }
 }
