@@ -368,7 +368,7 @@ div.alert-button-group.sc-ion-alert-ios {
 .fontNameItem {
   font-size: 14px !important;
   padding-top: 3px !important;
-  background-color: var(--ion-color-facebook);
+  background-color: var(--ion-color-vimeo);
   color: white;
   // padding-left: 3px !important;
   width: 100% !important;
@@ -1602,60 +1602,24 @@ $colors: (
 // ************************* //
 .loadingCss {
   text-align: center !important;
-  .loading-wrapper {
-    .sc-ion-loading-md {
-      color: white;
-      background: var(--ion-color-facebook) !important;
-      border-radius: 10px !important;
-      .spinner-crescent {
-        color: #e61915 !important;
-      }
-    }
-    .sc-ion-loading-ios {
-      color: white;
-      background: var(--ion-color-facebook) !important;
-      border-radius: 10px !important;
-      .spinner-crescent {
-        color: #e61915 !important;
-      }
-    }
-  }
-
-  // Tamanho da imagem no alerta deixar o padrao de 20%!
-  img {
-    width: 20%;
-  }
-
-  ion-img {
-    display: inline-flex;
-    width: 40%;
-  }
-}
-
-.loadingCssWithGif {
-  text-align: center !important;
-
-  .loading-wrapper {
-    .sc-ion-loading-md {
-      color: white;
-      background: var(--ion-color-facebook) url("/assets/gif/cart.gif") no-repeat center top;
-    }
-    .sc-ion-loading-ios {
-      color: white;
-      background: var(--ion-color-facebook) rl("/assets/gif/cart.gif") no-repeat center top;
-    }
-
-    background-size: 92px 92px;
+  .loading-wrapper.sc-ion-loading-md {
+    background: #2d4374 !important;
+    color: #ffff;
     border-radius: 10px !important;
 
     .spinner-crescent {
       color: #e61915 !important;
     }
-    p {
-      padding-top: 25px;
+  }
+  .loading-wrapper.sc-ion-loading-ios {
+    background: #2d4374 !important;
+    color: #ffff;
+    border-radius: 10px !important;
+
+    .spinner-crescent {
+      color: #e61915 !important;
     }
   }
-
   // Tamanho da imagem no alerta deixar o padrao de 20%!
   img {
     width: 20%;

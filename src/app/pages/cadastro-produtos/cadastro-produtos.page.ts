@@ -237,13 +237,15 @@ export class CadastroTipoProdutoPage implements OnInit {
                 readers: ['ean_reader'] // restrict code types
             },
         },
-            (err) => {
+            async (err) => {
                 if (err) {
                     window.alert(`Código de Barras Inválido: ${err}`);
                 } else {
                     Quagga.start();
-                    Quagga.onDetected((res) => {
-                        this.codigoDeBarras = res.codeResult.code;
+                    await Quagga.onDetected((res) => {
+                        if (this.codigoDeBarras === '') {
+                            this.codigoDeBarras = res.codeResult.code;
+                        }
                     })
                 }
             });

@@ -9,6 +9,7 @@ import { UserData } from '../../providers/user-data';
 import { AlterarProdutoPage } from '../alterar-produto/alterar-produto.page';
 import { InserirProdutoCarrinhoPage } from '../inserir-produto-carrinho/inserir-produto-carrinho.page';
 import Quagga from 'quagga';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'page-map',
@@ -577,6 +578,8 @@ export class MapPage implements OnInit {
 
     async filtrarItens(ev: any) {
         this.textoPesquisa = '';
+        this.codigoDeBarras = 0;
+
         if (ev.target !== undefined) {
             this.textoDoFiltro = ev.target.value;
         } else {
@@ -655,16 +658,18 @@ export class MapPage implements OnInit {
                 readers: ['ean_reader'] // restrict code types
             },
         },
-            (err) => {
+            async (err) => {
                 if (err) {
                     window.alert(`Código de Barras Inválido: ${err}`);
                 } else {
                     Quagga.start();
-                    Quagga.onDetected((res) => {
-                        this.codigoDeBarras = res.codeResult.code;
+                    await Quagga.onDetected((res) => {
+                        if (this.codigoDeBarras === '') {
+                            this.codigoDeBarras = res.codeResult.code;
+                        }
                     })
 
-                    if(this.codigoDeBarras != ''){
+                    if (this.codigoDeBarras != '') {
                         this.textoPesquisa = this.codigoDeBarras;
                     }
                 }
