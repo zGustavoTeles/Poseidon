@@ -38,6 +38,13 @@ img {
   background-color: #ffffff;
 }
 
+.input-container {
+  border-radius: 10px;
+  //opacity: 0.9;
+  width: 80%;
+  text-align: center;
+}
+
 .login-logo {
   vertical-align: center;
   text-align: center;
@@ -48,5 +55,5 @@ img {
 }
 
 ion-content {
-   --background: url("/assets/img/background.png") no-repeat center center / cover !important;   
+  --background: url("/assets/img/background.png") no-repeat center center / cover !important;
 }

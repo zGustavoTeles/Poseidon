@@ -18,9 +18,7 @@
 </ion-header>
 
 <ion-content padding class="loginPage" scroll="false">
-  <ion-grid style="height: 100%">
-    <ion-row justify-content-center align-items-center style="height: 80%">
-      <ion-grid class="login-container">
+
 
 
         <div>
@@ -33,11 +31,11 @@
                 *ngIf="imagem === ''">
               <img *ngIf="imagem != '' " src="{{imagem}}">
             </label>
-            <h2>{{nome}}</h2>
 
             <ion-list inset>
               <!-- <ion-item (click)="changeUsername()" style="color: #000000">Alterar E-mail</ion-item>
-              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item> -->
+              <ion-item (click)="changePassword()" style="color: #000000">Alterar Senha</ion-item>  -->
+              <ion-item style="color: #000000">Usuário: {{nome}}</ion-item> 
               <ion-item (click)="support()" style="color: #000000">Suporte</ion-item>
               <ion-item (click)="logout()" style="color: #000000">Sair</ion-item>
             </ion-list>
@@ -45,7 +43,5 @@
 
         </div>
 
-      </ion-grid>
-    </ion-row>
-  </ion-grid>
+
 </ion-content>

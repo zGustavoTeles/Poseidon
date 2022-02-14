@@ -20,13 +20,11 @@
 </ion-header>
 
 <ion-content padding class="loginPage" scroll="false">
-  <ion-grid style="height: 100%">
-    <ion-row justify-content-center align-items-center style="height: 80%">
-      <ion-grid class="login-container">
 
-        <ion-footer>
+
+        <ion-footer color="facebook">
           <div>
-            <ion-item>
+            <ion-item color="facebook">
               <ion-input #search style="border-radius: 10px; padding-left: 10px !important;"
                 (keyup.enter)="existeDescricao ? filtrarProdutos(textoPesquisa) && tirarFoco($event) : filtrarItens(textoPesquisa) && tirarFoco($event)"
                 [(ngModel)]="textoPesquisa" placeholder="Digite aqui para pesquisar...">
@@ -92,7 +90,5 @@
 
         </ion-item-sliding>
 
-      </ion-grid>
-    </ion-row>
-  </ion-grid>
+
 </ion-content>

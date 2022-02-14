@@ -18,9 +18,7 @@
 </ion-header>
 
 <ion-content padding class="loginPage" scroll="false">
-  <ion-grid style="height: 100%">
-    <ion-row justify-content-center align-items-center style="height: 80%">
-      <ion-grid class="login-container">
+
 
         <ion-card class="ion-no-padding ion-padding-bottom" style="border-radius: 10px;">
           <ion-card-content class="ion-no-padding" *ngFor="let produto of produtos">
@@ -120,9 +118,7 @@
           </ion-card-content>
         </ion-card>
 
-      </ion-grid>
-    </ion-row>
-  </ion-grid>
+
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab (click)="sair()">
     <ion-fab-button color="facebook">

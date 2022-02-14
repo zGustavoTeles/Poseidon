@@ -18,9 +18,7 @@
 </ion-header>
 
 <ion-content padding class="loginPage" scroll="false">
-  <ion-grid style="height: 100%">
-    <ion-row justify-content-center align-items-center style="height: 80%">
-      <ion-grid class="login-container">
+
         <form #loginForm="ngForm" (ngSubmit)="cadastrarTipoVenda(loginForm)" autocomplete="off" class="login-form">
           <ion-row>
             <ion-col>
@@ -106,19 +104,14 @@
             </ion-col>
           </ion-row>
 
-
           <ion-row>
-            <ion-col>
+            <ion-col class="login-container">
               <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-
               <ion-button class="submit-btn" fulltype="submit" (click)="cadastrarTipoVenda(loginForm)">Cadastrar
               </ion-button>
-
             </ion-col>
           </ion-row>
 
         </form>
-      </ion-grid>
-    </ion-row>
-  </ion-grid>
+
 </ion-content>

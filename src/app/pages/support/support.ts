@@ -22,6 +22,7 @@ export class SupportPage {
     async ionViewDidEnter() {
         const toast = await this.toastCtrl.create({
             message: 'A resposta pode demorar em razão da COVID-19',
+            cssClass: 'toastCss',
             duration: 3000
         });
         await toast.present();
